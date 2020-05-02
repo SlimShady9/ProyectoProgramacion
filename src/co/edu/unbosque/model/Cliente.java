@@ -8,6 +8,14 @@ public class Cliente {
 	private String tipoDocumento;
 	private String apellidos;
 	private String correo;
+	private String usuario; 
+	
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 	public String getNombres() {
 		return nombres;
 	}
@@ -54,8 +62,7 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [nombres=" + nombres + ", docuemto=" + docuemto + ", contraseña=" + contraseña + ", celular="
 				+ celular + ", tipoDocumento=" + tipoDocumento + ", apellidos=" + apellidos + ", correo=" + correo
-				+ "]";
+				+ ", usuario=" + usuario + "]";
 	}
 	
-
 }
