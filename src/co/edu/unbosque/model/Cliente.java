@@ -9,6 +9,7 @@ public class Cliente {
 	private String apellidos;
 	private String correo;
 	private String usuario; 
+	private String tarjetaDeCredito;
 	
 	public String getUsuario() {
 		return usuario;
@@ -58,11 +59,18 @@ public class Cliente {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+	
+	public String getTarjetaDeCredito() {
+		return tarjetaDeCredito;
+	}
+	public void setTarjetaDeCredito(String tarjetaDeCredito) {
+		this.tarjetaDeCredito = tarjetaDeCredito;
+	}
 	@Override
 	public String toString() {
 		return "Cliente [nombres=" + nombres + ", docuemto=" + docuemto + ", contraseña=" + contraseña + ", celular="
 				+ celular + ", tipoDocumento=" + tipoDocumento + ", apellidos=" + apellidos + ", correo=" + correo
-				+ ", usuario=" + usuario + "]";
+				+ ", usuario=" + usuario + ", tarjetaDeCredito=" + tarjetaDeCredito + "]";
 	}
-	
+
 }
