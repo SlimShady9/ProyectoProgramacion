@@ -5,12 +5,12 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the RegistroClientes database table.
+ * The persistent class for the Clientes database table.
  * 
  */
 @Entity
 @Table(name="Clientes")
-@NamedQuery(name="Clientes.findAll", query="SELECT r FROM Cliente r")
+@NamedQuery(name="Cliente.findAll", query="SELECT c FROM Cliente c")
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -48,8 +48,7 @@ public class Cliente implements Serializable {
 
 	@Column(name="TipoDocumento")
 	private int tipoDocumento;
-	
-	@Id
+
 	@Lob
 	@Column(name="Usuario")
 	private String usuario;

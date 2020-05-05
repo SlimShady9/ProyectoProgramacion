@@ -5,18 +5,15 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the Administrador database table.
+ * The persistent class for the ADMINISTRADORES database table.
  * 
  */
 @Entity
-@NamedQuery(name="Administradores.findAll", query="SELECT a FROM Administradores a")
+@Table(name="ADMINISTRADORES")
+@NamedQuery(name="Administrador.findAll", query="SELECT a FROM Administrador a")
 public class Administrador implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Id
-	@Lob
-	@Column(name="Usuario")
-	private String usuario;
-	
+
 	@Lob
 	@Column(name="Apellidos")
 	private String apellidos;
@@ -29,7 +26,10 @@ public class Administrador implements Serializable {
 	@Column(name="Nombres")
 	private String nombres;
 
-	
+	@Id
+	@Lob
+	@Column(name="Usuario")
+	private String usuario;
 
 	public Administrador() {
 	}
