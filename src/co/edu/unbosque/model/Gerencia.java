@@ -1,6 +1,5 @@
-package model;
+package co.edu.unbosque.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 
@@ -9,21 +8,20 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Gerencia.findAll", query="SELECT g FROM Gerencia g")
-public class Gerencia implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "GERENTES")
+public class Gerencia {
 
-	@Column(name="Apellidos")
+	@Column(name = "APELLIDOS")
 	private int apellidos;
-
-	@Column(name="Contraseña")
+	
+	@Column(name = "CONTRASEÑA")
 	private int contraseña;
-
-	@Column(name="Nombres")
+	
+	@Column(name = "NOMBRES")
 	private int nombres;
 	
 	@Id
-	@Column(name="Usuario")
+	@Column(name = "USUARIO")
 	private int usuario;
 
 	public Gerencia() {

@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import model.Administrador;
+import co.edu.unbosque.model.Administrador;
 
 public class Controlador {
 	

@@ -1,39 +1,35 @@
-package model;
+package co.edu.unbosque.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 
 /**
- * The persistent class for the Vendedor database table.
+ * The persistent class for the ADMINISTRADORES database table.
  * 
  */
 @Entity
-@NamedQuery(name="Vendedor.findAll", query="SELECT v FROM Vendedor v")
-public class Vendedor implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Lob
-	@Column(name="Apellidos")
+@Table(name = "ADMINISTRADORES")
+public class Administrador  {
+	
+	@Column(name = "APELLIDOS")
 	private String apellidos;
-
-	@Lob
-	@Column(name="Contraseña")
+	
+	@Column(name = "CONTRASEÑA")
 	private String contraseña;
-
-	@Lob
-	@Column(name="Nombres")
+	
+	@Column(name = "NOMBRES")
 	private String nombres;
-
-	@Lob
-	@Column(name="Sede")
-	private String sede;
-
-	@Lob
-	@Column(name="Usuario")
+	
+	@Id
+	@Column(name = "USUARIO")
 	private String usuario;
 
-	public Vendedor() {
+	@Column(name = "SEDE")
+	private String sede;
+	
+	
+
+	public Administrador() {
 	}
 
 	public String getApellidos() {
@@ -60,20 +56,19 @@ public class Vendedor implements Serializable {
 		this.nombres = nombres;
 	}
 
-	public String getSede() {
-		return this.sede;
-	}
-
-	public void setSede(String sede) {
-		this.sede = sede;
-	}
-
 	public String getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+	public String getSede() {
+		return sede;
+	}
+
+	public void setSede(String sede) {
+		this.sede = sede;
 	}
 
 }

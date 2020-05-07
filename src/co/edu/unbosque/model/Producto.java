@@ -1,35 +1,23 @@
-package model;
+package co.edu.unbosque.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
-
 
 /**
  * The persistent class for the Productos database table.
  * 
  */
 @Entity
-@Table(name="Productos")
-@NamedQuery(name="Producto.findAll", query="SELECT p FROM Producto p")
-public class Producto implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "PRODUCTOS")
+public class Producto {
 
-	@Column(name="Cantidad")
+	@Id
+    @Column(name = "id", updatable = false, nullable = false)
+	private long id;
 	private int cantidad;
-
-	@Lob
-	@Column(name="Categoria")
 	private String categoria;
-
-	@Lob
-	@Column(name="Nombre")
 	private String nombre;
-
-	@Column(name="Precio")
 	private double precio;
 
-	@Lob
-	@Column(name="Sede")
 	private String sede;
 
 	public Producto() {

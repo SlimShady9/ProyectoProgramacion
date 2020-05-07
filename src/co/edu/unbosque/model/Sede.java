@@ -1,4 +1,4 @@
-package model;
+package co.edu.unbosque.model;
 
 import java.util.ArrayList;
 

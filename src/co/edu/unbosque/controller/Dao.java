@@ -7,11 +7,16 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import model.Administrador;
-import model.Cliente;
-import model.Gerencia;
-import model.Producto;
-import model.Vendedor;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import co.edu.unbosaue.resources.HibernateUtil;
+import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.Gerencia;
+import co.edu.unbosque.model.Producto;
+import co.edu.unbosque.model.Vendedor;
 
 
 public class Dao {
@@ -23,8 +28,7 @@ public class Dao {
 	 * Esto para que el controlador maneje las secciones usando directamente esta clase
 	 * 
 	 */
-	private static final String nombrePersistencia = "ProyectoProgramacion";
-	private static EntityManagerFactory coneccion;
+	private Session session;
 	protected static ArrayList<Administrador> administradores;
 	protected static ArrayList<Producto> productos;
 	protected static ArrayList<Cliente> clientes;
@@ -37,38 +41,32 @@ public class Dao {
 		gerentes = new ArrayList<Gerencia>();
 		vendedores = new ArrayList<Vendedor>();
 	}
-	
-	public static EntityManagerFactory getEntityManagerFactory() {
-		if (coneccion == null) {
-			coneccion = Persistence.createEntityManagerFactory(nombrePersistencia);
-			
-		}
-		return coneccion;
-	}
-
-	public static void cerrarConeccion() {
-		if (coneccion != null) {
-			coneccion.close();
-		}
-	}
 	public static void cargarTablas() {
-		EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-		Query query = entityManager.createQuery("SELECT v FROM Vendedor v");
-		vendedores = (ArrayList<Vendedor>) query.getResultList();
 		
 	}
 	public static void main (String args[]) {
-		EntityManager entidad = Dao.getEntityManagerFactory().createEntityManager();
+
 		
 		Administrador juano = new Administrador();
 		juano.setNombres("Juan David Alberto");
 		juano.setApellidos("Quintero Gaona");
 		juano.setUsuario("Jondo");
 		juano.setContraseña("Rey123");
-		entidad.getTransaction().begin();
-		entidad.persist(juano);
-		entidad.getTransaction().commit();
-		entidad.close();
-		Dao.cerrarConeccion();
+		juano.setSede("Tu Cora <3");
+		
+		Transaction transaccion = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+			
+			transaccion = session.beginTransaction();
+			session.save(juano);
+			transaccion.commit();
+			session.close();
+			
+		} catch (Exception e) {
+            if (transaccion != null) {
+            	transaccion.rollback();
+            }
+            e.printStackTrace();
+		}
 	}
 }
