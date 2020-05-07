@@ -2,9 +2,9 @@ package co.edu.unbosque.controller;
 
 import java.util.ArrayList;
 
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import co.edu.unbosaue.resources.HibernateUtil;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
@@ -12,10 +12,7 @@ import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 
-
-public class Dao {
-	
-
+public class Presistence {
 	/**
 	 * Esta clase tendra toda la persistencia del proyecto
 	 * Asi como los arreglos traidos directos de la base de datos
@@ -29,7 +26,7 @@ public class Dao {
 	protected static ArrayList<Gerencia> gerentes;
 	protected static ArrayList<Vendedor> vendedores;
 	
-	public Dao() {
+	public Presistence() {
 		productos = new ArrayList<Producto>();
 		clientes = new ArrayList<Cliente>();
 		gerentes = new ArrayList<Gerencia>();

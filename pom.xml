@@ -4,6 +4,9 @@
   <artifactId>ProyectoProgramacion</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <properties>
+    	<jdk.version>1.8</jdk.version>
+	</properties>
   <dependencies>
   	<dependency>
     <groupId>mysql</groupId>
@@ -34,5 +37,7 @@
         </configuration>
       </plugin>
     </plugins>
+    
   </build>
+ 
 </project>

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "CLIENTES")
 public class Cliente  {
 
-	@Column(name = "Apellidos")
+	@Column(name = "APELLIDOS")
 	private String apellidos;
 	
 	@Column(name = "CELULAR")
