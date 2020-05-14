@@ -35,29 +35,5 @@ public class Presistence {
 	public static void cargarTablas() {
 		
 	}
-	public static void main (String args[]) {
 
-		
-		Administrador juano = new Administrador();
-		juano.setNombres("Juan");
-		juano.setApellidos("Quintero Gaona");
-		juano.setUsuario("Juan");
-		juano.setContraseña("123");
-		juano.setSede("Tu Cora <3");
-		
-		Transaction transaccion = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
-			
-			transaccion = session.beginTransaction();
-			session.save(juano);
-			transaccion.commit();
-			session.close();
-			
-		} catch (Exception e) {
-            if (transaccion != null) {
-            	transaccion.rollback();
-            }
-            e.printStackTrace();
-		}
-	}
 }

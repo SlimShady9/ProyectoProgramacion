@@ -20,6 +20,9 @@ public class Administrador  {
 	@Column(name = "NOMBRES")
 	private String nombres;
 	
+	@Column(name = "CORREO")
+	private String correo;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
@@ -70,5 +73,14 @@ public class Administrador  {
 	public void setSede(String sede) {
 		this.sede = sede;
 	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	
 
 }

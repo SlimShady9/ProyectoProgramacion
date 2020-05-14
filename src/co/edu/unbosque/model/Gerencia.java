@@ -20,6 +20,9 @@ public class Gerencia {
 	@Column(name = "NOMBRES")
 	private int nombres;
 	
+	@Column(name = "CORREO")
+	private String correo;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private int usuario;
@@ -57,6 +60,14 @@ public class Gerencia {
 
 	public void setUsuario(int usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 }

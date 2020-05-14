@@ -1,6 +1,9 @@
 package co.edu.unbosque.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -22,13 +25,20 @@ public class Vendedor  {
 	@Column(name = "NOMBRES")
 	private String nombres;
 	
+	@Column(name = "CORREO")
+	private String correo;
+	
 	@Column(name = "SEDE")
 	private String sede;
 	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
-
+	
+	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn (name = "VENDEDOR")
+	private List<Producto> productos = new ArrayList<Producto>();
+	
 	public Vendedor() {
 	}
 
@@ -71,5 +81,21 @@ public class Vendedor  {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
 
 }
