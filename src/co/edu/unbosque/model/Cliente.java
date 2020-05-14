@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 ;
@@ -11,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "CLIENTES")
-public class Cliente  {
+public class Cliente implements Serializable {
 
 	@Column(name = "APELLIDOS")
 	private String apellidos;
@@ -36,10 +38,7 @@ public class Cliente  {
 	
 	@Column(name = "TARJETA")
 	private String tarjetaCredito;
-	
-	@Column(name = "TIPODOCUMENTO")
-	private int tipoDocumento;
-	
+
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
@@ -109,14 +108,6 @@ public class Cliente  {
 
 	public void setTarjetaCredito(String tarjetaCredito) {
 		this.tarjetaCredito = tarjetaCredito;
-	}
-
-	public int getTipoDocumento() {
-		return this.tipoDocumento;
-	}
-
-	public void setTipoDocumento(int tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
 	}
 
 	public String getUsuario() {

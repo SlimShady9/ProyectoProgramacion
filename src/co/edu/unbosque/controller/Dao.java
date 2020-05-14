@@ -86,7 +86,7 @@ public class Dao {
 
 		} catch (Exception e) {
 			if (tran != null) {
-//				tran.rollback();
+				tran.rollback();
 			}
 			e.printStackTrace();
 		}
