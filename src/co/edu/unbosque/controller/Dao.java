@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-import co.edu.unbosaue.resources.HibernateUtil;
+import co.edu.unbosque.resources.HibernateUtil;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;

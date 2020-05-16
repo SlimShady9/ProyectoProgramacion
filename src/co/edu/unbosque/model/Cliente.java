@@ -33,6 +33,9 @@ public class Cliente implements Serializable {
 	@Column(name = "NOMBRES")
 	private String nombres;
 	
+	@Column(name = "TIPODOCUMENTO")
+	private String tipoDocumento;
+	
 	@Column(name = "NDOCUMENTO")
 	private String numeroDocumento;
 	
@@ -116,6 +119,14 @@ public class Cliente implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 }

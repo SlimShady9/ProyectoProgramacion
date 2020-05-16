@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.FlowEvent;
 import co.edu.unbosque.model.Cliente;
 
 @ManagedBean(name="procesoRegistro")
-@RequestScoped
+@ViewAccessScoped
 public class ProcesoRegistro implements Serializable {
 
 	private Cliente cliente = new Cliente();
@@ -20,58 +21,22 @@ public class ProcesoRegistro implements Serializable {
 	private boolean skip;
 
 
-	public void save() {
-		FacesMessage msg = new FacesMessage("Successful", "Welcome :" + cliente.getNombres());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-
-
-	public String onFlowProcess(FlowEvent event) {
-		if (nombres != null) {
-			if (cliente.getNombres() == null) {
-				cliente.setNombres(nombres);
-			}else if (!cliente.getNombres().equals(nombres)) {
-				cliente.setNombres(nombres);
-			}
-		}
-		if (apellidos != null) {
-			if (cliente.getApellidos() == null) {
-				cliente.setApellidos(apellidos);
-			}else if (!cliente.getApellidos().equals(apellidos)) {
-				cliente.setApellidos(apellidos);
-			}
-		}
-		if (usuario!= null) {
-			if (cliente.getUsuario() == null) {
-				cliente.setUsuario(usuario);
-			}else if (!cliente.getUsuario().equals(usuario)) {
-				cliente.setUsuario(usuario);
-			}
-		}
-		if (celular!= null) {
-			if (cliente.getCelular() == null) {
-				cliente.setCelular(celular);
-			}else if (!cliente.getCelular().equals(celular)) {
-				cliente.setCelular(celular);
-			}	
-		}
-		if (contraseña != null && confirmacionContraseña != null) {
-			if (cliente.getContraseña() == null) {
-				if (contraseña.equals(confirmacionContraseña) && confirmacionContraseña != null) {
-					cliente.setContraseña(contraseña);
-				}
-			}else if (!cliente.getContraseña().equals(contraseña)) {
-				if (contraseña.equals(confirmacionContraseña) && confirmacionContraseña != null) {
-					cliente.setContraseña(contraseña);
-				}
-			}
+	public String guardarCliente() {
+		if (cliente.getContraseña().equals(confirmacionContraseña)) {
 			
+			
+			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + cliente.getNombres());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "principal";
 		}
-		
-		return event.getNewStep();
-
+		else {
+			
+			FacesMessage msg = new FacesMessage("La clave no es igual" + cliente.getNombres());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "signin";
+		}
 	}
+
 
 	public String getConfirmacionContraseña() {
 		return confirmacionContraseña;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import co.edu.unbosaue.resources.HibernateUtil;
+import co.edu.unbosque.resources.HibernateUtil;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
