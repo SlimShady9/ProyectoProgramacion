@@ -24,16 +24,16 @@ public class ProcesoRegistro implements Serializable {
 	public String guardarCliente() {
 		if (cliente.getContraseña().equals(confirmacionContraseña)) {
 			
-			
+			System.out.println("Registrado");
 			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + cliente.getNombres());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return "principal";
 		}
 		else {
-			
+			System.out.println("No Registrado");
 			FacesMessage msg = new FacesMessage("La clave no es igual" + cliente.getNombres());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "signin";
+			return "signincliente";
 		}
 	}
 

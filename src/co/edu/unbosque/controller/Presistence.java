@@ -13,13 +13,7 @@ import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 
 public class Presistence {
-	/**
-	 * Esta clase tendra toda la persistencia del proyecto
-	 * Asi como los arreglos traidos directos de la base de datos
-	 * Esto para que el controlador maneje las secciones usando directamente esta clase
-	 * 
-	 */
-	private Session session;
+
 	protected static ArrayList<Administrador> administradores;
 	protected static ArrayList<Producto> productos;
 	protected static ArrayList<Cliente> clientes;
@@ -33,7 +27,8 @@ public class Presistence {
 		vendedores = new ArrayList<Vendedor>();
 	}
 	public static void cargarTablas() {
-		
+		Dao.cargarProductos();
+		pro
 	}
 
 }
