@@ -9,12 +9,19 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.FlowEvent;
 import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.Vendedor;
 
+/**
+ * @author Camilo
+ *
+ */
 @ManagedBean(name="procesoRegistro")
 @ViewAccessScoped
 public class ProcesoRegistro implements Serializable {
 
 	private Cliente cliente = new Cliente();
+	private Vendedor vendedor = new Vendedor();
+	
 	private String nombres, apellidos, usuario, celular, contraseña, correo;
 	private String nDocumento, tarjeta, confirmacionContraseña, ciudad;
 
@@ -27,7 +34,7 @@ public class ProcesoRegistro implements Serializable {
 			System.out.println("Registrado");
 			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + cliente.getNombres());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "principal";
+			return "Principal";
 		}
 		else {
 			System.out.println("No Registrado");
@@ -36,7 +43,22 @@ public class ProcesoRegistro implements Serializable {
 			return "signincliente";
 		}
 	}
-
+	
+	public String guardarVendedor() {
+		if (vendedor.getContraseña().equals(confirmacionContraseña)) {
+			
+			System.out.println("Vendedor Registrado");
+			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + vendedor.getNombres());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "Principal";
+		}
+		else {
+			System.out.println("No Registrado");
+			FacesMessage msg = new FacesMessage("La clave no es igual" + vendedor.getNombres());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "signinvendedor";
+		}
+	}
 
 	public String getConfirmacionContraseña() {
 		return confirmacionContraseña;
@@ -54,7 +76,13 @@ public class ProcesoRegistro implements Serializable {
 		return ciudad;
 	}
 
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
 
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;

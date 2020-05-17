@@ -31,6 +31,9 @@ public class Vendedor  {
 	@Column(name = "SEDE")
 	private String sede;
 	
+	@Column(name = "BANCO")
+	private String banco;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
