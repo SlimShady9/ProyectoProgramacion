@@ -28,7 +28,7 @@ public class Presistence {
 	}
 	public static void cargarTablas() {
 		Dao.cargarProductos();
-		pro
+		
 	}
 
 }
