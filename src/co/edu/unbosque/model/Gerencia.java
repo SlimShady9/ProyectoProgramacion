@@ -25,7 +25,10 @@ public class Gerencia {
 	
 	@Id
 	@Column(name = "USUARIO")
-	private int usuario;
+	private String usuario;
+	
+	@Column (name = "IDENTIFICACION")
+	private String identificacion;
 
 	public Gerencia() {
 	}
@@ -54,11 +57,11 @@ public class Gerencia {
 		this.nombres = nombres;
 	}
 
-	public int getUsuario() {
+	public String getUsuario() {
 		return this.usuario;
 	}
 
-	public void setUsuario(int usuario) {
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
@@ -69,5 +72,14 @@ public class Gerencia {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+
+	public String getIdentificador() {
+		return identificacion;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificacion = identificador;
+	}
+	
 
 }

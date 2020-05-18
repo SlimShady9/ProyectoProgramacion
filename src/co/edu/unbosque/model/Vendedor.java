@@ -34,12 +34,16 @@ public class Vendedor  {
 	@Column(name = "BANCO")
 	private String banco;
 	
+	@Column (name = "IDENTIFICACION")
+	private String identificacion;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
 	
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "VENDEDOR")
+	
 	private List<Producto> productos = new ArrayList<Producto>();
 	
 	public Vendedor() {
@@ -99,6 +103,23 @@ public class Vendedor  {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+
+	public String getBanco() {
+		return banco;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+	
 
 
 }

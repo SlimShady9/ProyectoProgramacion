@@ -22,8 +22,7 @@ public class ProcesoRegistro implements Serializable {
 	private Cliente cliente = new Cliente();
 	private Vendedor vendedor = new Vendedor();
 	
-	private String nombres, apellidos, usuario, celular, contraseña, correo;
-	private String nDocumento, tarjeta, confirmacionContraseña, ciudad;
+	private String confirmacionContraseña;
 
 	private boolean skip;
 
@@ -40,7 +39,9 @@ public class ProcesoRegistro implements Serializable {
 			System.out.println("No Registrado");
 			FacesMessage msg = new FacesMessage("La clave no es igual" + cliente.getNombres());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "signincliente";
+			confirmacionContraseña = "";
+			cliente.setContraseña("");
+			return "SigninCliente";
 		}
 	}
 	
@@ -56,7 +57,9 @@ public class ProcesoRegistro implements Serializable {
 			System.out.println("No Registrado");
 			FacesMessage msg = new FacesMessage("La clave no es igual" + vendedor.getNombres());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "signinvendedor";
+			confirmacionContraseña = "";
+			vendedor.setContraseña("");
+			return "SigninVendedor";
 		}
 	}
 
@@ -64,16 +67,8 @@ public class ProcesoRegistro implements Serializable {
 		return confirmacionContraseña;
 	}
 
-
-
 	public void setConfirmacionContraseña(String confirmacionContraseña) {
 		this.confirmacionContraseña = confirmacionContraseña;
-	}
-
-
-
-	public String getCiudad() {
-		return ciudad;
 	}
 
 	public Vendedor getVendedor() {
@@ -84,12 +79,6 @@ public class ProcesoRegistro implements Serializable {
 		this.vendedor = vendedor;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -97,109 +86,5 @@ public class ProcesoRegistro implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public boolean isSkip() {
-		return skip;
-	}
-
-	public void setSkip(boolean skip) {
-		this.skip = skip;
-	}
-
-
-
-	public String getNombres() {
-		return nombres;
-	}
-
-
-
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-
-
-
-	public String getApellidos() {
-		return apellidos;
-	}
-
-
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-
-
-	public String getCelular() {
-		return celular;
-	}
-
-
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-
-	public String getContraseña() {
-		return contraseña;
-	}
-
-
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
-
-
-
-	public String getCorreo() {
-		return correo;
-	}
-
-
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-
-
-	public String getnDocumento() {
-		return nDocumento;
-	}
-
-
-
-	public void setnDocumento(String nDocumento) {
-		this.nDocumento = nDocumento;
-	}
-
-
-
-	public String getTarjeta() {
-		return tarjeta;
-	}
-
-
-
-	public void setTarjeta(String tarjeta) {
-		this.tarjeta = tarjeta;
-	}
-	
 
 }
