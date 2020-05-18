@@ -34,11 +34,37 @@ public class Presistence {
 	public static boolean agregarCliente(Cliente cli) {
 		if (buscarCliente(cli.getUsuario()) == null) {
 			Dao.agregarCliente(cli);
+			Dao.clientes.add(cli);
 			return true;
 		}
 		return false;
 	}
 	
+	public static boolean agregarVendedor(Vendedor ven) {
+		if (buscarCliente(ven.getUsuario()) == null) {
+			Dao.agregarVendedor(ven);
+			Dao.vendedores.add(ven);
+			return true;
+		}
+		return false;
+	}
+	public static boolean agregarGerente(Cliente cli) {
+		if (buscarCliente(cli.getUsuario()) == null) {
+			Dao.agregarCliente(cli);
+			Dao.clientes.add(cli);
+			return true;
+		}
+		return false;
+	}
+	public static boolean agregarAdministrador(Cliente cli) {
+		if (buscarCliente(cli.getUsuario()) == null) {
+			Dao.agregarCliente(cli);
+			Dao.clientes.add(cli);
+			return true;
+		}
+		return false;
+	}
+
 	public static Cliente buscarCliente (String usuario) {
 		for (Cliente i : Dao.clientes) {
 			if (i.getUsuario().equals(usuario)) {
