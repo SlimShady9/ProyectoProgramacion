@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -45,6 +47,10 @@ public class Cliente implements Serializable {
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
+	
+	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn (name = "CLIENTE")
+	private List<Producto> productos = new ArrayList<Producto>();
 
 	public Cliente() {
 	}
@@ -128,5 +134,14 @@ public class Cliente implements Serializable {
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+	
 
 }

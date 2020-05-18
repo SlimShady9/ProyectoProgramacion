@@ -14,21 +14,62 @@ import co.edu.unbosque.model.Vendedor;
 
 public class Presistence {
 
-	protected static ArrayList<Administrador> administradores;
-	protected static ArrayList<Producto> productos;
-	protected static ArrayList<Cliente> clientes;
-	protected static ArrayList<Gerencia> gerentes;
-	protected static ArrayList<Vendedor> vendedores;
+	/**
+	 * Simple manejo del Crud
+	 * 
+	 */
 	
-	public Presistence() {
-		productos = new ArrayList<Producto>();
-		clientes = new ArrayList<Cliente>();
-		gerentes = new ArrayList<Gerencia>();
-		vendedores = new ArrayList<Vendedor>();
+	public Presistence() {;
 	}
 	public static void cargarTablas() {
 		Dao.cargarProductos();
-		
+		Dao.cargarClientes();
+		Dao.cargarVendedores();
+		Dao.cargarGerentes();
+		Dao.cargarAdministradores();
+	}
+	/**
+	 * Metodos de insercion ala base de datos
+	 */
+	public static boolean agregarCliente(Cliente cli) {
+		if (buscarCliente(cli.getUsuario()) == null) {
+			Dao.agregarCliente(cli);
+			return true;
+		}
+		return false;
+	}
+	
+	public static Cliente buscarCliente (String usuario) {
+		for (Cliente i : Dao.clientes) {
+			if (i.getUsuario().equals(usuario)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	public static Gerencia buscarGerentes (String id) {
+		for (Gerencia i : Dao.gerentes) {
+			if (i.getIdentificador().equals(id)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	public static Vendedor buscarVendedores (String usuario) {
+		for (Vendedor i : Dao.vendedores) {
+			if (i.getUsuario().equals(usuario)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	public static Administrador buscarAdministradores (String usuario) {
+		for (Administrador i : Dao.administradores) {
+			if (i.getUsuario().equals(usuario)) {
+				return i;
+			}
+		}
+		return null;
 	}
 
 }

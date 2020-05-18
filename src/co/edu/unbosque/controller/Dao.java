@@ -177,24 +177,23 @@ public class Dao {
 //			}
 //			e.printStackTrace();
 //		}
-//		Vendedor vendedor = new Vendedor();
-//		vendedor.setNombres("Pedro");
-//		vendedor.setApellidos("Alcachofa");
-//		vendedor.setCorreo("abc@gmail.com");
-//		vendedor.setSede("Mundial");
-//		vendedor.setUsuario("Pedio123");
-//		
-//		Producto pr1= new Producto();
-//		pr1.setCantidad(3);
-//		pr1.setCategoria("Tec");
-//		pr1.setNombre("Celucos");
-//		pr1.setNombre("Juajuei");
-//		pr1.setPrecio(5000);
-////		pr1.setVendedor(vendedor);
-//		
-//		vendedor.getProductos().add(pr1);
-//		
-//		Dao.agregarVendedor(vendedor);
+		Vendedor vendedor = new Vendedor();
+		vendedor.setNombres("Pedro");
+		vendedor.setApellidos("Alcachofa");
+		vendedor.setCorreo("abc@gmail.com");
+		vendedor.setSede("Mundial");
+		vendedor.setUsuario("Pedio123");
+		
+		Producto pr1= new Producto();
+		pr1.setCantidad(3);
+		pr1.setCategoria("Tec");
+		pr1.setNombre("Celucos");
+		pr1.setNombre("Juajuei");
+		pr1.setPrecio(5000);
+		
+		vendedor.getProductos().add(pr1);
+		
+		Dao.agregarVendedor(vendedor);
 		
 	}
 }
