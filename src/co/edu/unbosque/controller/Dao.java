@@ -149,8 +149,48 @@ public class Dao {
 	 * Link: https://stackoverflow.com/questions/13102792/hibernate-update-with-entitymanager
 	 * @param ven
 	 */
+	//Rey hizo esto, si esta mal fue otro xd
+	public void actualizarUsuario(Cliente persona) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String id= persona.getUsuario();
+       
+        try {
+            session.beginTransaction();
+            Cliente buscar = (Cliente)session.get(Cliente.class, id);
+            buscar.setContraseña(persona.getContraseña());
+            buscar.setApellidos(persona.getApellidos());
+            buscar.setCelular(persona.getCelular());
+            buscar.setCiudad(persona.getCiudad());
+            buscar.setCorreo(persona.getCorreo());
+            buscar.setNombres(persona.getNombres());
+            buscar.setNumeroDocumento(persona.getNumeroDocumento());
+            buscar.setProductos(persona.getProductos());
+            buscar.setTarjetaCredito(persona.getTarjetaCredito());
+            buscar.setTipoDocumento(persona.getTipoDocumento());
+            session.update(buscar);
+    }catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
+	//Rey hizo esto, si esta mal fue otro xd
 	public static void actualizarVendedor(Vendedor ven) {
-		
+		 Session session = HibernateUtil.getSessionFactory().openSession();
+	     String id= ven.getUsuario();
+	     try {
+	            session.beginTransaction();
+	            Vendedor buscar = (Vendedor)session.get(Vendedor.class, id);
+	            buscar.setApellidos(ven.getApellidos());
+	            buscar.setBanco(ven.getBanco());
+	            buscar.setContraseña(ven.getContraseña());
+	            buscar.setCorreo(ven.getCorreo());
+	            buscar.setIdentificacion(ven.getIdentificacion());
+	            buscar.setNombres(ven.getNombres());
+	            buscar.setProductos(ven.getProductos());
+	            buscar.setSede(ven.getSede());
+	            session.update(buscar);
+	    }catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main (String args[]) {
