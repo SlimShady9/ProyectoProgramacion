@@ -6,9 +6,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich">
-	
+
 <h:head>
-	<script src="https://www.google.com/recaptcha/api.js"></script>
+	<script
+		src="https://www.google.com/recaptcha/api.js?render=put your site key here"></script>
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
@@ -18,24 +19,27 @@
 
 <h:body>
 	<h:form>
+
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-    		<h1 style="font-weight:normal">Opciones</h1>
+			<h1 style="font-weight: normal">Opciones</h1>
 		</p:sidebar>
-		<rich:toolBar class = "menuBarra" >
+		<rich:toolBar class="menuBarra">
 			<rich:toolBarGroup>
-				<p:commandLink >
-					<h:graphicImage styleClass = "menuIcon" value="Resources/MenuIcon.png"
-					onclick="PF('sidebar1').show()" />
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
 			</rich:toolBarGroup>
-			<rich:toolBarGroup id = "elementosDer">
-            	<p:commandLink >
-					<h:graphicImage styleClass = "lupa" value="Resources/Lupa.jpg" />
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
-            	<h:inputText styleClass="barsearch" />
+				<h:inputText styleClass="barsearch" />
 			</rich:toolBarGroup>
-			
+
 		</rich:toolBar>
+
+
 
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
 			<h:outputText value="Nombres: *" />
@@ -74,21 +78,22 @@
 			<h:outputText value="Numero de documento:" />
 			<p:inputText value="#{procesoRegistro.cliente.numeroDocumento}"
 				required="true" label="Lastname" />
-				
+
 			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
-			<p:password id="pwd1" value="#{procesoRegistro.cliente.contraseña}" match="pwd2"
-				label="Contraseña:" required="true" />
+			<p:password id="pwd1" value="#{procesoRegistro.cliente.contraseña}"
+				match="pwd2" label="Contraseña:" required="true" />
 
 			<h:outputLabel for="pwd2" value="Confirma contraseña: " />
-			<p:password id="pwd2" value="#{procesoRegistro.confirmacionContraseña}"
+			<p:password id="pwd2"
+				value="#{procesoRegistro.confirmacionContraseña}"
 				label="Confirma contraseña:	" required="true" />
-				
+			<div class="g-recaptcha"
+				data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+			<p:commandButton class="btnRegistro"
+				action="#{procesoRegistro.guardarCliente}" value="Registrarse" />
 
 		</h:panelGrid>
-		
-    	<div class="g-recaptcha" data-sitekey = "6Lc6V_kUAAAAAL1zVZduBDOpdiP7WWMsCSwfSysk"></div>
-		<p:commandButton class="btnRegistro" action="#{procesoRegistro.guardarCliente}" value="Registrarse" /> 
-		
+
 	</h:form>
 </h:body>
 </html>

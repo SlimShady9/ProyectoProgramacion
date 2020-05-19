@@ -1,7 +1,7 @@
 .Campo{
 	background-color: black;
     color: white;
-    margin: 3rem 50px;
+    margin: 3rem 200px;
     float: left;
   	padding: 1rem;
   	border: 1px solid yellow;
@@ -51,11 +51,11 @@ body {
 .g-recaptcha{
     
     float: right;
-    margin: 100px 100px;
+    margin: 30px 100px;
 }
 .btnRegistro{
     float: right;
-    margin-right: 150px;
+    margin-right: 50px;
     width: 200px;
     height: 50px;
     color: white;
