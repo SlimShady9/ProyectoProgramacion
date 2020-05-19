@@ -8,6 +8,7 @@
 	xmlns:rich="http://richfaces.org/rich">
 	
 <h:head>
+	<script src="https://www.google.com/recaptcha/api.js"></script>
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
@@ -82,9 +83,12 @@
 			<p:password id="pwd2" value="#{procesoRegistro.confirmacionContraseña}"
 				label="Confirma contraseña:	" required="true" />
 				
-			<p:commandButton action="#{procesoRegistro.guardarCliente}" value="Registrarse" /> 
 
 		</h:panelGrid>
+		
+    	<div class="g-recaptcha" data-sitekey = "6Lc6V_kUAAAAAL1zVZduBDOpdiP7WWMsCSwfSysk"></div>
+		<p:commandButton class="btnRegistro" action="#{procesoRegistro.guardarCliente}" value="Registrarse" /> 
+		
 	</h:form>
 </h:body>
 </html>

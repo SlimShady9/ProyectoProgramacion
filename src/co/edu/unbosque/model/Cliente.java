@@ -49,8 +49,8 @@ public class Cliente implements Serializable {
 	private String usuario;
 	
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn (name = "CLIENTE")
-	private List<Producto> productos = new ArrayList<Producto>();
+	@JoinColumn (name = "COMPRADOR")
+	private List<Ventas> compras = new ArrayList<Ventas>();
 
 	public Cliente() {
 	}
@@ -135,12 +135,12 @@ public class Cliente implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+	public List<Ventas> getProductos() {
+		return compras;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setProductos(List<Ventas> compras) {
+		this.compras = compras;
 	}
 	
 

@@ -5,11 +5,14 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContexts;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.FlowEvent;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Vendedor;
+import co.edu.unbosque.resources.VerifyRecaptcha;
 
 /**
  * @author Camilo
@@ -21,28 +24,49 @@ public class ProcesoRegistro implements Serializable {
 
 	private Cliente cliente = new Cliente();
 	private Vendedor vendedor = new Vendedor();
-	
 	private String confirmacionContraseña;
-
-	private boolean skip;
 
 
 	public String guardarCliente() {
+		String retorno;
+		String men;
 		if (cliente.getContraseña().equals(confirmacionContraseña)) {
+			try {
+				String gRecaptchaResponse = FacesContext.getCurrentInstance()
+						.getExternalContext().getRequestParameterMap().get("g-recaptcha-response");
+				 boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+			        if(verify){
+			        	if (Presistence.agregarCliente(cliente)) {
+							men = "Registo Existoso! Bienenido ";
+							retorno = "Principal";
+						}
+						else {
+							men = "Datos invalidos ";
+							retorno = "SigninCliente";
+						}
+			        }else{
+			             men = "Select Captcha";
+			             retorno = "SigninCliente";
+			          }
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				men = "error";
+				retorno = "SinginCliente";
+			}
 			
-			System.out.println("Registrado");
-			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + cliente.getNombres());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "Principal";
 		}
 		else {
-			System.out.println("No Registrado");
-			FacesMessage msg = new FacesMessage("La clave no es igual" + cliente.getNombres());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			men = "La contraseña no es igual digite de nuevo ";
+			retorno = "SigninCliente";
 			confirmacionContraseña = "";
 			cliente.setContraseña("");
-			return "SigninCliente";
 		}
+
+		FacesMessage msg = new FacesMessage(men + cliente.getNombres());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return retorno;
 	}
 	
 	public String guardarVendedor() {

@@ -1,7 +1,8 @@
 .Campo{
 	background-color: black;
     color: white;
-    margin: 1rem 50px;
+    margin: 3rem 50px;
+    float: left;
   	padding: 1rem;
   	border: 1px solid yellow;
   	/* IMPORTANTE */
@@ -46,4 +47,17 @@ body {
 .ui-sidebar{
     background-color: black;
     color: white;
+}
+.g-recaptcha{
+    
+    float: right;
+    margin: 100px 100px;
+}
+.btnRegistro{
+    float: right;
+    margin-right: 150px;
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: black;
 }

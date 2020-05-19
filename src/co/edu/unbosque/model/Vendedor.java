@@ -43,8 +43,11 @@ public class Vendedor  {
 	
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "VENDEDOR")
-	
 	private List<Producto> productos = new ArrayList<Producto>();
+	
+	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn (name = "VENDEDOR")
+	private List<Ventas> ventas = new ArrayList<Ventas>();
 	
 	public Vendedor() {
 	}
@@ -118,6 +121,14 @@ public class Vendedor  {
 
 	public void setIdentificacion(String identificacion) {
 		this.identificacion = identificacion;
+	}
+
+	public List<Ventas> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Ventas> ventas) {
+		this.ventas = ventas;
 	}
 	
 

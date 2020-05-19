@@ -74,12 +74,5 @@ public class Producto {
 	public void setSede(String sede) {
 		this.sede = sede;
 	}
-//	public Vendedor getVendedor() {
-//		return vendedor;
-//	}
-//
-//	public void setVendedor(Vendedor vendedor) {
-//		this.vendedor = vendedor;
-//	}
 
 }
