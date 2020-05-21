@@ -36,6 +36,7 @@ public class ProcesoRegistro implements Serializable {
 						.getExternalContext().getRequestParameterMap().get("g-recaptcha-response");
 				 boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			        if(verify){
+			        	System.out.println(cliente.toString());
 			        	if (Presistence.agregarCliente(cliente)) {
 							men = "Registo Existoso! Bienenido ";
 							retorno = "Principal";
