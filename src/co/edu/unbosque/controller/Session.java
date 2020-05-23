@@ -31,7 +31,7 @@ public class Session {
 	
 	
 	public String inicioSeccionCliente () {
-		
+			
 		mostrarOpciones();
 		return "Principal";
 	}
