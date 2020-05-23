@@ -19,7 +19,9 @@
 
 <h:body>
 	<h:form>
-
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 			<h1 style="font-weight: normal">Opciones</h1>
 		</p:sidebar>
@@ -35,7 +37,14 @@
 					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
 				<h:inputText styleClass="barsearch" />
+
 			</rich:toolBarGroup>
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink>
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
 
 		</rich:toolBar>
 
@@ -88,7 +97,7 @@
 				value="#{procesoRegistro.confirmacionContraseña}"
 				label="Confirma contraseña:	" required="true" />
 			<div class="g-recaptcha"
-				data-sitekey="6Lc6V_kUAAAAAL1zVZduBDOpdiP7WWMsCSwfSysk"></div>
+				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>
 			<p:commandButton class="btnRegistro"
 				action="#{procesoRegistro.guardarCliente}" value="Registrarse" />
 

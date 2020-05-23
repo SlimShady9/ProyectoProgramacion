@@ -36,7 +36,6 @@ public class ProcesoRegistro implements Serializable {
 						.getExternalContext().getRequestParameterMap().get("g-recaptcha-response");
 				 boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			        if(verify){
-			        	System.out.println(cliente.toString());
 			        	if (Presistence.agregarCliente(cliente)) {
 							men = "Registo Existoso! Bienenido ";
 							retorno = "Principal";
@@ -55,17 +54,20 @@ public class ProcesoRegistro implements Serializable {
 				e.printStackTrace();
 				men = "error";
 				retorno = "SinginCliente";
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 			
 		}
 		else {
 			men = "La contraseña no es igual digite de nuevo ";
 			retorno = "SigninCliente";
+			System.out.println(men);
 			confirmacionContraseña = "";
 			cliente.setContraseña("");
 		}
-
-		FacesMessage msg = new FacesMessage(men + cliente.getNombres());
+		System.out.println(men);
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}

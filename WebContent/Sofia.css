@@ -30,16 +30,28 @@
     height: 100px;
 }
 .menuIcon{
-    margin: 1rem;
-    height: 70px
+    margin: 22px;
+    height: 60px
 }
 .lupa{
     height: 52px;
     float: left;
 }
+.logo{
+    height: 65px;
+    float: right;
+    margin-left: 10rem;
+}
 #elementosDer{
     margin-top: 25px;
     margin-left: 100px;
+    
+}
+#elementosIz{
+   margin-top: 15px;
+    
+   width: 560px;
+   display: flex;
 }
 body {
   background-color: yellow;

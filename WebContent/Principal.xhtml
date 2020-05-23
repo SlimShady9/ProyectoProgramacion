@@ -16,23 +16,33 @@
 </h:head>
 <h:body>
 	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-    		<h1 style="font-weight:normal">Opciones</h1>
+			<h1 style="font-weight: normal">Opciones</h1>
 		</p:sidebar>
-		<rich:toolBar class = "menuBarra" >
+		<rich:toolBar class="menuBarra">
 			<rich:toolBarGroup>
-				<p:commandLink >
-					<h:graphicImage styleClass = "menuIcon" value="Resources/MenuIcon.png"
-					onclick="PF('sidebar1').show()" />
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
 			</rich:toolBarGroup>
-			<rich:toolBarGroup id = "elementosDer">
-            	<p:commandLink >
-					<h:graphicImage styleClass = "lupa" value="Resources/Lupa.jpg" />
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
-            	<h:inputText styleClass="barsearch" />
+				<h:inputText styleClass="barsearch" />
+
 			</rich:toolBarGroup>
-			
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink>
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
+
 		</rich:toolBar>
 	</h:form>         
 </h:body>

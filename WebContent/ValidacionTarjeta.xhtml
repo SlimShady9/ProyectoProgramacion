@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<f:facet name="last">
+		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
+	</f:facet>
+	<title>Login</title>
+	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+</h:head>
+<h:body style="text-align:center">
+	<p:growl id="mensajes" showDetail="true" life="2000" />
+	<h:form>
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+			<h1 style="font-weight: normal">Opciones</h1>
+		</p:sidebar>
+		<rich:toolBar class="menuBarra">
+			<rich:toolBarGroup>
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
+				</p:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+				</p:commandLink>
+				<h:inputText styleClass="barsearch" />
+			</rich:toolBarGroup>
+
+		</rich:toolBar>
+
+		<p:panel header="Tarjeta de credito" style="width:850px">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="tarjeta" value="Numero tarjeta:" />
+
+				<tr>
+					<td><p>
+							<input type="number" name="uno" value="activo" />
+						</p></td>
+					<td><p>
+							<input type="number" name="dos" value="activo" />
+						</p></td>
+					<td><p>
+							<input type="number" name="tres" value="activo" />
+						</p></td>
+					<td><p>
+							<input type="number" name="cuatro" value="activo" />
+						</p></td>
+				</tr>
+				<h:outputLabel for="nombre" value="Nombre Completo:" />
+				<p:inputText value="" required="true" label="nombre" />
+				<h:outputText value="Dia y año: " />
+				<tr>
+					<td><p>
+							<input type="number" name="dia" value="activo" />
+						</p></td>
+					<td><p>
+							<input type="number" name="año" value="activo" />
+						</p></td>
+
+				</tr>
+				<f:facet name="footer">
+					<p:commandButton id="loginButton" value="registrar" />
+				</f:facet>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>
