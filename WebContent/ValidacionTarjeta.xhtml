@@ -1,7 +1,10 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
@@ -12,8 +15,8 @@
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
 <h:body style="text-align:center">
-	
-	<h:form>
+
+	<h:form prependId="false">
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
 		</p:messages>
@@ -43,41 +46,21 @@
 
 		</rich:toolBar>
 
-		<p:panel header="Tarjeta de credito" style="width:850px">
-			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel for="tarjeta" value="Numero tarjeta:" />
-
-				<tr>
-					<td><p>
-							<input type="number" name="uno" value="activo" />
-						</p></td>
-					<td><p>
-							<input type="number" name="dos" value="activo" />
-						</p></td>
-					<td><p>
-							<input type="number" name="tres" value="activo" />
-						</p></td>
-					<td><p>
-							<input type="number" name="cuatro" value="activo" />
-						</p></td>
-				</tr>
-				<h:outputLabel for="nombre" value="Nombre Completo:" />
-				<p:inputText value="" required="true" label="nombre" />
-				<h:outputText value="Dia y año: " />
-				<tr>
-					<td><p>
-							<input type="number" name="dia" value="activo" />
-						</p></td>
-					<td><p>
-							<input type="number" name="año" value="activo" />
-						</p></td>
-
-				</tr>
-				<f:facet name="footer">
-					<p:commandButton id="loginButton" value="registrar" />
+		
+			<p:panelGrid id="pnlCreditCard" columns="5">
+				<p:growl id="growl" showDetail="true" showSummary="true">
+					<p:autoUpdate />
+				</p:growl>
+				<f:facet name="header">
+					<pe:creditCard id="creditCard" labelMonthYear="MM/YY"
+						placeholderExpiry="/" placeholderName="" width="350" />
 				</f:facet>
-			</h:panelGrid>
-		</p:panel>
+				<p:inputText id="number" placeholder="Card number" required="true" value="#{cliente.tarjetaCredito}"/>
+				<p:inputText id="name" placeholder="Full name" required="true" />
+				<p:inputText id="expiry" placeholder="MM/YY" required="true" />
+				<p:inputText id="cvc" placeholder="CVC" required="true" />
+			</p:panelGrid>
+			<p:commandButton value="Update" update="@form" process="@form" />
 	</h:form>
 </h:body>
 
