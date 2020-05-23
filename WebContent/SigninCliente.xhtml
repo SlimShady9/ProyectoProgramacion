@@ -18,37 +18,36 @@
 </h:head>
 
 <h:body>
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+		<h1 style="font-weight: normal">Opciones</h1>
+	</p:sidebar>
+	<rich:toolBar class="menuBarra">
+		<rich:toolBarGroup>
+			<p:commandLink>
+				<h:graphicImage styleClass="menuIcon" value="Resources/MenuIcon.png"
+					onclick="PF('sidebar1').show()" />
+			</p:commandLink>
+		</rich:toolBarGroup>
+		<rich:toolBarGroup id="elementosDer">
+			<p:commandLink>
+				<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+			</p:commandLink>
+			<h:inputText styleClass="barsearch" />
+
+		</rich:toolBarGroup>
+		<rich:tooBarGrupo id="elementosIz">
+			<p:commandLink >
+				<h:graphicImage styleClass="logo" value="Resources/Logo.png" onclick="Principal"></h:graphicImage>
+			</p:commandLink>
+			<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+		</rich:tooBarGrupo>
+
+	</rich:toolBar>
+	
 	<h:form>
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
 		</p:messages>
-		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-			<h1 style="font-weight: normal">Opciones</h1>
-		</p:sidebar>
-		<rich:toolBar class="menuBarra">
-			<rich:toolBarGroup>
-				<p:commandLink>
-					<h:graphicImage styleClass="menuIcon"
-						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
-				</p:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup id="elementosDer">
-				<p:commandLink>
-					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
-				</p:commandLink>
-				<h:inputText styleClass="barsearch" />
-
-			</rich:toolBarGroup>
-			<rich:tooBarGrupo id="elementosIz">
-				<p:commandLink>
-					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
-				</p:commandLink>
-				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
-			</rich:tooBarGrupo>
-
-		</rich:toolBar>
-
-
 
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
 			<h:outputText value="Nombres: *" />
@@ -96,7 +95,7 @@
 			<p:password id="pwd2"
 				value="#{procesoRegistro.confirmacionContraseña}"
 				label="Confirma contraseña:	" required="true" />
-			<div class="g-recaptcha"
+			<div class="g-recaptcha" data-theme="dark"
 				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>
 			<p:commandButton class="btnRegistro"
 				action="#{procesoRegistro.guardarCliente}" value="Registrarse" />

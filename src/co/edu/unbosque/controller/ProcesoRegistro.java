@@ -62,32 +62,56 @@ public class ProcesoRegistro implements Serializable {
 		else {
 			men = "La contraseña no es igual digite de nuevo ";
 			retorno = "SigninCliente";
-			System.out.println(men);
 			confirmacionContraseña = "";
 			cliente.setContraseña("");
 		}
-		System.out.println(men);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
 	
 	public String guardarVendedor() {
+		String retorno;
+		String men;
 		if (vendedor.getContraseña().equals(confirmacionContraseña)) {
+			try {
+				String gRecaptchaResponse = FacesContext.getCurrentInstance()
+						.getExternalContext().getRequestParameterMap().get("g-recaptcha-response");
+				 boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+			        if(verify){
+			        	vendedor.setContraseña(Ultilidades.encriptador(vendedor.getContraseña()));
+			        	if (Presistence.agregarVendedor(vendedor)) {
+							men = "Registo Existoso! Bienenido ";
+							retorno = "Principal";
+						}
+						else {
+							men = "Datos invalidos ";
+							retorno = "SigninCliente";
+						}
+			        }else{
+			             men = "Select Captcha";
+			             retorno = "SigninCliente";
+			          }
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				men = "error";
+				retorno = "SinginCliente";
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 			
-			System.out.println("Vendedor Registrado");
-			FacesMessage msg = new FacesMessage("Registro Exitoso", "Bienvenido! :" + vendedor.getNombres());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "Principal";
 		}
 		else {
-			System.out.println("No Registrado");
-			FacesMessage msg = new FacesMessage("La clave no es igual" + vendedor.getNombres());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			men = "La contraseña no es igual digite de nuevo ";
+			retorno = "SigninCliente";
 			confirmacionContraseña = "";
 			vendedor.setContraseña("");
-			return "SigninVendedor";
 		}
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return retorno;
 	}
 
 	public String getConfirmacionContraseña() {

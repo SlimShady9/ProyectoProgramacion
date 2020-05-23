@@ -23,7 +23,7 @@ public class Cliente implements Serializable {
 	@Column(name = "CELULAR")
 	private String celular;
 	
-	@Column(name = "CIUDAD")
+	@Column(name = "SEDE")
 	private String ciudad;
 	
 	@Column(name = "CONTRASEÑA")
@@ -51,6 +51,10 @@ public class Cliente implements Serializable {
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "COMPRADOR")
 	private List<Ventas> compras = new ArrayList<Ventas>();
+	
+	
+	@Column(name = "PRIMER REGISTRO")
+	private boolean primerLogeo = false;
 
 	public Cliente() {
 	}
@@ -143,12 +147,23 @@ public class Cliente implements Serializable {
 		this.compras = compras;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [apellidos=" + apellidos + ", celular=" + celular + ", ciudad=" + ciudad + ", contraseña="
-				+ contraseña + ", correo=" + correo + ", nombres=" + nombres + ", tipoDocumento=" + tipoDocumento
-				+ ", numeroDocumento=" + numeroDocumento + ", tarjetaCredito=" + tarjetaCredito + "]";
+	public List<Ventas> getCompras() {
+		return compras;
 	}
+
+	public void setCompras(List<Ventas> compras) {
+		this.compras = compras;
+	}
+
+	public boolean isPrimerLogeo() {
+		return primerLogeo;
+	}
+
+	public void setPrimerLogeo(boolean primerLogeo) {
+		this.primerLogeo = primerLogeo;
+	}
+
+	
 	
 
 }
