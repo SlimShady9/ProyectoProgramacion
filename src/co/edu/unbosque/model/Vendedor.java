@@ -41,9 +41,6 @@ public class Vendedor  {
 	@Column(name = "USUARIO")
 	private String usuario;
 	
-	@Column(name = "PRIMER REGISTRO")
-	private boolean primerLogeo = false;
-	
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "VENDEDOR")
 	private List<Producto> productos = new ArrayList<Producto>();
@@ -133,15 +130,5 @@ public class Vendedor  {
 	public void setVentas(List<Ventas> ventas) {
 		this.ventas = ventas;
 	}
-
-	public boolean isPrimerLogeo() {
-		return primerLogeo;
-	}
-
-	public void setPrimerLogeo(boolean primerLogeo) {
-		this.primerLogeo = primerLogeo;
-	}
-	
-
 
 }

@@ -51,10 +51,6 @@ public class Cliente implements Serializable {
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "COMPRADOR")
 	private List<Ventas> compras = new ArrayList<Ventas>();
-	
-	
-	@Column(name = "PRIMER REGISTRO")
-	private boolean primerLogeo = false;
 
 	public Cliente() {
 	}
@@ -154,16 +150,5 @@ public class Cliente implements Serializable {
 	public void setCompras(List<Ventas> compras) {
 		this.compras = compras;
 	}
-
-	public boolean isPrimerLogeo() {
-		return primerLogeo;
-	}
-
-	public void setPrimerLogeo(boolean primerLogeo) {
-		this.primerLogeo = primerLogeo;
-	}
-
-	
-	
 
 }

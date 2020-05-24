@@ -28,7 +28,7 @@ public class Controlador extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher miDis = request.getRequestDispatcher("/SigninCliente.xhtml");
+		RequestDispatcher miDis = request.getRequestDispatcher("/Principal.xhtml");
 
 		miDis.forward(request, response);
 	}

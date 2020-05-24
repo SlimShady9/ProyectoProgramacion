@@ -53,6 +53,11 @@
    width: 560px;
    display: flex;
 }
+#pnlCreditCard{
+    margin 1rem;
+    margin-left: 150px;
+    margin-top: 50px;
+}
 body {
   background-color: yellow;
 }
