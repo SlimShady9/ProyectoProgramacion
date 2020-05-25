@@ -1,4 +1,20 @@
 package co.edu.unbosque.controller;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+
+import com.sun.mail.util.MailConnectException;
+
+import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.Vendedor;
 
 
 public class Ultilidades {
@@ -56,5 +72,63 @@ public class Ultilidades {
 		}
 		return String.valueOf(cadenaTexto);
 	}
+	public void SendMailCliente(Cliente user) throws AddressException, MessagingException, MailConnectException
+	{
+		
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+ 
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+                    }
+                });
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(user.getCorreo()));
+            message.setSubject("registo bostinder");
+            message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
+            		+"Datos de tu cuenta: \n"
+            		+ "Nombre: "+user.getNombres()+"\n"
+            		+ "Apellido : "+user.getApellidos()+"\n"
+            		+ "Nombre de usuario: "+user.getUsuario()+"\n"
+            		+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
+            		+ "Si este correo no es para ti por favor eliminalo");
+            Transport.send(message);
+    }
+	public void SendMailVendedor(Vendedor user) throws AddressException, MessagingException, MailConnectException
+	{
+		
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+ 
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+                    }
+                });
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(user.getCorreo()));
+            message.setSubject("registo bostinder");
+            message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
+            		+"Datos de tu cuenta: \n"
+            		+ "Nombre: "+user.getNombres()+"\n"
+            		+ "Apellido : "+user.getApellidos()+"\n"
+            		+ "Nombre de usuario: "+user.getUsuario()+"\n"
+            		+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
+            		+ "Si este correo no es para ti por favor eliminalo");
+            Transport.send(message);
+    }
 
 }

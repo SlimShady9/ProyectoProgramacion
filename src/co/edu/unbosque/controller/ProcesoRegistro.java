@@ -5,11 +5,17 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
+import javax.mail.internet.AddressException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContexts;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.FlowEvent;
+
+import com.sun.mail.util.MailConnectException;
+
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.resources.VerifyRecaptcha;
@@ -24,6 +30,7 @@ public class ProcesoRegistro implements Serializable {
 
 	private Cliente cliente = new Cliente();
 	private Vendedor vendedor = new Vendedor();
+	private Ultilidades util = new Ultilidades();
 	private String confirmacionContraseña, numeroTarjeta = "";
 	private static Cliente cli;
 	private static Vendedor vend;
@@ -72,6 +79,18 @@ public class ProcesoRegistro implements Serializable {
 		}
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		try {
+			util.SendMailCliente(cliente);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return retorno;
 	}
 	
@@ -118,6 +137,18 @@ public class ProcesoRegistro implements Serializable {
 		}
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		try {
+			util.SendMailVendedor(vendedor);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return retorno;
 	}
 	
