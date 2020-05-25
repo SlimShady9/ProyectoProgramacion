@@ -33,7 +33,7 @@ public class Session {
 	
 	private String usuario, contraseña;
 	
-	private static String mTitulo;
+	private static String mTitulo = "Bienvenido <3";
 	private String menuTitulo = mTitulo, opcionSeleccionada;
 	
 	
@@ -81,6 +81,7 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
+							System.out.println(cli.toString());
 							mostrarOpciones();
 							retorno = "Principal";
 						}
@@ -99,11 +100,19 @@ public class Session {
 		if (opcionSeleccionada.equals("Inicio")) {
 			return "Principal";
 		}
-		if (opcionSeleccionada.equals("Iniciar Session")) {
+		if (opcionSeleccionada.equals("Iniciar Sesion")) {
 			return "Login";
 		}
 		if (opcionSeleccionada.equals("Resgistrate")) {
 			return "RegistroComo";
+		}
+		if (opcionSeleccionada.equals("Cerrar Sesión")) {
+			cli = null;
+			vend = null;
+			admin = null;
+			gere = null;
+			mostrarOpciones();
+			return "Principal";
 		}
 		return null;
 		
@@ -111,38 +120,43 @@ public class Session {
 	
 	public void mostrarOpciones() {
 		mTitulo = "Bienvenido ";
-		if (seCliente != null) {
-			mTitulo += seCliente.getUsuario();
+		if (cli != null) {
+			mTitulo += cli.getUsuario();
 			opIniciales = new String[] {
 					"Inicio", "Categorias",
 					"Perfil", "Mis compras", "Notificaciones",
-					"Cerrar Seccion", "Ayuda"
+					"Cerrar Sesión", "Ayuda"
 			};
-		} else if (seVendedor != null) {
-			mTitulo += seVendedor.getUsuario();
+		} else if (vend != null) {
+			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
 					"Perfil", "Mis ventas", "Mis productos",
-					"Notificaciones", "Cerrar Seccion", "Ayuda"
+					"Notificaciones", "Cerrar Sesión", "Ayuda"
 			};
-		} else if (seAdmin != null) {
-			menuTitulo += seAdmin.getUsuario();
+		} else if (admin != null) {
+			menuTitulo += admin.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
 					"Perfil", "Reportes", "Clientes",
-					"Vendedores", "Cerrar Seccion"
+					"Vendedores", "Cerrar Sesión"
 			};
 			
-		} else if (seGerente != null) {
-			mTitulo += seGerente.getUsuario();
+		} else if (gere != null) {
+			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Perfil",  "Cerrar Seccion"
+					"Perfil",  "Cerrar Sesión"
 			};
 
 		} else {
+			opIniciales= new String[]{"Inicio",
+					"Categorias", "Iniciar Sesion",
+					"Resgistrate", "Ayuda"};
 			mTitulo += "<3";
 		}
+		opciones = new ArrayList<String>(Arrays.asList(opIniciales));
+		menuTitulo = mTitulo;
 	}
 
 	public ArrayList<String> getOpciones() {

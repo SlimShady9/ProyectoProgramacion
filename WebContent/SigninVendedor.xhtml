@@ -55,12 +55,9 @@
 		</rich:toolBar>
 
 
-
-
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
 		</p:messages>
-
 
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
 			<h:outputText value="Nombres: *" />
@@ -75,24 +72,27 @@
 			<p:inputText value="#{procesoRegistro.vendedor.apellidos}"
 				required="true" label="Lastname" />
 
+			<h:outputText value="Correo *" />
+			<p:inputText value="#{procesoRegistro.vendedor.correo}"
+				required="true" label="Email" />
 
 			<h:outputText value="Documento *" />
 			<p:inputText value="#{procesoRegistro.vendedor.identificacion}"
-				required="true" label="Lastname" />
+				required="true" label="Id" />
 
 			<h:outputText value="Ciudad *" />
 			<p:inputText value="#{procesoRegistro.vendedor.sede}" required="true"
-				label="Lastname" />
+				label="City" />
 
 
 			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
 			<p:password id="pwd1" value="#{procesoRegistro.vendedor.contraseña}"
-				match="pwd2" label="Contraseña:" required="true" />
+				match="pwd2" label="Password" required="true" />
 
 			<h:outputLabel for="pwd2" value="Confirma contraseña: *" />
 			<p:password id="pwd2"
 				value="#{procesoRegistro.confirmacionContraseña}"
-				label="Confirma contraseña:	" required="true" />
+				label="Confirm Password" required="true" />
 
 			<div class="g-recaptcha" data-theme="dark"
 				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>

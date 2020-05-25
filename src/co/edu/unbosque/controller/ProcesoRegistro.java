@@ -89,7 +89,7 @@ public class ProcesoRegistro implements Serializable {
 							men = "Registo Existoso! Bienenido ";
 							vend = vendedor;
 							cli = null;
-							retorno = "Principal";
+							retorno = "ValidacionTarjeta";
 						}
 						else {
 							men = "Datos invalidos ";

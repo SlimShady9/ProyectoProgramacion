@@ -19,7 +19,7 @@
 	<h:form>
 
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
-			<h1 style="font-weight: normal">Opciones</h1>
+			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false'>
