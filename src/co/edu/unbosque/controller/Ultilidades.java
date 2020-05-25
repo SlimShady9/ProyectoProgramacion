@@ -74,61 +74,73 @@ public class Ultilidades {
 	}
 	public void SendMailCliente(Cliente user) throws AddressException, MessagingException, MailConnectException
 	{
-		
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
- 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
-                    }
-                });
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(user.getCorreo()));
-            message.setSubject("Registo The Gran Hermano Store");
-            message.setText("Felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
-            		+"Datos de tu cuenta: \n"
-            		+ "Nombre: "+user.getNombres()+"\n"
-            		+ "Apellido : "+user.getApellidos()+"\n"
-            		+ "Nombre de usuario: "+user.getUsuario()+"\n"
-            		+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
-            		+ "Si este correo no es para ti por favor eliminalo");
-            Transport.send(message);
-    }
+		 // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+	    String remitente = "thegranhermanocorp@gmail.com";  //Para la dirección nomcuenta@gmail.com
+
+	    Properties props = System.getProperties();
+	    props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+	    props.put("mail.smtp.user", remitente);
+	    props.put("mail.smtp.clave", "Sofix1234");    //La clave de la cuenta
+	    props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+	    props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+	    props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
+	    try {
+	        message.setFrom(new InternetAddress(remitente));
+	        message.addRecipients(Message.RecipientType.TO,user.getCorreo());   //Se podrían añadir varios de la misma manera
+	        message.setSubject("Registo The Gran Hermano Store");
+	        message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
+           		+"Datos de tu cuenta: \n"
+           		+ "Nombre: "+user.getNombres()+"\n"
+           		+ "Apellido : "+user.getApellidos()+"\n"
+           		+ "Nombre de usuario: "+user.getUsuario()+"\n"
+           		+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
+           		+ "Si este correo no es para ti por favor eliminalo");
+	        Transport transport = session.getTransport("smtp");
+	        transport.connect("smtp.gmail.com", remitente, "Sofix1234");
+	        transport.sendMessage(message, message.getAllRecipients());
+	        transport.close();
+	    }
+	    catch (MessagingException me) {
+	        me.printStackTrace();   //Si se produce un error
+	    }
+   }
 	public void SendMailVendedor(Vendedor user) throws AddressException, MessagingException, MailConnectException
 	{
-		
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
- 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
-                    }
-                });
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(user.getCorreo()));
-            message.setSubject("registo bostinder");
-            message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
+		 // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+	    String remitente = "thegranhermanocorp@gmail.com";  //Para la dirección nomcuenta@gmail.com
+
+	    Properties props = System.getProperties();
+	    props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+	    props.put("mail.smtp.user", remitente);
+	    props.put("mail.smtp.clave", "Sofix1234");    //La clave de la cuenta
+	    props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+	    props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+	    props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
+	    try {
+	        message.setFrom(new InternetAddress(remitente));
+	        message.addRecipients(Message.RecipientType.TO,user.getCorreo());   //Se podrían añadir varios de la misma manera
+	        message.setSubject("Registo The Gran Hermano Store");
+	        message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
             		+"Datos de tu cuenta: \n"
             		+ "Nombre: "+user.getNombres()+"\n"
             		+ "Apellido : "+user.getApellidos()+"\n"
             		+ "Nombre de usuario: "+user.getUsuario()+"\n"
             		+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
             		+ "Si este correo no es para ti por favor eliminalo");
-            Transport.send(message);
+	        Transport transport = session.getTransport("smtp");
+	        transport.connect("smtp.gmail.com", remitente, "Sofix1234");
+	        transport.sendMessage(message, message.getAllRecipients());
+	        transport.close();
+	    }
+	    catch (MessagingException me) {
+	        me.printStackTrace();   //Si se produce un error
+	    }
     }
 
 }
