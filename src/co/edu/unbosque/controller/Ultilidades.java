@@ -1,8 +1,20 @@
 package co.edu.unbosque.controller;
 
+
 public class Ultilidades {
 
+	private static String parseoTarjeta(String input) {
+		String nuevo = "";
+		for (int i = 0 ; i < input.length() ; i++) {
+			if (input.charAt(i) != ' ') {
+				nuevo += input.charAt(i);
+			}
+			
+		}
+		return nuevo;
+	}
 	public static boolean validarTarjeta(String input) {
+		input = parseoTarjeta(input);
 		int[] tarjeta=new int[input.length()];  
 		for (int i = 0; i < input.length(); i++) {
 			tarjeta [i] = Integer.parseInt(input.substring(i,i+1));

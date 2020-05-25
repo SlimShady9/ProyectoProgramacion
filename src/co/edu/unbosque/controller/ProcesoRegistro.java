@@ -24,8 +24,9 @@ public class ProcesoRegistro implements Serializable {
 
 	private Cliente cliente = new Cliente();
 	private Vendedor vendedor = new Vendedor();
-	private String confirmacionContraseña;
-
+	private String confirmacionContraseña, numeroTarjeta = "";
+	private static Cliente cli;
+	private static Vendedor vend;
 
 	public String guardarCliente() {
 		String retorno;
@@ -36,16 +37,20 @@ public class ProcesoRegistro implements Serializable {
 						.getExternalContext().getRequestParameterMap().get("g-recaptcha-response");
 				 boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			        if(verify){
+			        	cliente.setContraseña(Ultilidades.encriptador(cliente.getContraseña()));
 			        	if (Presistence.agregarCliente(cliente)) {
-							men = "Registo Existoso! Bienenido ";
-							retorno = "Principal";
-						}
-						else {
-							men = "Datos invalidos ";
-							retorno = "SigninCliente";
-						}
+			        		men = "Registro exitoso! " + cliente.getNombres();
+			        		cli = cliente;
+			        		vend = null;
+			        		retorno = "ValidacionTarjeta";
+			        	}
+			        	else {
+			        		men = "Error en el registro...";
+			        		retorno = "SigninCliente";
+			        	}
+			        
 			        }else{
-			             men = "Select Captcha";
+			             men = "Seleccione Captcha";
 			             retorno = "SigninCliente";
 			          }
 				
@@ -82,6 +87,8 @@ public class ProcesoRegistro implements Serializable {
 			        	vendedor.setContraseña(Ultilidades.encriptador(vendedor.getContraseña()));
 			        	if (Presistence.agregarVendedor(vendedor)) {
 							men = "Registo Existoso! Bienenido ";
+							vend = vendedor;
+							cli = null;
 							retorno = "Principal";
 						}
 						else {
@@ -113,6 +120,32 @@ public class ProcesoRegistro implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
+	
+	public String registrarTarjeta() {
+		String men;
+		if (Ultilidades.validarTarjeta(numeroTarjeta)) {
+			if (cli == null) {
+				vend.setBanco(numeroTarjeta);
+				Presistence.actualizarVendedor(vend);
+				men = vend.getNombres();
+			}
+			else {
+				cli.setTarjetaCredito(numeroTarjeta);
+				Presistence.actualizarCliente(cli);
+				men = cli.getNombres();
+			}
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro Finalizado! Inicia Seccion" + men);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "Principal";
+		}
+		else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Tarjeta no valida");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "ValidacionTarjeta";
+		}
+		
+		
+	}
 
 	public String getConfirmacionContraseña() {
 		return confirmacionContraseña;
@@ -138,4 +171,13 @@ public class ProcesoRegistro implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public String getNumeroTarjeta() {
+		return numeroTarjeta;
+	}
+
+	public void setNumeroTarjeta(String numeroTarjeta) {
+		this.numeroTarjeta = numeroTarjeta;
+	}
+
+	
 }

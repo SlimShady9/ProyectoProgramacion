@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:rich="http://richfaces.org/rich">
 
@@ -11,38 +12,49 @@
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
-	<title>Login</title>
+	<title>Registro Tarjeta</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
-<h:body style="text-align:center">
 
+
+<h:body>
+
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+		styleClass="BarraLateral">
+		<h1 style="font-weight: normal">Opciones</h1>
+		<h:panelGrid columns="1">
+			<ui:repeat var="i" value="#{seccion.opciones}">
+				<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" immediate="true">
+					<f:setPropertyActionListener value="#{i}"
+						target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+				</p:commandButton>
+			</ui:repeat>
+		</h:panelGrid>
+	</p:sidebar>
+	<rich:toolBar class="menuBarra">
+		<rich:toolBarGroup>
+			<p:commandLink>
+				<h:graphicImage styleClass="menuIcon" value="Resources/MenuIcon.png"
+					onclick="PF('sidebar1').show()" />
+			</p:commandLink>
+		</rich:toolBarGroup>
+		<rich:toolBarGroup id="elementosDer">
+			<p:commandLink>
+				<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+			</p:commandLink>
+			<h:inputText styleClass="barsearch" />
+
+		</rich:toolBarGroup>
+		<rich:tooBarGrupo id="elementosIz">
+			<p:commandLink>
+				<h:graphicImage styleClass="logo" value="Resources/Logo.png"
+					onclick="Principal"></h:graphicImage>
+			</p:commandLink>
+			<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+		</rich:tooBarGrupo>
+	</rich:toolBar>
+	
 	<h:form prependId="false">
-
-		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-			<h1 style="font-weight: normal">Opciones</h1>
-		</p:sidebar>
-		<rich:toolBar class="menuBarra">
-			<rich:toolBarGroup>
-				<p:commandLink>
-					<h:graphicImage styleClass="menuIcon"
-						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
-				</p:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup id="elementosDer">
-				<p:commandLink>
-					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
-				</p:commandLink>
-				<h:inputText styleClass="barsearch" />
-
-			</rich:toolBarGroup>
-			<rich:tooBarGrupo id="elementosIz">
-				<p:commandLink>
-					<h:graphicImage styleClass="logo" value="Resources/Logo.png"
-						onclick="Principal"></h:graphicImage>
-				</p:commandLink>
-				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
-			</rich:tooBarGrupo>
-		</rich:toolBar>
 
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
@@ -57,12 +69,14 @@
 					placeholderExpiry="/" placeholderName="" width="350" />
 			</f:facet>
 			<p:inputText id="number" placeholder="Card number" required="true"
-				value="#{cliente.tarjetaCredito}" />
+				value="#{procesoRegistro.numeroTarjeta}" />
 			<p:inputText id="name" placeholder="Full name" required="true" />
 			<p:inputText id="expiry" placeholder="MM/YY" required="true" />
 			<p:inputText id="cvc" placeholder="CVC" required="true" />
+			<p:commandButton value="Registar"
+				action="#{procesoRegistro.registrarTarjeta}" />
+
 		</p:panelGrid>
-		<p:commandButton value="Update" update="@form" process="@form" />
 	</h:form>
 </h:body>
 

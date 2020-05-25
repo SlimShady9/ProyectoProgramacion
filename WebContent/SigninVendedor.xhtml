@@ -6,8 +6,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich">
-	
+
 <h:head>
+	<script src="https://www.google.com/recaptcha/api.js?"></script>
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
@@ -16,57 +17,87 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-    		<h1 style="font-weight:normal">Opciones</h1>
-		</p:sidebar>
-		<rich:toolBar class = "menuBarra" >
-			<rich:toolBarGroup>
-				<p:commandLink >
-					<h:graphicImage styleClass = "menuIcon" value="Resources/MenuIcon.png"
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+		styleClass="BarraLateral">
+		<h1 style="font-weight: normal">Opciones</h1>
+		<h:panelGrid columns="1">
+			<ui:repeat var="i" value="#{seccion.opciones}">
+				<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" immediate="true">
+					<f:setPropertyActionListener value="#{i}"
+						target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+				</p:commandButton>
+			</ui:repeat>
+		</h:panelGrid>
+	</p:sidebar>
+	<rich:toolBar class="menuBarra">
+		<rich:toolBarGroup>
+			<p:commandLink immediate="true">
+				<h:graphicImage styleClass="menuIcon" value="Resources/MenuIcon.png"
 					onclick="PF('sidebar1').show()" />
-				</p:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup id = "elementosDer">
-            	<p:commandLink >
-					<h:graphicImage styleClass = "lupa" value="Resources/Lupa.jpg" />
-				</p:commandLink>
-            	<h:inputText styleClass="barsearch" />
-			</rich:toolBarGroup>
-			
-		</rich:toolBar>
+			</p:commandLink>
+		</rich:toolBarGroup>
+		<rich:toolBarGroup id="elementosDer">
+			<p:commandLink immediate="true">
+				<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+			</p:commandLink>
+			<h:inputText styleClass="barsearch" />
+
+		</rich:toolBarGroup>
+		<rich:tooBarGrupo id="elementosIz">
+			<p:commandLink immediate="true" action="Principal">
+				<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+			</p:commandLink>
+			<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+		</rich:tooBarGrupo>
+
+	</rich:toolBar>
+
+
+	<h:form>
+
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+
 
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
 			<h:outputText value="Nombres: *" />
 			<p:inputText value="#{procesoRegistro.vendedor.nombres}"
 				required="true" label="Firstname" />
 
-			
+			<h:outputText value="Usuario *" />
+			<p:inputText value="#{procesoRegistro.vendedor.usuario}"
+				required="true" label="Lastname" />
+
 			<h:outputText value="Apellidos *" />
 			<p:inputText value="#{procesoRegistro.vendedor.apellidos}"
 				required="true" label="Lastname" />
 
-			<h:outputText value="Sede: *" />
-			<p:inputText value="#{procesoRegistro.vendedor.sede}"
+
+			<h:outputText value="Documento *" />
+			<p:inputText value="#{procesoRegistro.vendedor.identificacion}"
 				required="true" label="Lastname" />
 
-				
+			<h:outputText value="Ciudad *" />
+			<p:inputText value="#{procesoRegistro.vendedor.sede}" required="true"
+				label="Lastname" />
+
+
 			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
-			<p:password id="pwd1" value="#{procesoRegistro.vendedor.contraseña}" match="pwd2"
-				label="Contraseña:" required="true" />
+			<p:password id="pwd1" value="#{procesoRegistro.vendedor.contraseña}"
+				match="pwd2" label="Contraseña:" required="true" />
 
 			<h:outputLabel for="pwd2" value="Confirma contraseña: *" />
-			<p:password id="pwd2" value="#{procesoRegistro.confirmacionContraseña}"
+			<p:password id="pwd2"
+				value="#{procesoRegistro.confirmacionContraseña}"
 				label="Confirma contraseña:	" required="true" />
-			
-			<h:outputText value="Cuenta Bancaria: *" />
-			<p:inputText value="  " required="true" label="Cuenta Bancaria" /> 
-			
+
 			<div class="g-recaptcha" data-theme="dark"
 				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>
-			<p:commandButton action="#{procesoRegistro.guardarVendedor}" value="Registrarse" />
+			<p:commandButton action="#{procesoRegistro.guardarVendedor}"
+				value="Registrarse" />
 		</h:panelGrid>
-		
+
 	</h:form>
 </h:body>
 </html>

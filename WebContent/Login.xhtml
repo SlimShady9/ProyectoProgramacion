@@ -17,8 +17,15 @@
 
 <h:body>
 	<h:form>
-		<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-    		<h1 style="font-weight:normal">Opciones</h1>
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
+			<h1 style="font-weight: normal">Opciones</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
+						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</ui:repeat>
+			</h:panelGrid>
 		</p:sidebar>
 		<rich:toolBar class = "menuBarra" >
 			<rich:toolBarGroup>

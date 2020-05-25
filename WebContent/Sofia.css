@@ -78,3 +78,20 @@ body {
     color: white;
     background-color: black;
 }
+.Titulo{
+    margin-left: 550px;
+    margin-top: 105px;
+    font-style: oblique;
+}
+#j_idt6\:comoCliente{
+    margin-left: 250px;
+}
+#j_idt6\:comoVendedor{
+    margin-left: 250px;
+}
+#j_idt6\:imgCliente{
+    height: 300px;
+}
+#j_idt6\:imgVendedor{
+    height: 250px;
+}

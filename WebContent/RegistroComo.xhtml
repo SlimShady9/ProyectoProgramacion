@@ -18,12 +18,14 @@
 <h:body>
 	<h:form>
 
-		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+			styleClass="BarraLateral">
 			<h1 style="font-weight: normal">Opciones</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
-						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+						<f:setPropertyActionListener value="#{i}"
+							target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
 				</ui:repeat>
 			</h:panelGrid>
@@ -40,7 +42,6 @@
 					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
 				<h:inputText styleClass="barsearch" />
-
 			</rich:toolBarGroup>
 			<rich:tooBarGrupo id="elementosIz">
 				<p:commandLink immediate="true" action="Principal">
@@ -50,6 +51,16 @@
 			</rich:tooBarGrupo>
 
 		</rich:toolBar>
+		
+		<h1 class="Titulo">Desea Registrarse Como:</h1>
+		<p:commandLink id="comoCliente" action="SigninCliente">
+			<h:outputText value="Cliente" id ="txtCliente"></h:outputText>
+			<h:graphicImage value="Resources/Cliente.png" id="imgCliente"></h:graphicImage>
+		</p:commandLink>
+		<p:commandLink id="comoVendedor" action="SigninVendedor">
+			<h:outputText value="Vendedor" id="txtVendedor"></h:outputText>
+			<h:graphicImage value="Resources/Vendedor.png" id = "imgVendedor"></h:graphicImage>
+		</p:commandLink>
 	</h:form>
 </h:body>
 </html>

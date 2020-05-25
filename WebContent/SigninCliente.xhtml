@@ -9,7 +9,7 @@
 
 <h:head>
 	<script
-		src="https://www.google.com/recaptcha/api.js?render=put your site key here"></script>
+		src="https://www.google.com/recaptcha/api.js?"></script>
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
@@ -18,18 +18,25 @@
 </h:head>
 
 <h:body>
-	<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-		<h1 style="font-weight: normal">Opciones</h1>
-	</p:sidebar>
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
+			<h1 style="font-weight: normal">Opciones</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" immediate="true">
+						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</ui:repeat>
+			</h:panelGrid>
+		</p:sidebar>
 	<rich:toolBar class="menuBarra">
 		<rich:toolBarGroup>
-			<p:commandLink>
+			<p:commandLink immediate="true">
 				<h:graphicImage styleClass="menuIcon" value="Resources/MenuIcon.png"
 					onclick="PF('sidebar1').show()" />
 			</p:commandLink>
 		</rich:toolBarGroup>
 		<rich:toolBarGroup id="elementosDer">
-			<p:commandLink>
+			<p:commandLink immediate="true">
 				<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 			</p:commandLink>
 			<h:inputText styleClass="barsearch" />

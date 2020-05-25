@@ -23,9 +23,13 @@ public class Session {
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 	
 	private Cliente seCliente = null;
+	private static Cliente cli;
 	private Vendedor seVendedor = null;
+	private static Vendedor vend;
 	private Administrador seAdmin = null;
+	private static Administrador admin;
 	private Gerencia seGerente = null;
+	private static Gerencia gere;
 	
 	private String usuario, contraseña;
 	
@@ -51,6 +55,16 @@ public class Session {
 	}
 	
 	public String seccionOpcionMenu() {
+		if (opcionSeleccionada.equals("Inicio")) {
+			return "Principal";
+		}
+		if (opcionSeleccionada.equals("Iniciar Session")) {
+			return "Login";
+		}
+		if (opcionSeleccionada.equals("Resgistrate")) {
+			return "RegistroComo";
+		}
+		return null;
 		
 	}
 	

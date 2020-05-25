@@ -151,4 +151,12 @@ public class Cliente implements Serializable {
 		this.compras = compras;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [apellidos=" + apellidos + ", celular=" + celular + ", ciudad=" + ciudad + ", contraseña="
+				+ contraseña + ", correo=" + correo + ", nombres=" + nombres + ", tipoDocumento=" + tipoDocumento
+				+ ", numeroDocumento=" + numeroDocumento + ", tarjetaCredito=" + tarjetaCredito + "]";
+	}
+	
+
 }
