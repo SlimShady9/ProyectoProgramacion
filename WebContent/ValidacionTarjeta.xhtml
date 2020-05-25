@@ -19,18 +19,18 @@
 
 <h:body>
 <h:form prependId="false">
-	<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
-		styleClass="BarraLateral">
-		<h1 style="font-weight: normal">Opciones</h1>
-		<h:panelGrid columns="1">
-			<ui:repeat var="i" value="#{seccion.opciones}" ajax='false'>
-				<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" immediate="true">
-					<f:setPropertyActionListener value="#{i}"
-						target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
-				</p:commandButton>
-			</ui:repeat>
-		</h:panelGrid>
-	</p:sidebar>
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
+			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false' style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
+						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<br></br>
+					<br></br>
+				</ui:repeat>
+			</h:panelGrid>
+		</p:sidebar>
 	<rich:toolBar class="menuBarra">
 		<rich:toolBarGroup>
 			<p:commandLink>

@@ -36,6 +36,9 @@ public class Session {
 	private static String mTitulo = "Bienvenido <3";
 	private String menuTitulo = mTitulo, opcionSeleccionada;
 	
+	private static String mensaje;
+	private String message = mensaje;
+	
 	
 	public String inicioSeccion() {
 		admin = Presistence.buscarAdministradores(usuario);
@@ -115,7 +118,11 @@ public class Session {
 			return "Principal";
 		}
 		if (opcionSeleccionada.equals("Mis Productos")) {
-			
+			mensaje = "Tus Productos En Ventas";
+			if (cli.getProductos().size() < 1) {
+				mensaje = "Registra tu primer producto";
+			}
+			message = mensaje;
 			return "MisProductos";
 		}
 		if (opcionSeleccionada.equals("Mis Ventas")) {
@@ -141,7 +148,7 @@ public class Session {
 			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Mi Perfil", "Mis ventas", "Mis productos",
+					"Mi Perfil", "Historial Ventas", "Mis productos",
 					"Notificaciones", "Cerrar Sesión", "Ayuda"
 			};
 		} else if (admin != null) {
@@ -238,6 +245,14 @@ public class Session {
 
 	public void setOpcionSeleccionada(String opcionSeleccionada) {
 		this.opcionSeleccionada = opcionSeleccionada;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	

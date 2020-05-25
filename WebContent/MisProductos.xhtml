@@ -22,9 +22,11 @@
 			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
-					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false'>
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false' style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
+					<br></br>
+					<br></br>
 				</ui:repeat>
 			</h:panelGrid>
 		</p:sidebar>
@@ -48,8 +50,10 @@
 				</p:commandLink>
 				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
 			</rich:tooBarGrupo>
-
 		</rich:toolBar>
+		
+		<h1 class="Titulo">#{session.message}</h1>
+		<p:commandButton ></p:commandButton>	
 	</h:form>
 </h:body>
 </html>

@@ -18,29 +18,38 @@
 <h:body>
 	<h:form>
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
-			<h1 style="font-weight: normal">Opciones</h1>
+			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
-				<ui:repeat var="i" value="#{seccion.opciones}" ajax='false'>
-					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false' style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
+					<br></br>
+					<br></br>
 				</ui:repeat>
 			</h:panelGrid>
 		</p:sidebar>
-		<rich:toolBar class = "menuBarra" >
+		<rich:toolBar class="menuBarra">
 			<rich:toolBarGroup>
-				<p:commandLink >
-					<h:graphicImage styleClass = "menuIcon" value="Resources/MenuIcon.png"
-					onclick="PF('sidebar1').show()" />
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
 			</rich:toolBarGroup>
-			<rich:toolBarGroup id = "elementosDer">
-            	<p:commandLink >
-					<h:graphicImage styleClass = "lupa" value="Resources/Lupa.jpg" />
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
-            	<h:inputText styleClass="barsearch" />
+				<h:inputText styleClass="barsearch" style="width:360px; height:46px; font-size:25px"/>
+
 			</rich:toolBarGroup>
-			
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink immediate="true" action="Principal" ajax='false'>
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
+
 		</rich:toolBar>
 
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
