@@ -91,8 +91,8 @@ public class Ultilidades {
             message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getCorreo()));
-            message.setSubject("registo bostinder");
-            message.setText("felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
+            message.setSubject("Registo The Gran Hermano Store");
+            message.setText("Felicitaciones! Has completado tu proceso de registro\nEs hora de que empieces a disfrutar de tu cuenta\nVerifica que estos datos sean correctos antes de iniciar\n"
             		+"Datos de tu cuenta: \n"
             		+ "Nombre: "+user.getNombres()+"\n"
             		+ "Apellido : "+user.getApellidos()+"\n"

@@ -55,7 +55,6 @@
 	</rich:toolBar>
 	
 	
-
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
 		</p:messages>
@@ -73,9 +72,10 @@
 			<p:inputText id="name" placeholder="Full name" required="true" />
 			<p:inputText id="expiry" placeholder="MM/YY" required="true" />
 			<p:inputText id="cvc" placeholder="CVC" required="true" />
-		</p:panelGrid>
 			<p:commandButton value="Registar"
 			action="#{procesoRegistro.registrarTarjeta}" />
+		</p:panelGrid>
+			
 	</h:form>
 </h:body>
 

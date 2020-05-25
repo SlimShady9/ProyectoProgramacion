@@ -114,6 +114,16 @@ public class Session {
 			mostrarOpciones();
 			return "Principal";
 		}
+		if (opcionSeleccionada.equals("Mis Productos")) {
+			
+			return "MisProductos";
+		}
+		if (opcionSeleccionada.equals("Mis Ventas")) {
+			
+		}
+		if (opcionSeleccionada.equals("Mi Perfil")) {
+			
+		}
 		return null;
 		
 	}
@@ -124,21 +134,20 @@ public class Session {
 			mTitulo += cli.getUsuario();
 			opIniciales = new String[] {
 					"Inicio", "Categorias",
-					"Perfil", "Mis compras", "Notificaciones",
+					"Ver Perfil", "Mis compras", "Notificaciones",
 					"Cerrar Sesión", "Ayuda"
 			};
 		} else if (vend != null) {
 			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Perfil", "Mis ventas", "Mis productos",
+					"Mi Perfil", "Mis ventas", "Mis productos",
 					"Notificaciones", "Cerrar Sesión", "Ayuda"
 			};
 		} else if (admin != null) {
 			menuTitulo += admin.getUsuario();
 			opIniciales = new String[] {
-					"Inicio",
-					"Perfil", "Reportes", "Clientes",
+					"Inicio", "Reportes", "Clientes",
 					"Vendedores", "Cerrar Sesión"
 			};
 			

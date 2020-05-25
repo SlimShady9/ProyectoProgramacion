@@ -50,6 +50,18 @@ public class ProcesoRegistro implements Serializable {
 			        		cli = cliente;
 			        		vend = null;
 			        		retorno = "ValidacionTarjeta";
+			        		try {
+			        			util.SendMailCliente(cliente);
+			        		} catch (AddressException e) {
+			        			// TODO Auto-generated catch block
+			        			e.printStackTrace();
+			        		} catch (MailConnectException e) {
+			        			// TODO Auto-generated catch block
+			        			e.printStackTrace();
+			        		} catch (MessagingException e) {
+			        			// TODO Auto-generated catch block
+			        			e.printStackTrace();
+			        		}
 			        	}
 			        	else {
 			        		men = "Error en el registro...";
@@ -79,18 +91,7 @@ public class ProcesoRegistro implements Serializable {
 		}
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		try {
-			util.SendMailCliente(cliente);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MailConnectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return retorno;
 	}
 	
@@ -109,6 +110,18 @@ public class ProcesoRegistro implements Serializable {
 							vend = vendedor;
 							cli = null;
 							retorno = "ValidacionTarjeta";
+							try {
+								util.SendMailVendedor(vendedor);
+							} catch (AddressException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MailConnectException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MessagingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						else {
 							men = "Datos invalidos ";
@@ -137,18 +150,7 @@ public class ProcesoRegistro implements Serializable {
 		}
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", men + cliente.getNombres());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		try {
-			util.SendMailVendedor(vendedor);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MailConnectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return retorno;
 	}
 	
