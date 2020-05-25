@@ -15,7 +15,7 @@ public class Gerencia {
 	private int apellidos;
 	
 	@Column(name = "CONTRASEÑA")
-	private int contraseña;
+	private String contraseña;
 	
 	@Column(name = "NOMBRES")
 	private int nombres;
@@ -41,11 +41,11 @@ public class Gerencia {
 		this.apellidos = apellidos;
 	}
 
-	public int getContraseña() {
+	public String getContraseña() {
 		return this.contraseña;
 	}
 
-	public void setContraseña(int contraseña) {
+	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
 

@@ -22,7 +22,7 @@
 			<h1 style="font-weight: normal">Opciones</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
-					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false'>
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
 				</ui:repeat>

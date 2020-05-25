@@ -20,7 +20,7 @@
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
 			<h1 style="font-weight: normal">Opciones</h1>
 			<h:panelGrid columns="1">
-				<ui:repeat var="i" value="#{seccion.opciones}">
+				<ui:repeat var="i" value="#{seccion.opciones}" ajax='false'>
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
@@ -46,14 +46,12 @@
 		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
 			
 			<h:outputText value="Usuario: " />
-			<p:inputText value=""
-				required="true" label="Lastname" />
+			<p:inputText value="seccion.usuario" required="true" />
 
 			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
-			<p:password id="pwd1" value="" label="Contraseña:" required="true" />
+			<p:password id="pwd1" value="seccion.contraseña" label="Contraseña:" required="true" />
 
-			<p:commandButton value="Iniciar sesion" /> 
-			<p:commandButton value="Registrarse" />
+			<p:commandButton value="Iniciar sesion" />
 			
 
 		</h:panelGrid>

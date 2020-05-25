@@ -67,9 +67,9 @@ public class Presistence {
 		}
 		return null;
 	}
-	public static Gerencia buscarGerentes (String id) {
+	public static Gerencia buscarGerentes (String usuario) {
 		for (Gerencia i : Dao.gerentes) {
-			if (i.getIdentificador().equals(id)) {
+			if (i.getUsuario().equals(usuario)) {
 				return i;
 			}
 		}

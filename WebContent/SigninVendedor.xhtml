@@ -17,43 +17,45 @@
 </h:head>
 
 <h:body>
-	<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
-		styleClass="BarraLateral">
-		<h1 style="font-weight: normal">Opciones</h1>
-		<h:panelGrid columns="1">
-			<ui:repeat var="i" value="#{seccion.opciones}">
-				<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" immediate="true">
-					<f:setPropertyActionListener value="#{i}"
-						target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
-				</p:commandButton>
-			</ui:repeat>
-		</h:panelGrid>
-	</p:sidebar>
-	<rich:toolBar class="menuBarra">
-		<rich:toolBarGroup>
-			<p:commandLink immediate="true">
-				<h:graphicImage styleClass="menuIcon" value="Resources/MenuIcon.png"
-					onclick="PF('sidebar1').show()" />
-			</p:commandLink>
-		</rich:toolBarGroup>
-		<rich:toolBarGroup id="elementosDer">
-			<p:commandLink immediate="true">
-				<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
-			</p:commandLink>
-			<h:inputText styleClass="barsearch" />
-
-		</rich:toolBarGroup>
-		<rich:tooBarGrupo id="elementosIz">
-			<p:commandLink immediate="true" action="Principal">
-				<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
-			</p:commandLink>
-			<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
-		</rich:tooBarGrupo>
-
-	</rich:toolBar>
-
-
 	<h:form>
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+			styleClass="BarraLateral">
+			<h1 style="font-weight: normal">Opciones</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}"
+						immediate="true">
+						<f:setPropertyActionListener value="#{i}"
+							target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</ui:repeat>
+			</h:panelGrid>
+		</p:sidebar>
+		<rich:toolBar class="menuBarra">
+			<rich:toolBarGroup>
+				<p:commandLink immediate="true">
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
+				</p:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink immediate="true">
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+				</p:commandLink>
+				<h:inputText styleClass="barsearch" />
+
+			</rich:toolBarGroup>
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink immediate="true" action="Principal">
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
+
+		</rich:toolBar>
+
+
+
 
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />

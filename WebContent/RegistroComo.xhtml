@@ -22,7 +22,7 @@
 			styleClass="BarraLateral">
 			<h1 style="font-weight: normal">Opciones</h1>
 			<h:panelGrid columns="1">
-				<ui:repeat var="i" value="#{seccion.opciones}">
+				<ui:repeat var="i" value="#{seccion.opciones}" ajax='false'>
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}">
 						<f:setPropertyActionListener value="#{i}"
 							target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>

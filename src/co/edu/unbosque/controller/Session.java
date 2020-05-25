@@ -19,7 +19,7 @@ public class Session {
 	 * Cuando alguien se regitre se activara cierta seccion
 	 * Y de este modo se desplegaran las diferentes opciones
 	 */
-	private String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
+	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 	
 	private Cliente seCliente = null;
@@ -33,25 +33,66 @@ public class Session {
 	
 	private String usuario, contraseña;
 	
-	private String menuTitulo, opcionSeleccionada;
+	private static String mTitulo;
+	private String menuTitulo = mTitulo, opcionSeleccionada;
 	
 	
-	public String inicioSeccionCliente () {
+	public String inicioSeccion() {
+		admin = Presistence.buscarAdministradores(usuario);
+		String retorno;
+		if (admin != null) {
+			if (!Ultilidades.desencriptador(admin.getContraseña()).equals(contraseña)) {
+				admin = null;
+				retorno = "Login";
+			}
+			else {
+				mostrarOpciones();
+				retorno = "Principal";
+			}
+		} else {
+			gere = Presistence.buscarGerentes(usuario);
+			if (gere != null) {
+				if (!Ultilidades.desencriptador(gere.getContraseña()).equals(contraseña)) {
+					gere = null;
+					retorno = "Login";
+				}
+				else {
+					mostrarOpciones();
+					retorno = "Principal";
+				}
+			}
+			else {
+				vend = Presistence.buscarVendedores(usuario);
+				if (vend != null) {
+					if (!Ultilidades.desencriptador(vend.getContraseña()).equals(contraseña)) {
+						vend = null;
+						retorno = "Login";
+					}
+					else {
+						mostrarOpciones();
+						retorno = "Principal";
+					}
+				}
+				else {
+					cli = Presistence.buscarCliente(usuario);
+					if (cli != null) {
+						if (!Ultilidades.desencriptador(cli.getContraseña()).equals(contraseña)) {
+							cli = null;
+							retorno = "Login";
+						}
+						else {
+							mostrarOpciones();
+							retorno = "Principal";
+						}
+					}
+					else {
+						retorno = "Login";
+					}
+				}
+			}
+		}
+		return retorno;
 		
-		mostrarOpciones();
-		return "Principal";
-	}
-	
-	public String inicioSeccionVendedor() {
-		
-		mostrarOpciones();
-		return "Principal";
-	}
-	
-	public String inicioSeccionAdmin() {
-		
-		mostrarOpciones();
-		return "Principal";
 	}
 	
 	public String seccionOpcionMenu() {
@@ -69,44 +110,39 @@ public class Session {
 	}
 	
 	public void mostrarOpciones() {
-		opciones = new ArrayList<String>();
-		opciones.add("Inicio");
-		opciones.add("Categorias");
-		menuTitulo = "Bienvenido ";
+		mTitulo = "Bienvenido ";
 		if (seCliente != null) {
-			menuTitulo += seCliente.getUsuario();
-			opciones.add("Perfil");
-			opciones.add("Mis compras");
-			opciones.add("Notificaciones");
-			opciones.add("Cerrar Seccion");
+			mTitulo += seCliente.getUsuario();
+			opIniciales = new String[] {
+					"Inicio", "Categorias",
+					"Perfil", "Mis compras", "Notificaciones",
+					"Cerrar Seccion", "Ayuda"
+			};
 		} else if (seVendedor != null) {
-			menuTitulo += seVendedor.getUsuario();
-			opciones.add("Perfil");
-			opciones.add("Mis ventas");
-			opciones.add("Mis productos");
-			opciones.add("Notificaciones");
-			opciones.add("Cerrar Seccion");
-			opciones.add("Notificaciones");
-			opciones.add("Cerrar Seccion");
+			mTitulo += seVendedor.getUsuario();
+			opIniciales = new String[] {
+					"Inicio",
+					"Perfil", "Mis ventas", "Mis productos",
+					"Notificaciones", "Cerrar Seccion", "Ayuda"
+			};
 		} else if (seAdmin != null) {
 			menuTitulo += seAdmin.getUsuario();
-			opciones.add("Perfil");
-			opciones.add("Reportes");
-			opciones.add("Clientes");
-			opciones.add("Vendedores");
-			opciones.add("Cerrar Seccion");
+			opIniciales = new String[] {
+					"Inicio",
+					"Perfil", "Reportes", "Clientes",
+					"Vendedores", "Cerrar Seccion"
+			};
 			
 		} else if (seGerente != null) {
-			menuTitulo += seGerente.getUsuario();
-			opciones.add("Perfil");
-			opciones.add("Cerrar Seccion");
+			mTitulo += seGerente.getUsuario();
+			opIniciales = new String[] {
+					"Inicio",
+					"Perfil",  "Cerrar Seccion"
+			};
 
 		} else {
-			menuTitulo += "<3";
-			opciones.add("Iniciar Session");
-			opciones.add("Registrate");
+			mTitulo += "<3";
 		}
-		opciones.add("Ayuda");
 	}
 
 	public ArrayList<String> getOpciones() {
