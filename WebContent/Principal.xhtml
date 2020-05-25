@@ -15,16 +15,18 @@
 	<title>Electro Compras Corps</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
-<h:body>
+<h:body style='background:#57bcb2'>
 	<h:form>
 
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
 			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
-					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false'>
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false' style='width:300px; height:70px; font-size:30px; color:#a4709c'>
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
 					</p:commandButton>
+					<br></br>
+					<br></br>
 				</ui:repeat>
 			</h:panelGrid>
 		</p:sidebar>
