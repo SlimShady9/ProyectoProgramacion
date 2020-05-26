@@ -1,16 +1,17 @@
 package co.edu.unbosque.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-import org.primefaces.event.FileUploadEvent;
+import org.omnifaces.cdi.GraphicImageBean;
 import org.primefaces.model.file.UploadedFile;
-
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
@@ -20,6 +21,7 @@ import co.edu.unbosque.model.Vendedor;
 
 @ManagedBean(name="seccion")
 @ViewAccessScoped
+@GraphicImageBean
 public class Session {
 	
 	/**
@@ -130,6 +132,8 @@ public class Session {
 		}
 		if (opcionSeleccionada.equals("Mis productos")) {
 			mensaje = "Tus Productos En Ventas";
+			seVendedor = vend;
+			System.out.println(seVendedor.toString());
 			if (vend.getProductos().size() < 1) {
 				mensaje = "Registra tu primer producto";
 			}
@@ -188,7 +192,6 @@ public class Session {
 	
 	public void guardarProducto() {
 		byte[] content = imagen.getContent();
-		System.out.println(content.length);
 		seProducto.setImagen(content);
 		seProducto.setVendedor(vend);
 		
@@ -206,6 +209,10 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
+	
+	public byte[] getContent(Producto pro) throws IOException {
+        return pro.getImagen();
+    }
 
 	public ArrayList<String> getOpciones() {
 		return opciones;

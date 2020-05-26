@@ -131,4 +131,11 @@ public class Vendedor  {
 		this.ventas = ventas;
 	}
 
+	@Override
+	public String toString() {
+		return "Vendedor [apellidos=" + apellidos + ", contraseña=" + contraseña + ", nombres=" + nombres + ", correo="
+				+ correo + ", sede=" + sede + ", banco=" + banco + ", identificacion=" + identificacion + ", usuario="
+				+ usuario + "]";
+	}
+
 }
