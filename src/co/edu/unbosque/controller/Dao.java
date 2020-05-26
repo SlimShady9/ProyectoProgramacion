@@ -1,6 +1,9 @@
 package co.edu.unbosque.controller;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import co.edu.unbosque.resources.HibernateUtil;
@@ -27,41 +30,46 @@ public class Dao {
 	protected static List<Gerencia> gerentes;
 	protected static List<Vendedor> vendedores;
 	protected static List<Ventas> ventas;
+	private static Session sesion = abrirSession();
 
 
 	//Desde el sesscion factory
-	private static Session abrirSession() {
+	public static Session abrirSession() {
 		return HibernateUtil.getSessionFactory().openSession();
 	}
-
+	
+	@Transactional
 	public static void cargarAdministradores() {
-		administradores = abrirSession().createCriteria(Administrador.class).list();
+		administradores = sesion.createCriteria(Administrador.class).list();
 	}
-
+	
+	@Transactional
 	public static void cargarClientes() {
-		clientes = abrirSession().createCriteria(Cliente.class).list();
+		clientes = sesion.createCriteria(Cliente.class).list();
 	}
-
+	
+	@Transactional
 	public static void cargarGerentes() {
-		gerentes = abrirSession().createCriteria(Gerencia.class).list();
+		gerentes = sesion.createCriteria(Gerencia.class).list();
 	}
-
+	
+	@Transactional
 	public static void cargarProductos() {
-		productos = abrirSession().createCriteria(Producto.class).list();
+		productos = sesion.createCriteria(Producto.class).list();
 	}
-
+	
+	@Transactional
 	public static void cargarVendedores() {
-		vendedores = abrirSession().createCriteria(Vendedor.class).list();
+		vendedores = sesion.createCriteria(Vendedor.class).list();
 	}
 
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(cli);
 			tran.commit();
-			session.close();
 
 		} catch (Exception e) {
 			if (tran != null) {
@@ -74,12 +82,11 @@ public class Dao {
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(vend);
 			tran.commit();
-			session.close();
 
 		} catch (Exception e) {
 			if (tran != null) {
@@ -91,12 +98,11 @@ public class Dao {
 
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
-			session.close();
 
 		} catch (Exception e) {
 			if (tran != null) {
@@ -108,12 +114,11 @@ public class Dao {
 
 	public static void agregarGerente(Gerencia gen) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(gen);
 			tran.commit();
-			session.close();
 
 		} catch (Exception e) {
 			if (tran != null) {
@@ -125,12 +130,11 @@ public class Dao {
 
 	public static void agregarProducto(Producto pro) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(pro);
 			tran.commit();
-			session.close();
 
 		} catch (Exception e) {
 			if (tran != null) {
@@ -147,8 +151,9 @@ public class Dao {
 	 * @param ven
 	 */
 	//Rey hizo esto, si esta mal fue otro xd
+	@Transactional
 	public static void actualizarCliente(Cliente persona) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		String id= persona.getUsuario();
 
 		try {
@@ -164,15 +169,16 @@ public class Dao {
 			buscar.setProductos(persona.getProductos());
 			buscar.setTarjetaCredito(persona.getTarjetaCredito());
 			buscar.setTipoDocumento(persona.getTipoDocumento());
-			session.update(buscar);
+			session.merge(buscar);
 			session.getTransaction().commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	//Rey hizo esto, si esta mal fue otro xd
+	@Transactional
 	public static void actualizarVendedor(Vendedor ven) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		String id= ven.getUsuario();
 		try {
 			session.beginTransaction();
@@ -185,14 +191,33 @@ public class Dao {
 			buscar.setNombres(ven.getNombres());
 			buscar.setProductos(ven.getProductos());
 			buscar.setSede(ven.getSede());
-			session.update(buscar);
+			session.merge(buscar);
 			session.getTransaction().commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	@Transactional
+	public static void actualizarProducto(Producto prod) {
+		Session session = sesion;
+		long id= prod.getId();
+		try {
+			session.beginTransaction();
+			Producto buscar = (Producto)session.get(Producto.class, id);
+			buscar.setCantidad(prod.getCantidad());
+			buscar.setCategoria(prod.getCategoria());
+			buscar.setImagen(prod.getImagen());
+			buscar.setPrecio(buscar.getPrecio());
+			buscar.setNombre(prod.getNombre());
+			session.merge(buscar);
+			session.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Transactional
 	public static void actualizarGerente(Gerencia ger) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		String id= ger.getUsuario();
 		try {
 			session.beginTransaction();
@@ -202,14 +227,15 @@ public class Dao {
 			buscar.setCorreo(ger.getCorreo());
 			buscar.setIdentificador(ger.getIdentificador());
 			buscar.setNombres(ger.getNombres());
-			session.update(buscar);
+			session.merge(buscar);
 			session.getTransaction().commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	@Transactional
 	public static void actualizarAdministrador(Administrador admin) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		String id= admin.getUsuario();
 		try {
 			session.beginTransaction();
@@ -220,7 +246,7 @@ public class Dao {
 			buscar.setIdentificacion(admin.getIdentificacion());
 			buscar.setNombres(admin.getNombres());
 			buscar.setSede(admin.getSede());
-			session.update(buscar);
+			session.merge(buscar);
 			session.getTransaction().commit();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -228,35 +254,36 @@ public class Dao {
 	}
 	
 	public static void eliminarCliente(Cliente cliente) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		session.delete(cliente);
 		session.getTransaction().commit();
-		session.close();
 
 	}
 
 	public static void eliminarVendedor(Vendedor vendedor) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		session.delete(vendedor);
 		session.getTransaction().commit();
-		session.close();
-
 	}
 	
 	public static void eliminarGerente(Gerencia gerente) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		session.delete(gerente);
 		session.getTransaction().commit();
-		session.close();
 
 	}
 	
 	public static void eliminarAdministrador(Administrador admin) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sesion;
 		session.delete(admin);
 		session.getTransaction().commit();
-		session.close();
 
+	}
+	
+	public static void eliminarProducto(Producto prod) {
+		Session session = sesion;
+		session.delete(prod);
+		session.getTransaction().commit();
 	}
 
 	public static void main (String args[]) {

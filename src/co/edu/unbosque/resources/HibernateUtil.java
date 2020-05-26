@@ -53,17 +53,14 @@ public class HibernateUtil {
         return sessionFactory;
 
     }
-    /**
-     * Existe un problema de eficiencia con las conecciones
-     * @return
-     */
+    
     public static Session getHibernateSession() {
 
         final SessionFactory sf = new Configuration()
             .configure("hibernate.cfg.xml").buildSessionFactory();
 
         // factory = new Configuration().configure().buildSessionFactory();
-        final Session session = sf.openSession();
+        final Session session = sf.getCurrentSession();
         return session;
         }
 

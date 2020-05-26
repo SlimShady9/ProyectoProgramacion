@@ -2,11 +2,19 @@ package co.edu.unbosque.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
+
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
+import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 
 
@@ -31,6 +39,8 @@ public class Session {
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
 	
+	private Producto seProducto = new Producto();
+	
 	private String usuario, contraseña;
 	
 	private static String mTitulo = "Bienvenido <3";
@@ -38,6 +48,8 @@ public class Session {
 	
 	private static String mensaje;
 	private String message = mensaje;
+	
+	private UploadedFile imagen;
 	
 	
 	public String inicioSeccion() {
@@ -84,7 +96,6 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
-							System.out.println(cli.toString());
 							mostrarOpciones();
 							retorno = "Principal";
 						}
@@ -117,9 +128,9 @@ public class Session {
 			mostrarOpciones();
 			return "Principal";
 		}
-		if (opcionSeleccionada.equals("Mis Productos")) {
+		if (opcionSeleccionada.equals("Mis productos")) {
 			mensaje = "Tus Productos En Ventas";
-			if (cli.getProductos().size() < 1) {
+			if (vend.getProductos().size() < 1) {
 				mensaje = "Registra tu primer producto";
 			}
 			message = mensaje;
@@ -173,6 +184,27 @@ public class Session {
 		}
 		opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 		menuTitulo = mTitulo;
+	}
+	
+	public void guardarProducto() {
+		byte[] content = imagen.getContent();
+		System.out.println(content.length);
+		seProducto.setImagen(content);
+		seProducto.setVendedor(vend);
+		
+		
+		
+	}
+	
+	public String registrarProducto() {
+		
+		String retorno = "Principal";
+		guardarProducto();
+		vend.getProductos().add(seProducto);
+		Presistence.actualizarVendedor(vend);
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return retorno;
 	}
 
 	public ArrayList<String> getOpciones() {
@@ -254,7 +286,21 @@ public class Session {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
 
+	public Producto getSeProducto() {
+		return seProducto;
+	}
+
+	public void setSeProducto(Producto seProducto) {
+		this.seProducto = seProducto;
+	}
+
+	public UploadedFile getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(UploadedFile imagen) {
+		this.imagen = imagen;
+	}
+	
 }

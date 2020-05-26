@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContexts;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
 import com.sun.mail.util.MailConnectException;
@@ -31,6 +32,7 @@ public class ProcesoRegistro implements Serializable {
 	private Cliente cliente = new Cliente();
 	private Vendedor vendedor = new Vendedor();
 	private Ultilidades util = new Ultilidades();
+	
 	private String confirmacionContraseña, numeroTarjeta = "";
 	private static Cliente cli;
 	private static Vendedor vend;
@@ -130,10 +132,9 @@ public class ProcesoRegistro implements Serializable {
 			        }else{
 			             men = "Select Captcha";
 			             retorno = "SigninCliente";
-			          }
+			        }
 				
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				men = "error";
 				retorno = "SinginCliente";
@@ -179,7 +180,8 @@ public class ProcesoRegistro implements Serializable {
 		
 		
 	}
-
+	
+	
 	public String getConfirmacionContraseña() {
 		return confirmacionContraseña;
 	}
@@ -212,5 +214,6 @@ public class ProcesoRegistro implements Serializable {
 		this.numeroTarjeta = numeroTarjeta;
 	}
 
+	
 	
 }

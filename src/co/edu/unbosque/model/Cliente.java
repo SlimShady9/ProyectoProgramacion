@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
 	@Column(name = "USUARIO")
 	private String usuario;
 	
-	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany
 	@JoinColumn (name = "COMPRADOR")
 	private List<Ventas> compras = new ArrayList<Ventas>();
 

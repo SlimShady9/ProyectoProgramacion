@@ -2,6 +2,8 @@ package co.edu.unbosque.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 /**
  * The persistent class for the Productos database table.
  * 
@@ -15,6 +17,10 @@ public class Producto {
     @Column(name = "id", updatable = false, nullable = false)
 	private long id;
 	
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "VENDEDOR")
+	private Vendedor vendedor;
+	
 	@Column(name = "CANTIDAD")
 	private int cantidad;
 	
@@ -27,9 +33,9 @@ public class Producto {
 	@Column(name = "PRECIO")
 	private double precio;
 	
-	@Column(name = "SEDE")
-	private String sede;
-	
+	@Lob
+	@Column (name = "IMAGEN", columnDefinition = "LONGVARBINARY")
+	private byte[] imagen;
 
 
 	public Producto() {
@@ -67,12 +73,36 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public String getSede() {
-		return this.sede;
+	public long getId() {
+		return id;
 	}
 
-	public void setSede(String sede) {
-		this.sede = sede;
+	public void setId(long id) {
+		this.id = id;
 	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+	
+
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [cantidad=" + cantidad + ", categoria=" + categoria + ", nombre=" + nombre + ", precio="
+				+ precio + "]";
+	}
+	
 
 }

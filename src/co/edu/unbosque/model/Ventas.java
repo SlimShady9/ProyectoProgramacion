@@ -1,7 +1,6 @@
 package co.edu.unbosque.model;
 
 import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +9,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "VENTAS")
 public class Ventas {
+	
+	
 	
 	@Id
 	@Column(name = "APELLIDOS")
@@ -67,6 +68,5 @@ public class Ventas {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
 	
 }

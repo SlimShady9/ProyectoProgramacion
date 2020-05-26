@@ -41,11 +41,11 @@ public class Vendedor  {
 	@Column(name = "USUARIO")
 	private String usuario;
 	
-	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn (name = "VENDEDOR")
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn (name = "VENDEDOR" )
 	private List<Producto> productos = new ArrayList<Producto>();
 	
-	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn (name = "VENDEDOR")
 	private List<Ventas> ventas = new ArrayList<Ventas>();
 	
