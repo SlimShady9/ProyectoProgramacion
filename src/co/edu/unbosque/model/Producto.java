@@ -1,5 +1,6 @@
 package co.edu.unbosque.model;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import org.omnifaces.cdi.GraphicImageBean;
 
@@ -9,6 +10,7 @@ import org.omnifaces.cdi.GraphicImageBean;
  */
 @Entity
 @Table(name = "PRODUCTOS")
+@ApplicationScoped
 public class Producto {
 
 	@Id
