@@ -9,7 +9,6 @@ import org.omnifaces.cdi.GraphicImageBean;
  */
 @Entity
 @Table(name = "PRODUCTOS")
-@GraphicImageBean
 public class Producto {
 
 	@Id
@@ -33,8 +32,7 @@ public class Producto {
 	@Column(name = "PRECIO")
 	private double precio;
 
-	@Lob
-	@Column (name = "IMAGEN", columnDefinition = "LONGVARBINARY")
+	@Column (name = "IMAGEN")
 	private byte[] imagen;
 
 
