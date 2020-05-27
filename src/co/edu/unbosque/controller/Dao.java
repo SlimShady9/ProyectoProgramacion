@@ -19,6 +19,7 @@ public class Dao {
 
 
 	/**
+	 * lalalala
 	 * Esta clase tendra toda la persistencia del proyecto
 	 * Asi como los arreglos traidos directos de la base de datos
 	 * Esto para que el controlador maneje las secciones usando directamente esta clase
