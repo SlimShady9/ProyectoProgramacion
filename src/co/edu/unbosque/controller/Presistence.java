@@ -9,6 +9,7 @@ import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
+import co.edu.unbosque.model.Ventas;
 public class Presistence {
 
 	/**
@@ -19,7 +20,7 @@ public class Presistence {
 	public Presistence() {;
 	}
 	public static void cargarTablas() {
-		
+
 		Dao.cargarProductos();
 		Dao.cargarClientes();
 		Dao.cargarVendedores();
@@ -171,61 +172,76 @@ public class Presistence {
 		return false;
 
 	}
-public ArrayList<Administrador> busquedaAdmin(String user) {		
+	public ArrayList<Administrador> busquedaAdmin(String user) {		
 		ArrayList<Administrador> sofixd = new ArrayList<Administrador>(Dao.administradores);
 		try {	
 			for(int j=0;j<sofixd.size();j++) {
 				if(!sofixd.get(j).getSede().equalsIgnoreCase(user)){
 					sofixd.remove(j);
 					j--;
-					}
+				}
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sofixd;
-}
-public ArrayList<Cliente> busquedaCliente(String user) {		
-	ArrayList<Cliente> sofixd = new ArrayList<Cliente>(Dao.clientes);
-	try {	
-		for(int j=0;j<sofixd.size();j++) {
-			if(!sofixd.get(j).getCiudad().equalsIgnoreCase(user)){
-				sofixd.remove(j);
-				j--;
-				}
-		}
-	}catch (Exception e) {
-		e.printStackTrace();
 	}
-	return sofixd;
-}
-public ArrayList<Vendedor> busquedaVendedor(String user) {		
-	ArrayList<Vendedor> sofixd = new ArrayList<Vendedor>(Dao.vendedores);
-	try {	
-		for(int j=0;j<sofixd.size();j++) {
-			if(!sofixd.get(j).getSede().equalsIgnoreCase(user)){
-				sofixd.remove(j);
-				j--;
+	public ArrayList<Cliente> busquedaCliente(String user) {		
+		ArrayList<Cliente> sofixd = new ArrayList<Cliente>(Dao.clientes);
+		try {	
+			for(int j=0;j<sofixd.size();j++) {
+				if(!sofixd.get(j).getCiudad().equalsIgnoreCase(user)){
+					sofixd.remove(j);
+					j--;
 				}
-		}
-	}catch (Exception e) {
-		e.printStackTrace();
-	}
-	return sofixd;
-}
-public ArrayList<Producto> busquedaProductos(ArrayList<Vendedor> user) {	
-	ArrayList<Producto> sofixd = new ArrayList<Producto>();
-	try {			
-		for(int j =0;j<user.size();j++) {
-			List<Producto> we = user.get(j).getProductos();
-			for(int i=0;i<we.size();i++) {
-				Producto xd = we.get(i);
-				sofixd.add(xd);
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-	}catch (Exception e) {
-		e.printStackTrace();
+		return sofixd;
 	}
-	return sofixd;
-}
+	public ArrayList<Vendedor> busquedaVendedor(String user) {		
+		ArrayList<Vendedor> sofixd = new ArrayList<Vendedor>(Dao.vendedores);
+		try {	
+			for(int j=0;j<sofixd.size();j++) {
+				if(!sofixd.get(j).getSede().equalsIgnoreCase(user)){
+					sofixd.remove(j);
+					j--;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sofixd;
+	}
+	public ArrayList<Producto> busquedaProductos(ArrayList<Vendedor> user) {	
+		ArrayList<Producto> sofixd = new ArrayList<Producto>();
+		try {			
+			for(int j =0;j<user.size();j++) {
+				List<Producto> we = user.get(j).getProductos();
+				for(int i=0;i<we.size();i++) {
+					Producto xd = we.get(i);
+					sofixd.add(xd);
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sofixd;
+	}
+	public ArrayList<Ventas> busquedaVentas(ArrayList<Vendedor> user) {	
+		ArrayList<Ventas> sofixd = new ArrayList<Ventas>();
+		try {			
+			for(int j =0;j<user.size();j++) {
+				List<Ventas> we = user.get(j).getVentas();
+				for(int i=0;i<we.size();i++) {
+					Ventas xd = we.get(i);
+					sofixd.add(xd);
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sofixd;
+	}
 }

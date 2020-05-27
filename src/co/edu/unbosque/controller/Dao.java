@@ -285,48 +285,4 @@ public class Dao {
 		session.delete(prod);
 		session.getTransaction().commit();
 	}
-
-	public static void main (String args[]) {
-
-
-		//		Administrador juano = new Administrador();
-		//		juano.setNombres("Juan David Alberto");
-		//		juano.setApellidos("Quintero Gaona");
-		//		juano.setUsuario("Juan");
-		//		juano.setContraseña("Juan123");
-		//		juano.setSede("Tu Cora <3");
-		//
-		//		Transaction transaccion = null;
-		//		try (Session session = HibernateUtil.getSessionFactory().openSession()){
-		//
-		//			transaccion = session.beginTransaction();
-		//			session.save(juano);
-		//			transaccion.commit();
-		//			session.close();
-		//
-		//		} catch (Exception e) {
-		//			if (transaccion != null) {
-		//				transaccion.rollback();
-		//			}
-		//			e.printStackTrace();
-		//		}
-		Vendedor vendedor = new Vendedor();
-		vendedor.setNombres("Pedro");
-		vendedor.setApellidos("Alcachofa");
-		vendedor.setCorreo("abc@gmail.com");
-		vendedor.setSede("Mundial");
-		vendedor.setUsuario("Pedio123");
-
-		Producto pr1= new Producto();
-		pr1.setCantidad(3);
-		pr1.setCategoria("Tec");
-		pr1.setNombre("Celucos");
-		pr1.setNombre("Juajuei");
-		pr1.setPrecio(5000);
-
-		vendedor.getProductos().add(pr1);
-
-		Dao.agregarVendedor(vendedor);
-
-	}
 }

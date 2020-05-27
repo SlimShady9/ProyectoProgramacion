@@ -1,8 +1,7 @@
 package co.edu.unbosque.model;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
+import org.omnifaces.cdi.GraphicImageBean;
 
 /**
  * The persistent class for the Productos database table.
@@ -10,29 +9,30 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Table(name = "PRODUCTOS")
+@GraphicImageBean
 public class Producto {
 
 	@Id
 	@GeneratedValue
-    @Column(name = "id", updatable = false, nullable = false)
+	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
-	
+
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name = "VENDEDOR")
 	private Vendedor vendedor;
-	
+
 	@Column(name = "CANTIDAD")
 	private int cantidad;
-	
+
 	@Column(name = "CATEGORIA")
 	private String categoria;
-	
+
 	@Column(name = "NOMBRE")
 	private String nombre;
-	
+
 	@Column(name = "PRECIO")
 	private double precio;
-	
+
 	@Lob
 	@Column (name = "IMAGEN", columnDefinition = "LONGVARBINARY")
 	private byte[] imagen;
@@ -40,7 +40,7 @@ public class Producto {
 
 	public Producto() {
 	}
-
+	
 	public int getCantidad() {
 		return this.cantidad;
 	}
@@ -88,7 +88,7 @@ public class Producto {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-	
+
 
 	public Vendedor getVendedor() {
 		return vendedor;
@@ -103,6 +103,6 @@ public class Producto {
 		return "Producto [cantidad=" + cantidad + ", categoria=" + categoria + ", nombre=" + nombre + ", precio="
 				+ precio + "]";
 	}
-	
+
 
 }

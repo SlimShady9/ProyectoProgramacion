@@ -1,16 +1,19 @@
 package co.edu.unbosque.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.omnifaces.cdi.GraphicImageBean;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
@@ -20,10 +23,10 @@ import co.edu.unbosque.model.Vendedor;
 
 
 @ManagedBean(name="seccion")
-@ViewAccessScoped
-@GraphicImageBean
+@RequestScoped
+@ApplicationScoped
 public class Session {
-	
+
 	/**
 	 * Esta clase es la que manejara todo lo que a secciones respecta
 	 * Cuando alguien se regitre se activara cierta seccion
@@ -31,7 +34,7 @@ public class Session {
 	 */
 	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
-	
+
 	private Cliente seCliente = null;
 	private static Cliente cli;
 	private Vendedor seVendedor = null;
@@ -40,20 +43,21 @@ public class Session {
 	private static Administrador admin;
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
-	
+
 	private Producto seProducto = new Producto();
-	
+
 	private String usuario, contraseña;
-	
+
 	private static String mTitulo = "Bienvenido <3";
 	private String menuTitulo = mTitulo, opcionSeleccionada;
-	
+
 	private static String mensaje;
 	private String message = mensaje;
-	
+
 	private UploadedFile imagen;
-	
-	
+
+
+
 	public String inicioSeccion() {
 		admin = Presistence.buscarAdministradores(usuario);
 		String retorno;
@@ -109,9 +113,9 @@ public class Session {
 			}
 		}
 		return retorno;
-		
+
 	}
-	
+
 	public String seccionOpcionMenu() {
 		if (opcionSeleccionada.equals("Inicio")) {
 			return "Principal";
@@ -133,7 +137,6 @@ public class Session {
 		if (opcionSeleccionada.equals("Mis productos")) {
 			mensaje = "Tus Productos En Ventas";
 			seVendedor = vend;
-			System.out.println(seVendedor.toString());
 			if (vend.getProductos().size() < 1) {
 				mensaje = "Registra tu primer producto";
 			}
@@ -141,15 +144,15 @@ public class Session {
 			return "MisProductos";
 		}
 		if (opcionSeleccionada.equals("Mis Ventas")) {
-			
+
 		}
 		if (opcionSeleccionada.equals("Mi Perfil")) {
-			
+
 		}
 		return null;
-		
+
 	}
-	
+
 	public void mostrarOpciones() {
 		mTitulo = "Bienvenido ";
 		if (cli != null) {
@@ -172,7 +175,7 @@ public class Session {
 					"Inicio", "Reportes", "Clientes",
 					"Vendedores", "Cerrar Sesión"
 			};
-			
+
 		} else if (gere != null) {
 			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
@@ -189,18 +192,16 @@ public class Session {
 		opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 		menuTitulo = mTitulo;
 	}
-	
+
 	public void guardarProducto() {
 		byte[] content = imagen.getContent();
 		seProducto.setImagen(content);
 		seProducto.setVendedor(vend);
-		
-		
-		
+
 	}
-	
+
 	public String registrarProducto() {
-		
+
 		String retorno = "Principal";
 		guardarProducto();
 		vend.getProductos().add(seProducto);
@@ -209,10 +210,7 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
-	
-	public byte[] getContent(Producto pro) throws IOException {
-        return pro.getImagen();
-    }
+
 
 	public ArrayList<String> getOpciones() {
 		return opciones;
@@ -309,5 +307,6 @@ public class Session {
 	public void setImagen(UploadedFile imagen) {
 		this.imagen = imagen;
 	}
-	
+
+
 }

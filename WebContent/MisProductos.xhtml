@@ -60,10 +60,30 @@
 		<h1 class="Titulo">#{seccion.message}</h1>
 		<p:commandButton value="Registra Un Producto"
 			action="RegistroProducto"></p:commandButton>
-			
-		<ui:repeat value="#{seccion.seVendedor.productos}" var="i">
-			<o:graphicImage value="#{seccion.getContent(i.imagen)}" />
-		</ui:repeat>
+
+		<p:dataTable value="#{seccion.seVendedor.productos}" var="i" rows="10"
+			paginator="true">
+			<p:column headerText="Imagen" style="width: 200px;">
+				<o:graphicImage class="Iconos" value="#{i.imagen}"
+					alt="image not available" />
+			</p:column>
+			<p:column headerText="Descripcion" style = "width: 600px;">
+				<div class="InformacionProducto">
+					<h:outputLabel value="Nombre:	"></h:outputLabel>
+					<h:outputLabel value="#{i.nombre}"></h:outputLabel>
+					<br></br>
+					<h:outputLabel value="Categoria:	"></h:outputLabel>
+					<h:outputLabel value="#{i.categoria}"></h:outputLabel>
+					<br></br>
+					<h:outputLabel value="Precio:	"></h:outputLabel>
+					<h:outputLabel value="#{i.precio}"></h:outputLabel>
+					<br></br>
+					<h:outputLabel value="Cantidad:	"></h:outputLabel>
+					<h:outputLabel value="#{i.cantidad}"></h:outputLabel>
+					<br></br>
+				</div>
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </h:body>
 </html>
