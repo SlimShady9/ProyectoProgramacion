@@ -77,6 +77,7 @@ public class VerifyRecaptcha {
 		wr.writeBytes(postParams);
 		wr.flush();
 		wr.close();
+		@SuppressWarnings("unused")
 		int responseCode = con.getResponseCode();
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(

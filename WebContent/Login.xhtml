@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Página del Login -->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -7,6 +10,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich">
 	
+<!-- Encabezado -->
 <h:head>
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
@@ -15,11 +19,15 @@
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
 
+<!-- Cuerpo -->
 <h:body>
 	<h:form>
+	
+		<!-- Barra lateral que contiene el menu -->
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000" styleClass="BarraLateral">
 			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
+			<!-- Opciones del menu -->
 				<ui:repeat var="i" value="#{seccion.opciones}">
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}" ajax='false' style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
 						<f:setPropertyActionListener value="#{i}" target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
@@ -31,15 +39,19 @@
 		</p:sidebar>
 		<rich:toolBar class="menuBarra">
 			<rich:toolBarGroup>
+			<!-- Icono de la tres lineas del menu -->
 				<p:commandLink>
 					<h:graphicImage styleClass="menuIcon"
 						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
 			</rich:toolBarGroup>
+			<!-- Elementos de la barra de busqueda -->
 			<rich:toolBarGroup id="elementosDer">
+				<!-- Icono de la lupa -->
 				<p:commandLink>
 					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
+				<!-- Barra de la busqueda -->
 				<h:inputText styleClass="barsearch" style="width:360px; height:46px; font-size:25px"/>
 
 			</rich:toolBarGroup>
