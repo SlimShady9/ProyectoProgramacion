@@ -1,6 +1,5 @@
 package co.edu.unbosque.model;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import org.omnifaces.cdi.GraphicImageBean;
 
@@ -10,7 +9,6 @@ import org.omnifaces.cdi.GraphicImageBean;
  */
 @Entity
 @Table(name = "PRODUCTOS")
-@ApplicationScoped
 @GraphicImageBean
 public class Producto {
 
@@ -37,7 +35,6 @@ public class Producto {
 
 	@Column (name = "IMAGEN")
 	private byte[] imagen;
-
 
 	public Producto() {
 	}
@@ -98,6 +95,8 @@ public class Producto {
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
 	}
+	
+
 
 	@Override
 	public String toString() {
@@ -105,5 +104,6 @@ public class Producto {
 				+ precio + "]";
 	}
 
+	
 
 }

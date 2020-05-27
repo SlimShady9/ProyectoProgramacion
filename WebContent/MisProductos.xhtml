@@ -61,13 +61,16 @@
 		<p:commandButton value="Registra Un Producto"
 			action="RegistroProducto"></p:commandButton>
 
-		<p:dataTable value="#{seccion.seVendedor.productos}" var="i" rows="10"
-			paginator="true">
+
+		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5"
+			paginator="true" rowIndexVar="cont">
 			<p:column headerText="Imagen" style="width: 200px;">
+
 				<o:graphicImage class="Iconos" value="#{i.imagen}"
-					alt="image not available" />
+					alt="image not available" dataURI="true"/>
+
 			</p:column>
-			<p:column headerText="Descripcion" style = "width: 600px;">
+			<p:column headerText="Descripcion" style="width: 600px;">
 				<div class="InformacionProducto">
 					<h:outputLabel value="Nombre:	"></h:outputLabel>
 					<h:outputLabel value="#{i.nombre}"></h:outputLabel>

@@ -1,19 +1,13 @@
 package co.edu.unbosque.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-
-import org.omnifaces.cdi.GraphicImageBean;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
@@ -23,8 +17,7 @@ import co.edu.unbosque.model.Vendedor;
 
 
 @ManagedBean(name="seccion")
-@RequestScoped
-@ApplicationScoped
+@SessionScoped
 public class Session {
 
 	/**
@@ -43,6 +36,7 @@ public class Session {
 	private static Administrador admin;
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
+	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
 
 	private Producto seProducto = new Producto();
 
@@ -91,6 +85,11 @@ public class Session {
 					}
 					else {
 						mostrarOpciones();
+						seProductos = new ArrayList<Producto>();
+						for (int i = 0 ; i < vend.getProductos().size() ; i++) {
+							vend.getProductos().get(i).getImagen();
+							seProductos.add(vend.getProductos().get(i));
+						}
 						retorno = "Principal";
 					}
 				}
@@ -135,10 +134,10 @@ public class Session {
 			return "Principal";
 		}
 		if (opcionSeleccionada.equals("Mis productos")) {
-			mensaje = "Tus Productos En Ventas";
+			mensaje = "Tus Productos En Venta";
 			seVendedor = vend;
 			if (vend.getProductos().size() < 1) {
-				mensaje = "Registra tu primer producto";
+				mensaje = "Registra tu primer Producto";
 			}
 			message = mensaje;
 			return "MisProductos";
@@ -195,9 +194,10 @@ public class Session {
 
 	public void guardarProducto() {
 		byte[] content = imagen.getContent();
+		System.out.println(content.length);
 		seProducto.setImagen(content);
 		seProducto.setVendedor(vend);
-
+		imagen = null;
 	}
 
 	public String registrarProducto() {
@@ -205,6 +205,7 @@ public class Session {
 		String retorno = "Principal";
 		guardarProducto();
 		vend.getProductos().add(seProducto);
+		seProductos.add(seProducto);
 		Presistence.actualizarVendedor(vend);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -308,5 +309,14 @@ public class Session {
 		this.imagen = imagen;
 	}
 
+	public ArrayList<Producto> getSeProductos() {
+		return seProductos;
+	}
+
+	public void setSeProductos(ArrayList<Producto> seProductos) {
+		this.seProductos = seProductos;
+	}
+	
+	
 
 }
