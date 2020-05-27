@@ -49,6 +49,8 @@ public class Session {
 	private String message = mensaje;
 
 	private UploadedFile imagen;
+	
+	private ArrayList<ArrayList<Producto>> matrizProductos;
 
 
 
