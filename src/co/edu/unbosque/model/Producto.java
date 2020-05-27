@@ -11,6 +11,7 @@ import org.omnifaces.cdi.GraphicImageBean;
 @Entity
 @Table(name = "PRODUCTOS")
 @ApplicationScoped
+@GraphicImageBean
 public class Producto {
 
 	@Id
