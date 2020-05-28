@@ -1,4 +1,6 @@
 package co.edu.unbosque.controller;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -9,11 +11,9 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
-
 import com.sun.mail.util.MailConnectException;
-
 import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 
 
@@ -130,5 +130,26 @@ public class Ultilidades {
             		+ "Si este correo no es para ti por favor eliminalo");
             Transport.send(message);
     }
+	
+	public static List<ArrayList<Producto>> generarMatrizProducto(){
+		// Aqui iria mi algoritmo de ordenacion por popularidad...
+		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
+		ArrayList<Producto> fila = new ArrayList<Producto>();
+		for (int i = 0 ; i < Dao.productos.size() ; i++) {
+			fila.add(Dao.productos.get(i));
+			// cada 4 columnas agrego una fila
+			if ( (i+1) % 4 == 0) {
+				ArrayList<Producto> loQueMetere = fila;
+				matriz.add(loQueMetere);
+				// limpio el array
+				fila = new ArrayList<Producto>();
+			}
+		}
+		if (Dao.productos.size() % 4 != 0) {
+			matriz.add(fila);
+		}
+		return matriz;
+			
+	}
 
 }

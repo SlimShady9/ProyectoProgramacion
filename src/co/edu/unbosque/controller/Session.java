@@ -3,8 +3,8 @@ package co.edu.unbosque.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -36,6 +36,8 @@ public class Session {
 	private static Administrador admin;
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
+	
+	
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
 
 	private Producto seProducto = new Producto();
@@ -50,7 +52,12 @@ public class Session {
 
 	private UploadedFile imagen;
 	
-	private ArrayList<ArrayList<Producto>> matrizProductos;
+	/**
+	 * Esta matriz es ideal para un algorito de ordenamiento por popularidad o algo asi
+	 * Este algoritmo iria en el metodo de cargar matrizProductos
+	 * Lo pondre en utilidades para no satudad esta clase
+	 */
+	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto();
 
 
 
@@ -317,6 +324,14 @@ public class Session {
 
 	public void setSeProductos(ArrayList<Producto> seProductos) {
 		this.seProductos = seProductos;
+	}
+
+	public List<ArrayList<Producto>> getseMatrizProductos() {
+		return seMatrizProductos;
+	}
+
+	public void setMatrizProductos(List<ArrayList<Producto>> matrizProductos) {
+		this.seMatrizProductos = matrizProductos;
 	}
 	
 	
