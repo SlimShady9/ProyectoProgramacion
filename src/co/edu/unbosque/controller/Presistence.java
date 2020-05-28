@@ -80,7 +80,7 @@ public class Presistence {
 		}
 		return null;
 	}
-	public static Vendedor buscarVendedores (String usuario) {
+	public static Vendedor buscarVendedor (String usuario) {
 		for (Vendedor i : Dao.vendedores) {
 			if (i.getUsuario().equals(usuario)) {
 				return i;
@@ -88,7 +88,7 @@ public class Presistence {
 		}
 		return null;
 	}
-	public static Administrador buscarAdministradores (String usuario) {
+	public static Administrador buscarAdministrador (String usuario) {
 		for (Administrador i : Dao.administradores) {
 			if (i.getUsuario().equals(usuario)) {
 				return i;
@@ -106,7 +106,7 @@ public class Presistence {
 		return false;
 	}
 	public static boolean actualizarVendedor(Vendedor ven) {
-		Vendedor vendedor = buscarVendedores(ven.getUsuario());
+		Vendedor vendedor = buscarVendedor(ven.getUsuario());
 		if (vendedor != null) {
 			vendedor = ven;
 			Dao.actualizarVendedor(vendedor);
@@ -124,7 +124,7 @@ public class Presistence {
 		return false;
 	}
 	public static boolean actualizarAdmin(Administrador admin) {
-		Administrador adminis = buscarAdministradores(admin.getUsuario());
+		Administrador adminis = buscarAdministrador(admin.getUsuario());
 		if (adminis != null) {
 			adminis = admin;
 			Dao.actualizarAdministrador(adminis);
@@ -143,7 +143,7 @@ public class Presistence {
 
 	}
 	public static boolean eliminarVendedor(Vendedor vendedor) {
-		Vendedor ven = buscarVendedores(vendedor.getUsuario());
+		Vendedor ven = buscarVendedor(vendedor.getUsuario());
 		if (ven != null) {
 			Dao.eliminarVendedor(ven);
 			Dao.vendedores.remove(ven);
@@ -163,7 +163,7 @@ public class Presistence {
 
 	}
 	public static boolean eliminarAdministrador(Administrador adminis) {
-		Administrador admin = buscarAdministradores(adminis.getUsuario());
+		Administrador admin = buscarAdministrador(adminis.getUsuario());
 		if (admin != null) {
 			Dao.eliminarAdministrador(admin);
 			Dao.administradores.remove(admin);
@@ -172,7 +172,7 @@ public class Presistence {
 		return false;
 
 	}
-	public ArrayList<Administrador> busquedaAdmin(String user) {		
+	public ArrayList<Administrador> busquedaAdministradores(String user) {		
 		ArrayList<Administrador> sofixd = new ArrayList<Administrador>(Dao.administradores);
 		try {	
 			for(int j=0;j<sofixd.size();j++) {
@@ -186,7 +186,7 @@ public class Presistence {
 		}
 		return sofixd;
 	}
-	public ArrayList<Cliente> busquedaCliente(String user) {		
+	public ArrayList<Cliente> busquedaClientes(String user) {		
 		ArrayList<Cliente> sofixd = new ArrayList<Cliente>(Dao.clientes);
 		try {	
 			for(int j=0;j<sofixd.size();j++) {
@@ -200,7 +200,7 @@ public class Presistence {
 		}
 		return sofixd;
 	}
-	public ArrayList<Vendedor> busquedaVendedor(String user) {		
+	public static ArrayList<Vendedor> busquedaVendedores(String user) {		
 		ArrayList<Vendedor> sofixd = new ArrayList<Vendedor>(Dao.vendedores);
 		try {	
 			for(int j=0;j<sofixd.size();j++) {
@@ -229,7 +229,7 @@ public class Presistence {
 		}
 		return sofixd;
 	}
-	public ArrayList<Ventas> busquedaVentas(ArrayList<Vendedor> user) {	
+	public static ArrayList<Ventas> busquedaVentas(ArrayList<Vendedor> user) {	
 		ArrayList<Ventas> sofixd = new ArrayList<Ventas>();
 		try {			
 			for(int j =0;j<user.size();j++) {

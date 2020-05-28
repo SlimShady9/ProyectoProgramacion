@@ -65,7 +65,7 @@ public class Session {
 
 
 	public String inicioSeccion() {
-		admin = Presistence.buscarAdministradores(usuario);
+		admin = Presistence.buscarAdministrador(usuario);
 		String retorno;
 		if (admin != null) {
 			if (!Ultilidades.desencriptador(admin.getContraseña()).equals(contraseña)) {
@@ -89,7 +89,7 @@ public class Session {
 				}
 			}
 			else {
-				vend = Presistence.buscarVendedores(usuario);
+				vend = Presistence.buscarVendedor(usuario);
 				if (vend != null) {
 					if (!Ultilidades.desencriptador(vend.getContraseña()).equals(contraseña)) {
 						vend = null;
