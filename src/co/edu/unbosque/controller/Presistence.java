@@ -63,7 +63,6 @@ public class Presistence {
 		}
 		return false;
 	}
-
 	public static Cliente buscarCliente (String usuario) {
 		for (Cliente i : Dao.clientes) {
 			if (i.getUsuario().equals(usuario)) {
@@ -88,6 +87,7 @@ public class Presistence {
 		}
 		return null;
 	}
+	
 	public static Administrador buscarAdministrador (String usuario) {
 		for (Administrador i : Dao.administradores) {
 			if (i.getUsuario().equals(usuario)) {

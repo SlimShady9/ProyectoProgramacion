@@ -1,4 +1,5 @@
 package co.edu.unbosque.controller;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -19,6 +20,9 @@ import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
 
+import java.util.Calendar;
+
+
 
 public class Ultilidades {
 
@@ -31,6 +35,10 @@ public class Ultilidades {
 
 		}
 		return nuevo;
+	}
+	public Date fechaActual() {
+		Date fecha = new Date(Calendar.getInstance().getTime().getTime());
+		return fecha;
 	}
 	public static boolean validarTarjeta(String input) {
 		input = parseoTarjeta(input);
@@ -183,6 +191,64 @@ public class Ultilidades {
 			vent.set(j+1, aux);
 		}
 		return vent;
+	}
+	public void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	{
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+			}
+		});
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(user.getCorreo()));
+		message.setSubject("Registo The Gran Hermano Stor");
+		message.setText("felicitaciones! Has completado tu proceso de compra \nVerifica que estos datos sean correctos antes de iniciar\n"
+				+"Datos de tu compra: \n"
+				+ "Producto: "+prod.getNombre()+"\n"
+				+ "Cantidad : "+Ncompras+"\n"
+				+ "Precio por unidad: "+prod.getPrecio()+"\n"
+				+ "Precio total: "+(prod.getPrecio()*Ncompras)+"\n"
+				+ "Si este correo no es para ti por favor eliminalo");
+		Transport.send(message);
+	}
+	public void SendMailVentas(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	{
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+			}
+		});
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(user.getCorreo()));
+		message.setSubject("Registo The Gran Hermano Stor");
+		message.setText("felicitaciones! Se ha realizado la compra de uno de tus productos \nVerifica que estos datos sean correctos antes de iniciar\n"
+				+"Datos de tu Venta: \n"
+				+ "Producto: "+prod.getNombre()+"\n"
+				+ "Cantidad : "+Ncompras+"\n"
+				+ "Precio por unidad: "+prod.getPrecio()+"\n"
+				+ "Precio total: "+(prod.getPrecio()*Ncompras)+"\n"
+				+ "Si este correo no es para ti por favor eliminalo");
+		Transport.send(message);
 	}
 
 }
