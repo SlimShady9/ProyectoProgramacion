@@ -58,7 +58,10 @@ public class Session {
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
 	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto();
-
+	
+	// Este producto es el seleccionado
+	
+	private Producto proSelecc;
 
 
 	public String inicioSeccion() {
@@ -332,6 +335,14 @@ public class Session {
 
 	public void setMatrizProductos(List<ArrayList<Producto>> matrizProductos) {
 		this.seMatrizProductos = matrizProductos;
+	}
+
+	public Producto getProSelecc() {
+		return proSelecc;
+	}
+
+	public void setProSelecc(Producto proSelecc) {
+		this.proSelecc = proSelecc;
 	}
 	
 	

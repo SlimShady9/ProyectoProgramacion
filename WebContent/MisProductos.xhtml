@@ -20,7 +20,7 @@
 	<h:form>
 
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
-			styleClass="BarraLateral">
+			styleClass="BarraLateral" selectionMode="single" selection="#{seccion.proSelecc}">
 			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">

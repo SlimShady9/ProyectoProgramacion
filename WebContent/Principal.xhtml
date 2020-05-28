@@ -13,14 +13,14 @@
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
-	
+
 	<title>Electro Compras Corps</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
 
 <h:body style='background:#57bcb2'>
 	<h:form>
-
+		
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
 			styleClass="BarraLateral">
 			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
@@ -60,20 +60,43 @@
 			</rich:tooBarGrupo>
 		</rich:toolBar>
 
-		<h1 id = "tituloProductos">Productos</h1>
+		<h1 id="tituloProductos">Productos top</h1>
 
 		<table id="table-id" class="tablaProductos">
 			<ui:repeat var="row" value="#{seccion.seMatrizProductos}">
 				<tr id="filaTabla">
 					<ui:repeat var="column" value="#{row}">
-						<td id="columnaTabla"><o:graphicImage class="Iconos"
-								value="#{column.imagen}" alt="image not available"
-								dataURI="true" />
+
+						<td id="columnaTabla">
+							<p:commandLink id="imgTop">
+								<o:graphicImage class="Iconos" value="#{column.imagen}"
+									alt="image not available" dataURI="true" />
+								<f:setPropertyActionListener value="#{column}"
+									target="#{seccion.proSelecc}"></f:setPropertyActionListener>
+							</p:commandLink>
 							<h4 id="price">$ #{column.precio}</h4></td>
+
+
 					</ui:repeat>
 				</tr>
 			</ui:repeat>
 		</table>
+		<p:overlayPanel id="moviePanel" for="imgTop" hideEffect="fade"
+			dynamic="true" style="width:600px" modal="true">
+			<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
+				<h:outputText value="Nombre: *" />
+				<h:outputText value="#{seccion.proSelecc.nombre}" />
+				
+				<h:outputText value="Categoria: *" />
+				<h:outputText value="#{seccion.proSelecc.caregoria}" />
+				
+				<h:outputText value="Disponibilidad: *" />
+				<h:outputText value="#{seccion.proSelecc.cantidad}" />
+				
+				<h:outputText value="Precio: *" />
+				<h:outputText value="#{seccion.proSelecc.precio}" />
+			</h:panelGrid>
+		</p:overlayPanel>
 	</h:form>
 </h:body>
 </html>
