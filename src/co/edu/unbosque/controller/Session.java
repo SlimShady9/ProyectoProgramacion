@@ -62,6 +62,7 @@ public class Session {
 	// Este producto es el seleccionado
 	
 	private Producto proSelecc;
+	private static String nombre, precio, categoria, vendedor;
 
 
 	public String inicioSeccion() {
@@ -338,12 +339,46 @@ public class Session {
 	}
 
 	public Producto getProSelecc() {
+		System.out.println(proSelecc);
 		return proSelecc;
 	}
 
 	public void setProSelecc(Producto proSelecc) {
 		this.proSelecc = proSelecc;
 	}
+
+	public static String getNombre() {
+		return nombre;
+	}
+
+	public static void setNombre(String nombre) {
+		Session.nombre = nombre;
+	}
+
+	public static String getPrecio() {
+		return precio;
+	}
+
+	public static void setPrecio(String precio) {
+		Session.precio = precio;
+	}
+
+	public static String getVendedor() {
+		return vendedor;
+	}
+
+	public static void setVendedor(String vendedor) {
+		Session.vendedor = vendedor;
+	}
+
+	public static String getCategoria() {
+		return categoria;
+	}
+
+	public static void setCategoria(String categoria) {
+		Session.categoria = categoria;
+	}
+	
 	
 	
 
