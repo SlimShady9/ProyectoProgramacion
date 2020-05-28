@@ -99,6 +99,23 @@ body {
     height: 250px;
 }
 .Iconos{
+    display: block;
     height: 200px;
     width : 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tablaProductos{
+    margin-left: 50px;
+    border-spacing: 50px;
+   
+     
+}
+#columnaTabla{
+    background-color: black;
+    padding: 0 50px
+}
+#price{
+    color: white;
+    text-align: center;
 }

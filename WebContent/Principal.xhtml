@@ -13,9 +13,11 @@
 	<f:facet name="last">
 		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
 	</f:facet>
+	
 	<title>Electro Compras Corps</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
+
 <h:body style='background:#57bcb2'>
 	<h:form>
 
@@ -58,14 +60,16 @@
 			</rich:tooBarGrupo>
 		</rich:toolBar>
 
-		<h1></h1>
+		<h1 id = "tituloProductos">Productos</h1>
 
-		<table class="tablaProductos">
+		<table id="table-id" class="tablaProductos">
 			<ui:repeat var="row" value="#{seccion.seMatrizProductos}">
-				<tr>
+				<tr id="filaTabla">
 					<ui:repeat var="column" value="#{row}">
-						<td><o:graphicImage class="Iconos" value="#{column.imagen}"
-								alt="image not available" dataURI="true" /></td>
+						<td id="columnaTabla"><o:graphicImage class="Iconos"
+								value="#{column.imagen}" alt="image not available"
+								dataURI="true" />
+							<h4 id="price">$ #{column.precio}</h4></td>
 					</ui:repeat>
 				</tr>
 			</ui:repeat>
