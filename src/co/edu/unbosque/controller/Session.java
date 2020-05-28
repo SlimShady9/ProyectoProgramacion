@@ -8,12 +8,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.primefaces.model.file.UploadedFile;
+
+import com.sun.mail.util.MailConnectException;
+
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
+import co.edu.unbosque.model.Ventas;
 
 
 @ManagedBean(name="seccion")
@@ -36,7 +43,7 @@ public class Session {
 	private static Administrador admin;
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
-	
+	private Ultilidades util ;
 	
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
 
@@ -66,7 +73,7 @@ public class Session {
 
 
 	public String inicioSeccion() {
-		admin = Presistence.buscarAdministradores(usuario);
+		admin = Presistence.buscarAdministrador(usuario);
 		String retorno;
 		if (admin != null) {
 			if (!Ultilidades.desencriptador(admin.getContraseña()).equals(contraseña)) {
@@ -90,7 +97,7 @@ public class Session {
 				}
 			}
 			else {
-				vend = Presistence.buscarVendedores(usuario);
+				vend = Presistence.buscarVendedor(usuario);
 				if (vend != null) {
 					if (!Ultilidades.desencriptador(vend.getContraseña()).equals(contraseña)) {
 						vend = null;
@@ -224,8 +231,47 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
-
-
+	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
+	//restandole la cantidad de productos comprados al respectivo vendedor y agregandolo a ventas
+	//tambien les envia un correo de notificación.
+	public void comprarProducto(Producto loquememetafilo, Cliente we, int Nproductos) {
+		List<Ventas> ladewe= we.getCompras();
+		Ventas esta = new Ventas();
+		esta.setArticulo(loquememetafilo.getNombre());
+		esta.setPrecio(loquememetafilo.getPrecio());
+		esta.setSede(loquememetafilo.getVendedor().getSede());
+		esta.setUnidades(Nproductos);
+		esta.setFecha(util.fechaActual());
+		ladewe.add(esta);
+		we.setCompras(ladewe);
+		Presistence.actualizarCliente(we);
+		Vendedor vend = loquememetafilo.getVendedor();
+		List<Ventas> ladewev= vend.getVentas();
+		ladewev.add(esta);
+		vend.setVentas(ladewev);
+		List<Producto> ianose= vend.getProductos();
+		for(int i=0;i<ianose.size();i++) {
+			if(ianose.get(i).equals(loquememetafilo)) {
+				ianose.get(i).setCantidad(ianose.get(i).getCantidad()-Nproductos);
+				break;
+			}
+		}
+		vend.setProductos(ianose);
+		Presistence.actualizarVendedor(vend);
+		try {
+			util.SendMailComprar(we, loquememetafilo, Nproductos);
+			util.SendMailVentas(vend, loquememetafilo, Nproductos);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
