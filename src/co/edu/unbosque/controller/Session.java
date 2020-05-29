@@ -90,7 +90,6 @@ public class Session {
 				retorno = "Login";
 			}
 			else {
-				System.out.println("Aqui");
 				seAdmin = admin;
 				mostrarOpciones();
 				retorno = "PerfilesAdministrador";
@@ -102,7 +101,6 @@ public class Session {
 					gere = null;
 				}
 				else {
-					System.out.println("Aqui2");
 					seGerente = gere;
 					mostrarOpciones();
 					retorno = "PerfilGerente";
@@ -119,7 +117,6 @@ public class Session {
 						mostrarOpciones();
 						seProductos = new ArrayList<Producto>();
 						for (int i = 0 ; i < vend.getProductos().size() ; i++) {
-							vend.getProductos().get(i).getImagen();
 							seProductos.add(vend.getProductos().get(i));
 						}
 						retorno = "Principal";
@@ -252,7 +249,6 @@ public class Session {
 		guardarProducto();
 		seProducto.setVendedor(vend);
 		vend.getProductos().add(seProducto);
-		seVendedor.getProductos().add(seProducto);
 		Presistence.agregarProducto(seProducto);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
