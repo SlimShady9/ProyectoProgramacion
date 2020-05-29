@@ -62,8 +62,19 @@
 				required="true" label="Firstname" />
 
 			<h:outputText value="Categoria: *" />
-			<p:inputText value="#{seccion.seProducto.categoria}"
-				required="true" label="Firstname" />
+			<p:selectOneMenu id="tDoc"
+				value="#{seccion.seProducto.categoria}">
+				<f:selectItem itemLabel="Mujeres" itemValue="Mujeres" />
+				<f:selectItem itemLabel="Niños" itemValue="Niños" />
+				<f:selectItem itemLabel="Vestimenta" itemValue="Vestimenta" />
+				<f:selectItem itemLabel="Hogar" itemValue="Hogar" />
+				<f:selectItem itemLabel="Tecnologia" itemValue="Tecnologia"/>
+				<f:selectItem itemLabel="Hombre" itemValue="Hombre" />
+				<f:selectItem itemLabel="Mascotas" itemValue="Mascotas" />
+				<f:selectItem itemLabel="Deporte" itemValue="Deporte" />
+				<f:selectItem itemLabel="Otro" itemValue="Otro" />
+				
+			</p:selectOneMenu>
 
 			<h:outputText value="Cantidad: *" />
 			<p:inputText value="#{seccion.seProducto.cantidad}"

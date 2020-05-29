@@ -234,6 +234,7 @@ public class Session {
 		guardarProducto();
 		vend.getProductos().add(seProducto);
 		seProductos.add(seProducto);
+		Presistence.agragarProducto(seProducto);
 		Presistence.actualizarVendedor(vend);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -89,7 +89,6 @@ public class Dao {
 			vend.setEstado("Inactivo");
 			session.save(vend);
 			tran.commit();
-
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -104,7 +103,6 @@ public class Dao {
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
-
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -120,7 +118,7 @@ public class Dao {
 			tran = session.beginTransaction();
 			session.save(gen);
 			tran.commit();
-
+			
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -136,7 +134,7 @@ public class Dao {
 			tran = session.beginTransaction();
 			session.save(pro);
 			tran.commit();
-
+			
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -214,6 +212,7 @@ public class Dao {
 			buscar.setNombre(prod.getNombre());
 			session.merge(buscar);
 			session.getTransaction().commit();
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -231,6 +230,7 @@ public class Dao {
 			buscar.setNombres(ger.getNombres());
 			session.merge(buscar);
 			session.getTransaction().commit();
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -249,6 +249,7 @@ public class Dao {
 			buscar.setSede(admin.getSede());
 			session.merge(buscar);
 			session.getTransaction().commit();
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -258,6 +259,7 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(cliente);
 		session.getTransaction().commit();
+		
 
 	}
 
@@ -265,12 +267,14 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(vendedor);
 		session.getTransaction().commit();
+		
 	}
 	
 	public static void eliminarGerente(Gerencia gerente) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(gerente);
 		session.getTransaction().commit();
+		
 
 	}
 	
@@ -278,6 +282,7 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(admin);
 		session.getTransaction().commit();
+		
 
 	}
 	
@@ -285,5 +290,6 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(prod);
 		session.getTransaction().commit();
+		
 	}
 }

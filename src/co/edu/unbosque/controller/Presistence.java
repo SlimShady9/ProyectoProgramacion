@@ -50,6 +50,14 @@ public class Presistence {
 		}
 		return false;
 	}
+	public static boolean agregarProducto(Producto pro) {
+		if (buscarProducto(pro.getNombre()) == null) {
+			Dao.agregarProducto(pro);
+			Dao.productos.add(pro);
+			return true;
+		}
+		return false;
+	}
 	public static boolean agregarGerente(Cliente cli) {
 		if (buscarCliente(cli.getUsuario()) == null) {
 			Dao.agregarCliente(cli);
@@ -65,6 +73,14 @@ public class Presistence {
 			return true;
 		}
 		return false;
+	}
+	public static Producto buscarProducto(String nombre) {
+		for (Producto i : Dao.productos) {
+			if (i.getNombre().equals(nombre)) {
+				return i;
+			}
+		}
+		return null;
 	}
 	public static Cliente buscarCliente (String usuario) {
 		for (Cliente i : Dao.clientes) {
@@ -98,6 +114,15 @@ public class Presistence {
 			}
 		}
 		return null;
+	}
+	public static boolean agragarProducto(Producto pro) {
+		Producto cliente = buscarProducto(pro.getNombre());
+		if (cliente != null) {
+			cliente = pro;
+			Dao.actualizarProducto(pro);
+			return true;
+		}
+		return false;
 	}
 	public static boolean actualizarCliente(Cliente cli) {
 		Cliente cliente = buscarCliente(cli.getUsuario());
@@ -144,6 +169,15 @@ public class Presistence {
 		}
 		return false;
 
+	}
+	public static boolean eliminarProducto(Producto pro) {
+		Producto prod = buscarProducto(pro.getNombre());
+		if (prod != null) {
+			Dao.eliminarProducto(prod);
+			Dao.productos.remove(prod);
+			return true;
+		}
+		return false;
 	}
 	public static boolean eliminarVendedor(Vendedor vendedor) {
 		Vendedor ven = buscarVendedor(vendedor.getUsuario());

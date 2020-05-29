@@ -56,9 +56,7 @@ public class HibernateUtil {
 
 	public static Session getHibernateSession() {
 
-
-		final Session session = sessionFactory.getCurrentSession();
-		return session;
+		return sessionFactory.getCurrentSession();
 	}
 
 	public static void shutdown() {
