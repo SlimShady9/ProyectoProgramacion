@@ -1,9 +1,9 @@
 package co.edu.unbosque.controller;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -12,14 +12,11 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.persistence.Persistence;
-
 import com.sun.mail.util.MailConnectException;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
-
 import java.util.Calendar;
 
 
