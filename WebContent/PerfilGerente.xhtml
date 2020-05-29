@@ -62,12 +62,12 @@
 	</h:panelGrid>	
 		<h:panelGrid class="Campo" columns="2" >
 			
-			<p:selectOneMenu id="sede" value="" effect="fold" editable="true">
-            	<f:selectItem itemLabel="Selecciona uno" itemValue="" />
-            	<f:selectItems value="" />
+			<p:selectOneMenu id="sede" value="#{seccion.sedeSeleccionada}" effect="fold" editable="true">
+            	<f:selectItem itemLabel="Selecciona uno" itemValue="1" />
         	</p:selectOneMenu>
         	<b></b>
         	
+        	<p:commandButton></p:commandButton>
         	
 			<p:commandButton value="Generar PDF"  />
 			<p:commandButton value="Generar Excel" />

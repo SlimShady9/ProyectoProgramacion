@@ -18,6 +18,7 @@ import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
+import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.Vendedor;
 
 
@@ -31,6 +32,7 @@ public class Session {
 	 * Cuando alguien se regitre se activara cierta seccion
 	 * Y de este modo se desplegaran las diferentes opciones
 	 */
+	private Ultilidades utilidades = new Ultilidades();
 	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 
@@ -63,7 +65,14 @@ public class Session {
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
 	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto();
+	
+	/**
+	 * Arreglo con las sedes ornenadas
+	 * 
+	 */
 
+	private List<Sede> sedes = utilidades.topSedeVentas();
+	private String sedeSeleccionada;
 	// Este producto es el seleccionado
 
 	private Producto proSelecc;
@@ -211,7 +220,7 @@ public class Session {
 			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Perfil",  "Cerrar Sesión"
+					"Mi Perfil",  "Cerrar Sesión"
 			};
 
 		} else {
@@ -393,6 +402,14 @@ public class Session {
 
 	public static void setCategoria(String categoria) {
 		Session.categoria = categoria;
+	}
+
+	public String getSedeSeleccionada() {
+		return sedeSeleccionada;
+	}
+
+	public void setSedeSeleccionada(String sedeSeleccionada) {
+		this.sedeSeleccionada = sedeSeleccionada;
 	}
 
 
