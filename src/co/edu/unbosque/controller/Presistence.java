@@ -244,7 +244,7 @@ public class Presistence {
 		}
 		return sofixd;
 	}
-	public ArrayList<Producto> busquedaProductos(ArrayList<Vendedor> user) {	
+	public static ArrayList<Producto> busquedaProductos(ArrayList<Vendedor> user) {	
 		ArrayList<Producto> sofixd = new ArrayList<Producto>();
 		try {			
 			for(int j =0;j<user.size();j++) {
@@ -274,4 +274,33 @@ public class Presistence {
 		}
 		return sofixd;
 	}
+	public static ArrayList<Producto> buscarProductosPorCategoria(String categoria, ArrayList<Producto> proDeSede){
+		ArrayList<Producto> pro = new ArrayList<Producto>(proDeSede);
+		try {	
+			for(int j=0;j<pro.size();j++) {
+				if(!pro.get(j).getCategoria().equalsIgnoreCase(categoria)){
+					pro.remove(j);
+					j--;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pro;
+	}
+	public static ArrayList<Producto> buscarProductosPorNombre(String nombre, ArrayList<Producto> proDeSede){
+		ArrayList<Producto> pro = new ArrayList<Producto>(proDeSede);
+		try {	
+			for(int j=0;j<pro.size();j++) {
+				if(!pro.get(j).getNombre().equalsIgnoreCase(nombre)){
+					pro.remove(j);
+					j--;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pro;
+	}
+	
 }
