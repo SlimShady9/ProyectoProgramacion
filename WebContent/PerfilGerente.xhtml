@@ -41,10 +41,15 @@
 		<img src="Resources/Nombre.png" width="200" height="100"  />
 		
 	</h:panelGrid>	
-		<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
+		<h:panelGrid class="Campo" columns="2" >
 			
-			<p:commandButton value="Volver" />
-			
+			<p:selectOneMenu id="sede" value="" effect="fold" editable="true">
+            	<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+            	<f:selectItems value="" />
+        	</p:selectOneMenu>
+        	<b></b>
+			<p:commandButton value="Generar PDF"  />
+			<p:commandButton value="Generar Excel" />
 			
 			
 			
