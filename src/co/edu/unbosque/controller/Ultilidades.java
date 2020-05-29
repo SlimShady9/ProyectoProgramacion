@@ -17,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 import com.sun.mail.util.MailConnectException;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Producto;
+import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
 import java.util.Calendar;
@@ -190,6 +191,111 @@ public class Ultilidades {
 			vent.set(j+1, aux);
 		}
 		return vent;
+	}
+	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
+	public ArrayList<Cliente> clientesTopSede(String sede){
+		ArrayList<Cliente> cliente = Presistence.busquedaClientes(sede);
+		for (int i = 1; i <cliente.size(); i++) {
+			Cliente aux = cliente.get(i);
+			int j = i-1;
+			while((j >= 0) && (aux.getCompras().size() < cliente.get(j).getCompras().size())){
+				cliente.set(j+1, cliente.get(j));
+				j--;
+			}
+			cliente.set(j+1, aux);
+		}
+		return cliente;
+	}
+	//Este metodo devuelve un arraylist de cliente en la cual me dice los clientes a nivel genereal ordenado por numero de compras realizadas
+	public ArrayList<Cliente> clientesTopGenera(){
+		ArrayList<Cliente> cliente = new ArrayList<Cliente>(Dao.clientes);
+		for (int i = 1; i <cliente.size(); i++) {
+			Cliente aux = cliente.get(i);
+			int j = i-1;
+			while((j >= 0) && (aux.getCompras().size() < cliente.get(j).getCompras().size())){
+				cliente.set(j+1, cliente.get(j));
+				j--;
+			}
+			cliente.set(j+1, aux);
+		}
+		return cliente;
+	}
+	//Este metodo devuelve un arraylist de vendedores por sede ordenados por numero de ventas realizadas
+	public ArrayList<Vendedor> vendedorTopSede(String sede){
+		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
+		for (int i = 1; i <ven.size(); i++) {
+			Vendedor aux = ven.get(i);
+			int j = i-1;
+			while((j >= 0) && (aux.getVentas().size() < ven.get(j).getVentas().size())){
+				ven.set(j+1, ven.get(j));
+				j--;
+			}
+			ven.set(j+1, aux);
+		}
+		return ven;
+	}
+	//Este metodo devuelve un arraylist de vendedores en la cual me dice los vededores a nivel genereal ordenado por numero de ventas realizadas
+	public ArrayList<Vendedor> vendedorTopGeneral(){
+		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
+		for (int i = 1; i <ven.size(); i++) {
+			Vendedor aux = ven.get(i);
+			int j = i-1;
+			while((j >= 0) && (aux.getVentas().size() < ven.get(j).getVentas().size())){
+				ven.set(j+1, ven.get(j));
+				j--;
+			}
+			ven.set(j+1, aux);
+		}
+		return ven;
+	}
+	//Este metodo devuelve un arraylist de sedes en la cual saldran en orden por ventas realizadas en la sede(Para las estadisticas)
+	public ArrayList<Sede> topSedeVentas() {
+		int ventasBogota=0;
+		int ventasMedellin=0;
+		int ventasBarranquilla=0;
+		int ventasBucaramanga=0;
+		ArrayList<Sede> sedes= new ArrayList<Sede>();
+		Sede bogota = new Sede();
+		bogota.setClientes(Presistence.busquedaClientes("Bogotá"));
+		bogota.setVendedores(Presistence.busquedaVendedores("Bogotá"));
+		bogota.setAdmin(Presistence.busquedaAdministradores("Bogotá"));
+		bogota.setVentas(ventasDeSede(Presistence.busquedaClientes("Bogotá")));
+		Sede medellin = new Sede();
+		medellin.setClientes(Presistence.busquedaClientes("Medellín"));
+		medellin.setVendedores(Presistence.busquedaVendedores("Medellín"));
+		medellin.setAdmin(Presistence.busquedaAdministradores("Medellín"));
+		medellin.setVentas(ventasDeSede(Presistence.busquedaClientes("Medellín")));
+		Sede barranquilla = new Sede();
+		barranquilla.setClientes(Presistence.busquedaClientes("Barranquilla"));
+		barranquilla.setVendedores(Presistence.busquedaVendedores("Barranquilla"));
+		barranquilla.setAdmin(Presistence.busquedaAdministradores("Barranquilla"));
+		barranquilla.setVentas(ventasDeSede(Presistence.busquedaClientes("Barranquilla")));
+		Sede bucaramanga = new Sede();
+		bucaramanga.setClientes(Presistence.busquedaClientes("Bucaramanga"));
+		bucaramanga.setVendedores(Presistence.busquedaVendedores("Bucaramanga"));
+		bucaramanga.setAdmin(Presistence.busquedaAdministradores("Bucaramanga"));
+		bucaramanga.setVentas(ventasDeSede(Presistence.busquedaClientes("Bucaramanga")));
+		sedes.add(medellin);
+		sedes.add(bucaramanga);
+		sedes.add(barranquilla);
+		sedes.add(bogota);
+		for (int i = 1; i <sedes.size(); i++) {
+			Sede aux = sedes.get(i);
+			int j = i-1;
+			while((j >= 0) && (aux.getVentas() < sedes.get(i).getVentas())){
+				sedes.set(j+1, sedes.get(j));
+				j--;
+			}
+			sedes.set(j+1, aux);
+		}
+		return sedes;
+	}
+	public int ventasDeSede(ArrayList<Cliente> user) {
+		int ventas=0;
+		for(int i =0; i<user.size();i++) {
+			ventas+=user.get(i).getCompras().size();
+		}
+		return ventas;
 	}
 	public void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
