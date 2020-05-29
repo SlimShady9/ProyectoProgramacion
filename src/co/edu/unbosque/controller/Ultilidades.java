@@ -192,6 +192,7 @@ public class Ultilidades {
 		}
 		return vent;
 	}
+	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
 	public ArrayList<Cliente> clientesTopSede(String sede){
 		ArrayList<Cliente> cliente = Presistence.busquedaClientes(sede);
 		for (int i = 1; i <cliente.size(); i++) {
@@ -205,6 +206,7 @@ public class Ultilidades {
 		}
 		return cliente;
 	}
+	//Este metodo devuelve un arraylist de cliente en la cual me dice los clientes a nivel genereal ordenado por numero de compras realizadas
 	public ArrayList<Cliente> clientesTopGenera(){
 		ArrayList<Cliente> cliente = new ArrayList<Cliente>(Dao.clientes);
 		for (int i = 1; i <cliente.size(); i++) {
@@ -218,6 +220,7 @@ public class Ultilidades {
 		}
 		return cliente;
 	}
+	//Este metodo devuelve un arraylist de vendedores por sede ordenados por numero de ventas realizadas
 	public ArrayList<Vendedor> vendedorTopSede(String sede){
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		for (int i = 1; i <ven.size(); i++) {
@@ -231,6 +234,7 @@ public class Ultilidades {
 		}
 		return ven;
 	}
+	//Este metodo devuelve un arraylist de vendedores en la cual me dice los vededores a nivel genereal ordenado por numero de ventas realizadas
 	public ArrayList<Vendedor> vendedorTopGeneral(){
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		for (int i = 1; i <ven.size(); i++) {
@@ -244,6 +248,7 @@ public class Ultilidades {
 		}
 		return ven;
 	}
+	//Este metodo devuelve un arraylist de sedes en la cual saldran en orden por ventas realizadas en la sede(Para las estadisticas)
 	public ArrayList<Sede> topSedeVentas() {
 		int ventasBogota=0;
 		int ventasMedellin=0;
