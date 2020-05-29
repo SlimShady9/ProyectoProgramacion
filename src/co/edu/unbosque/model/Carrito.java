@@ -48,7 +48,10 @@ public class Carrito {
 	public void comprarProducto(Producto produc, Cliente cliente, int Nproductos, Date fecha, boolean reserva, String tipoDePago ) {
 		List<Ventas> ventascliente= cliente.getCompras();
 		Ventas venta = new Ventas();
+		Vendedor vend = produc.getVendedor();
 		venta.setArticulo(produc.getNombre());
+		venta.setComprador(cliente);
+		venta.setVendedor(vend);
 		venta.setPrecio(produc.getPrecio());
 		venta.setSede(produc.getVendedor().getSede());
 		venta.setUnidades(Nproductos);
@@ -58,7 +61,7 @@ public class Carrito {
 		ventascliente.add(venta);
 		cliente.setCompras(ventascliente);
 		Presistence.actualizarCliente(cliente);
-		Vendedor vend = produc.getVendedor();
+		
 		List<Ventas> ventasvendedor= vend.getVentas();
 		ventasvendedor.add(venta);
 		vend.setVentas(ventasvendedor);

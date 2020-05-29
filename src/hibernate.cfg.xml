@@ -30,5 +30,6 @@
   <mapping class="co.edu.unbosque.model.Producto"/>
   <mapping class="co.edu.unbosque.model.Vendedor"/>
   <mapping class="co.edu.unbosque.model.Ventas"/>
+  
  </session-factory>
 </hibernate-configuration>

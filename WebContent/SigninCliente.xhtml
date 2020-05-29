@@ -73,8 +73,14 @@
 				required="true" label="Lastname" />
 
 			<h:outputText value="Ciudad: *" />
-			<p:inputText value="#{procesoRegistro.cliente.ciudad}"
-				required="true" label="Lastname" />
+			<p:selectOneMenu id="tDoc"
+				value="#{procesoRegistro.cliente.Ciudad}">
+				<f:selectItem itemLabel="Bogotá" itemValue="Bogotá" />
+				<f:selectItem itemLabel="Medellín"
+					itemValue="Medellín" />
+				<f:selectItem itemLabel="Barranquilla" itemValue="Barranquilla" />
+				<f:selectItem itemLabel="Bucaramanga" itemValue="Bucaramanga" />
+			</p:selectOneMenu>
 
 			<h:outputText value="Celular: *" />
 			<p:inputText value="#{procesoRegistro.cliente.celular}"
@@ -97,14 +103,7 @@
 			<p:inputText value="#{procesoRegistro.cliente.numeroDocumento}"
 				required="true" label="Lastname" />
 
-			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
-			<p:password id="pwd1" value="#{procesoRegistro.cliente.contraseña}"
-				match="pwd2" label="Contraseña:" required="true" />
-
-			<h:outputLabel for="pwd2" value="Confirma contraseña: " />
-			<p:password id="pwd2"
-				value="#{procesoRegistro.confirmacionContraseña}"
-				label="Confirma contraseña:	" required="true" />
+			
 			<div class="g-recaptcha" data-theme="dark"
 				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>
 			<p:commandButton class="btnRegistro"

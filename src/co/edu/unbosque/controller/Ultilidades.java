@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -247,5 +249,25 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+
+	// 
+	public static String generarContraseña() {
+		String[] charCategories = new String[] {
+				"abcdefghijklmnopqrstuvwxyz",
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+				"0123456789"
+		};
+		StringBuilder password = new StringBuilder(10);
+		Random random = new Random(System.nanoTime());
+
+		for (int i = 0; i < 10; i++) {
+			String charCategory = charCategories[random.nextInt(charCategories.length)];
+			int position = random.nextInt(charCategory.length());
+			password.append(charCategory.charAt(position));
+		}
+
+		return new String(password);
+	}
+
 
 }

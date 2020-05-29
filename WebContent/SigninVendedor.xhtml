@@ -80,18 +80,14 @@
 				required="true" label="Id" />
 
 			<h:outputText value="Ciudad *" />
-			<p:inputText value="#{procesoRegistro.vendedor.sede}" required="true"
-				label="City" />
-
-
-			<h:outputLabel for="pwd1" value="Contraseña: *" feedback="true" />
-			<p:password id="pwd1" value="#{procesoRegistro.vendedor.contraseña}"
-				match="pwd2" label="Password" required="true" />
-
-			<h:outputLabel for="pwd2" value="Confirma contraseña: *" />
-			<p:password id="pwd2"
-				value="#{procesoRegistro.confirmacionContraseña}"
-				label="Confirm Password" required="true" />
+			<p:selectOneMenu id="tDoc"
+				value="#{procesoRegistro.vendedor.Ciudad}">
+				<f:selectItem itemLabel="Bogotá" itemValue="Bogotá" />
+				<f:selectItem itemLabel="Medellín"
+					itemValue="Medellín" />
+				<f:selectItem itemLabel="Barranquilla" itemValue="Barranquilla" />
+				<f:selectItem itemLabel="Bucaramanga" itemValue="Bucaramanga" />
+			</p:selectOneMenu>
 
 			<div class="g-recaptcha" data-theme="dark"
 				data-sitekey="6Le3qPoUAAAAANMdoVL9kcuVVJ7XB2wVFb4XB40H"></div>
