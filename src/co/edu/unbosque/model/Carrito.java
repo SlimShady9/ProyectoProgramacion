@@ -2,13 +2,11 @@ package co.edu.unbosque.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
 import co.edu.unbosque.controller.Presistence;
 
 public class Carrito {
 	
 	private static ArrayList<Ventas> ventas;
-	private ArrayList<Vendedor> vendedores;
 	private Cliente cliente;
 	private boolean pagoTarjeta = false;
 	private Date fecha;
@@ -24,11 +22,7 @@ public class Carrito {
 	 */
 	
 	public void agregarProducto(Producto pro, int cantidad) {
-		pro.setCantidad(pro.getCantidad() - cantidad);
-		vendedores.add(pro.getVendedor());
-		
-		Producto producto = pro;
-		producto.setCantidad(cantidad);
+				
 		
 		Ventas venta = new Ventas();
 		venta.setUnidades(cantidad);
@@ -54,14 +48,6 @@ public class Carrito {
 			i.setReserva(reserva);
 			i.setTipoPago(tipoPago);
 			cliente.getCompras().add(i);
-			
-			for (Vendedor v : vendedores) {
-				if (v.getUsuario().equals(i.getVendedor().getUsuario())) {
-					v.getVentas().add(i);
-					Presistence.actualizarVendedor(v);
-					break;
-				}
-			}
 			
 			Presistence.actualizarCliente(cliente);
 		}
