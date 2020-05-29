@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 ;
 
 
@@ -53,6 +56,7 @@ public class Cliente implements Serializable {
 	
 	@OneToMany
 	@JoinColumn (name = "COMPRADOR")
+	@LazyCollection (LazyCollectionOption.FALSE)
 	private List<Ventas> compras = new ArrayList<Ventas>();
 
 	public Cliente() {

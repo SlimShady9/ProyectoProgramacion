@@ -212,9 +212,7 @@ public class Session {
 
 	public void guardarProducto() {
 		byte[] content = imagen.getContent();
-		System.out.println(content.length);
 		seProducto.setImagen(content);
-		seProducto.setVendedor(vend);
 		imagen = null;
 	}
 
@@ -343,7 +341,6 @@ public class Session {
 	}
 
 	public Producto getProSelecc() {
-		System.out.println(proSelecc);
 		return proSelecc;
 	}
 

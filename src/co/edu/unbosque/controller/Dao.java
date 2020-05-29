@@ -1,9 +1,6 @@
 package co.edu.unbosque.controller;
 
 import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import co.edu.unbosque.resources.HibernateUtil;
@@ -39,27 +36,23 @@ public class Dao {
 		return HibernateUtil.getSessionFactory().openSession();
 	}
 	
-	@Transactional
+	
 	public static void cargarAdministradores() {
 		administradores = sesion.createCriteria(Administrador.class).list();
 	}
 	
-	@Transactional
 	public static void cargarClientes() {
 		clientes = sesion.createCriteria(Cliente.class).list();
 	}
 	
-	@Transactional
 	public static void cargarGerentes() {
 		gerentes = sesion.createCriteria(Gerencia.class).list();
 	}
 	
-	@Transactional
 	public static void cargarProductos() {
 		productos = sesion.createCriteria(Producto.class).list();
 	}
 	
-	@Transactional
 	public static void cargarVendedores() {
 		vendedores = sesion.createCriteria(Vendedor.class).list();
 	}
@@ -73,6 +66,7 @@ public class Dao {
 		try (Session session = sesion){
 
 			tran = session.beginTransaction();
+			cli.setEstado("Inactivo");
 			session.save(cli);
 			tran.commit();
 
@@ -90,6 +84,7 @@ public class Dao {
 		try (Session session = sesion){
 
 			tran = session.beginTransaction();
+			vend.setEstado("Inactivo");
 			session.save(vend);
 			tran.commit();
 
@@ -104,7 +99,6 @@ public class Dao {
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
 		try (Session session = sesion){
-
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
@@ -156,7 +150,6 @@ public class Dao {
 	 * @param ven
 	 */
 	//Rey hizo esto, si esta mal fue otro xd
-	@Transactional
 	public static void actualizarCliente(Cliente persona) {
 		Session session = sesion;
 		String id= persona.getUsuario();
@@ -181,9 +174,11 @@ public class Dao {
 		}
 	}
 	//Rey hizo esto, si esta mal fue otro xd
-	@Transactional
 	public static void actualizarVendedor(Vendedor ven) {
 		Session session = sesion;
+		if (!session.isOpen()) {
+			session = HibernateUtil.getHibernateSession();
+		}
 		String id= ven.getUsuario();
 		try {
 			session.beginTransaction();
@@ -202,7 +197,6 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
-	@Transactional
 	public static void actualizarProducto(Producto prod) {
 		Session session = sesion;
 		long id= prod.getId();
@@ -220,7 +214,6 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
-	@Transactional
 	public static void actualizarGerente(Gerencia ger) {
 		Session session = sesion;
 		String id= ger.getUsuario();
@@ -238,7 +231,6 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
-	@Transactional
 	public static void actualizarAdministrador(Administrador admin) {
 		Session session = sesion;
 		String id= admin.getUsuario();
