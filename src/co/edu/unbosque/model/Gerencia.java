@@ -12,13 +12,13 @@ import javax.persistence.*;
 public class Gerencia {
 
 	@Column(name = "APELLIDOS")
-	private int apellidos;
+	private String apellidos;
 	
 	@Column(name = "CONTRASEÑA")
 	private String contraseña;
 	
 	@Column(name = "NOMBRES")
-	private int nombres;
+	private String nombres;
 	
 	@Column(name = "CORREO")
 	private String correo;
@@ -33,13 +33,43 @@ public class Gerencia {
 	public Gerencia() {
 	}
 
-	public int getApellidos() {
-		return this.apellidos;
+	
+
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setApellidos(int apellidos) {
+
+
+	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+
+
+
+	public String getNombres() {
+		return nombres;
+	}
+
+
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+
 
 	public String getContraseña() {
 		return this.contraseña;
@@ -49,13 +79,7 @@ public class Gerencia {
 		this.contraseña = contraseña;
 	}
 
-	public int getNombres() {
-		return this.nombres;
-	}
-
-	public void setNombres(int nombres) {
-		this.nombres = nombres;
-	}
+	
 
 	public String getUsuario() {
 		return this.usuario;

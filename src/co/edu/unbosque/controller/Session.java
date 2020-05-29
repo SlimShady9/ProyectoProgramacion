@@ -87,12 +87,14 @@ public class Session {
 		} else {
 			gere = Presistence.buscarGerentes(usuario);
 			if (gere != null) {
-				if (!Ultilidades.desencriptador(gere.getContraseña()).equals(contraseña)) {
+				if (!gere.getContraseña().equals(contraseña)) {
 					gere = null;
 				}
 				else {
+					System.out.println("Aqui2");
+					seGerente = gere;
 					mostrarOpciones();
-					retorno = "Principal";
+					retorno = "PerfilGerente";
 				}
 			}
 			else {

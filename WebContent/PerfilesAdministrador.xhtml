@@ -54,8 +54,7 @@
 		</rich:toolBar>
 
 		<h1 class="Titulo">#{seccion.message}</h1>
-		<p:commandButton value="Registra Un Producto"
-			action="RegistroProducto"></p:commandButton>
+		
 
 		<h:panelGrid class="Campo" columns="3">
 
@@ -71,28 +70,28 @@
 
 
 			<h:outputText value="Admin . " />
+			<h:outputText value="#{seccion.seAdmin.usuario}" />
+			
+			<h:outputText value="Nombre:" />
 			<h:outputText value="#{seccion.seAdmin.nombres}" />
-
+			
+			<h:outputText value="Apellido:" />
+			<h:outputText value=" #{seccion.seAdmin.apellidos}" />
+			
+			<h:outputText value="Correo: " />
+			<h:outputText value=" #{seccion.seAdmin.correo} " />
+			
 			<h:outputText value="Sede . " />
-			<h:outputText value=" bogota " />
+			<h:outputText value="#{seccion.seAdmin.sede}" />
 
-			<h:outputText value="Productos disponibles" />
-			<h:outputText value=" camisa x numero de unidades " />
+			<h:outputText value="numero de identificacion" />
+			<h:outputText value="#{seccion.seAdmin.identificacion}" />
 
-			<h:outputText value="numero de ventas realizadas:" />
-			<h:outputText value="5" />
-
-			<h:outputText value="registro de ventas" />
-			<h:outputText
-				value=" 1 venta el 18/1//2019, bogota, suba, vendido por ejemplo " />
-
-			<h:outputText value="tipo de venta" />
-			<h:outputText value="online o presencial" />
-
-			<p:commandButton value="Volver" />
 			<p:commandButton value="Editar Perfil" />
+			<br></br>
+			
 			<h:outputText value=".     " />
-			<h></h>
+			<br></br>
 
 			<p:commandButton value="Generar PDF" />
 			<p:commandButton value="Generar Excel" />
