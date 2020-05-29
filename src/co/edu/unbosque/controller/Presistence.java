@@ -21,6 +21,7 @@ public class Presistence {
 	}
 	public static void cargarTablas() {
 
+		Dao.abrirSession();
 		Dao.cargarProductos();
 		Dao.cargarClientes();
 		Dao.cargarVendedores();

@@ -3,6 +3,8 @@ package co.edu.unbosque.controller;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.result.NoMoreReturnsException;
+
 import co.edu.unbosque.resources.HibernateUtil;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
@@ -63,7 +65,7 @@ public class Dao {
 
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getHibernateSession()){
 
 			tran = session.beginTransaction();
 			cli.setEstado("Inactivo");
@@ -81,7 +83,7 @@ public class Dao {
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getHibernateSession()){
 
 			tran = session.beginTransaction();
 			vend.setEstado("Inactivo");
@@ -98,7 +100,7 @@ public class Dao {
 
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getHibernateSession()){
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
@@ -113,7 +115,7 @@ public class Dao {
 
 	public static void agregarGerente(Gerencia gen) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getHibernateSession()){
 
 			tran = session.beginTransaction();
 			session.save(gen);
@@ -129,7 +131,7 @@ public class Dao {
 
 	public static void agregarProducto(Producto pro) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getHibernateSession()){
 
 			tran = session.beginTransaction();
 			session.save(pro);
@@ -151,7 +153,7 @@ public class Dao {
 	 */
 	//Rey hizo esto, si esta mal fue otro xd
 	public static void actualizarCliente(Cliente persona) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		String id= persona.getUsuario();
 
 		try {
@@ -175,10 +177,11 @@ public class Dao {
 	}
 	//Rey hizo esto, si esta mal fue otro xd
 	public static void actualizarVendedor(Vendedor ven) {
-		Session session = sesion;
-		if (!session.isOpen()) {
-			session = HibernateUtil.getHibernateSession();
-		}
+		Session session = HibernateUtil.getHibernateSession();
+		System.out.println();
+		System.out.println(ven.toString());
+		ven.setEstado("Activo");
+
 		String id= ven.getUsuario();
 		try {
 			session.beginTransaction();
@@ -187,6 +190,7 @@ public class Dao {
 			buscar.setBanco(ven.getBanco());
 			buscar.setContraseña(ven.getContraseña());
 			buscar.setCorreo(ven.getCorreo());
+			buscar.setEstado(ven.getEstado());
 			buscar.setIdentificacion(ven.getIdentificacion());
 			buscar.setNombres(ven.getNombres());
 			buscar.setProductos(ven.getProductos());
@@ -198,8 +202,8 @@ public class Dao {
 		}
 	}
 	public static void actualizarProducto(Producto prod) {
-		Session session = sesion;
-		long id= prod.getId();
+		Session session = HibernateUtil.getHibernateSession();
+		String id= prod.getNombre();
 		try {
 			session.beginTransaction();
 			Producto buscar = (Producto)session.get(Producto.class, id);
@@ -215,7 +219,7 @@ public class Dao {
 		}
 	}
 	public static void actualizarGerente(Gerencia ger) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		String id= ger.getUsuario();
 		try {
 			session.beginTransaction();
@@ -232,7 +236,7 @@ public class Dao {
 		}
 	}
 	public static void actualizarAdministrador(Administrador admin) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		String id= admin.getUsuario();
 		try {
 			session.beginTransaction();
@@ -251,34 +255,34 @@ public class Dao {
 	}
 	
 	public static void eliminarCliente(Cliente cliente) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		session.delete(cliente);
 		session.getTransaction().commit();
 
 	}
 
 	public static void eliminarVendedor(Vendedor vendedor) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		session.delete(vendedor);
 		session.getTransaction().commit();
 	}
 	
 	public static void eliminarGerente(Gerencia gerente) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		session.delete(gerente);
 		session.getTransaction().commit();
 
 	}
 	
 	public static void eliminarAdministrador(Administrador admin) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		session.delete(admin);
 		session.getTransaction().commit();
 
 	}
 	
 	public static void eliminarProducto(Producto prod) {
-		Session session = sesion;
+		Session session = HibernateUtil.getHibernateSession();
 		session.delete(prod);
 		session.getTransaction().commit();
 	}

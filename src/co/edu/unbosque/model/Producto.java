@@ -12,12 +12,9 @@ import org.omnifaces.cdi.GraphicImageBean;
 @GraphicImageBean
 public class Producto {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "ID", updatable = false, nullable = false)
-	private long id;
 
-	@ManyToOne (cascade = CascadeType.ALL)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "VENDEDOR")
 	private Vendedor vendedor;
 
@@ -27,6 +24,7 @@ public class Producto {
 	@Column(name = "CATEGORIA")
 	private String categoria;
 
+	@Id
 	@Column(name = "NOMBRE")
 	private String nombre;
 
@@ -69,14 +67,6 @@ public class Producto {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public byte[] getImagen() {

@@ -10,68 +10,65 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static StandardServiceRegistry registry;
+	private static StandardServiceRegistry registry;
 
-    private static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
+	public static SessionFactory getSessionFactory() {
 
-        if (sessionFactory == null) {
+		if (sessionFactory == null) {
 
-            try {
+			try {
 
-                // Create registry
+				// Create registry
 
-                registry = new StandardServiceRegistryBuilder().configure().build();
+				registry = new StandardServiceRegistryBuilder().configure().build();
 
-                // Create MetadataSources
+				// Create MetadataSources
 
-                MetadataSources sources = new MetadataSources(registry);
+				MetadataSources sources = new MetadataSources(registry);
 
-                // Create Metadata
+				// Create Metadata
 
-                Metadata metadata = sources.getMetadataBuilder().build();
+				Metadata metadata = sources.getMetadataBuilder().build();
 
-                // Create SessionFactory
+				// Create SessionFactory
 
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
+				sessionFactory = metadata.getSessionFactoryBuilder().build();
 
-            } catch (Exception e) {
+			} catch (Exception e) {
 
-                e.printStackTrace();
+				e.printStackTrace();
 
-                if (registry != null) {
+				if (registry != null) {
 
-                    StandardServiceRegistryBuilder.destroy(registry);
+					StandardServiceRegistryBuilder.destroy(registry);
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-        return sessionFactory;
+		return sessionFactory;
 
-    }
-    
-    public static Session getHibernateSession() {
+	}
 
-        final SessionFactory sf = new Configuration()
-            .configure("hibernate.cfg.xml").buildSessionFactory();
+	public static Session getHibernateSession() {
 
-        // factory = new Configuration().configure().buildSessionFactory();
-        final Session session = sf.getCurrentSession();
-        return session;
-        }
 
-    public static void shutdown() {
+		final Session session = sessionFactory.getCurrentSession();
+		return session;
+	}
 
-        if (registry != null) {
+	public static void shutdown() {
 
-            StandardServiceRegistryBuilder.destroy(registry);
+		if (registry != null) {
 
-        }
+			StandardServiceRegistryBuilder.destroy(registry);
 
-    }
+		}
+
+	}
 
 }

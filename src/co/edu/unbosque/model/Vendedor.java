@@ -49,12 +49,10 @@ public class Vendedor  {
 	
 	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn (name = "VENDEDOR" )
-	@LazyCollection (LazyCollectionOption.FALSE)
 	private List<Producto> productos = new ArrayList<Producto>();
 	
     @OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn (name = "VENDEDOR")
-    @LazyCollection (LazyCollectionOption.FALSE)
 	private List<Ventas> ventas = new ArrayList<Ventas>();
 	
 	public Vendedor() {
