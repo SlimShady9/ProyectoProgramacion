@@ -68,7 +68,7 @@
 					<ui:repeat var="column" value="#{row}">
 
 						<td id="columnaTabla">
-							<p:commandLink id="imgTop">
+							<p:commandLink onclick="PF('dlg2').show();">
 								<o:graphicImage class="Iconos" value="#{column.imagen}"
 									alt="image not available" dataURI="true" />
 								<f:setPropertyActionListener value="#{column}"
@@ -81,9 +81,9 @@
 				</tr>
 			</ui:repeat>
 		</table>
-		<p:overlayPanel id="moviePanel" for="imgTop" hideEffect="fade"
-			dynamic="true" style="width:600px" modal="true">
-			<h:panelGrid class="Campo" columns="2" columnClasses="label, value">
+		
+		<p:dialog header="Informacion del Producto" widgetVar="dlg2" modal="true" height="100">
+			<h:panelGrid columns="2">
 				<h:outputText value="Nombre: *" />
 				<h:outputText value="#{seccion.proSelecc.nombre}" />
 				
@@ -96,7 +96,7 @@
 				<h:outputText value="Precio: *" />
 				<h:outputText value="#{seccion.proSelecc.precio}" />
 			</h:panelGrid>
-		</p:overlayPanel>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

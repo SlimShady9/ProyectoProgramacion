@@ -63,6 +63,10 @@ public class Dao {
 	public static void cargarVendedores() {
 		vendedores = sesion.createCriteria(Vendedor.class).list();
 	}
+	
+	public static void cargarVentas() {
+		ventas = sesion.createCriteria(Ventas.class).list();
+	}
 
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;

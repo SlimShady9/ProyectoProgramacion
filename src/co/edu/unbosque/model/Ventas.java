@@ -1,20 +1,35 @@
 package co.edu.unbosque.model;
 
 import java.sql.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "VENTAS")
 public class Ventas {
 	
 	
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "VENDEDOR")
+	private Vendedor vendedor;
 	
-	@Id
-	@Column(name = "APELLIDOS")
-	private int id;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "COMPRADOR")
+	private Cliente comprador;
+	
+	@Column (name = "RESERVA")
+	private boolean reserva;
+	
+	@Column (name = "TIPODEPAGO")
+	private String tipoPago;
 	
 	@Column(name = "SEDE")
 	private String sede;
@@ -28,16 +43,11 @@ public class Ventas {
 	@Column(name = "PRECIO")
 	private double precio;
 	
+	@Id
 	@Column(name = "FECHA")
 	private Date fecha;
 	
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getSede() {
 		return sede;
 	}
@@ -68,5 +78,30 @@ public class Ventas {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	public boolean isReserva() {
+		return reserva;
+	}
+	public void setReserva(boolean reserva) {
+		this.reserva = reserva;
+	}
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+	public Cliente getComprador() {
+		return comprador;
+	}
+	public void setComprador(Cliente comprador) {
+		this.comprador = comprador;
+	}
+	public String getTipoPago() {
+		return tipoPago;
+	}
+	public void setTipoPago(String tipoPago) {
+		this.tipoPago = tipoPago;
+	}
+	
 	
 }

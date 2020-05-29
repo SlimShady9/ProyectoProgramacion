@@ -8,12 +8,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+
 import org.primefaces.model.file.UploadedFile;
+
+
+
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Vendedor;
+
 
 
 @ManagedBean(name="seccion")
@@ -36,8 +42,7 @@ public class Session {
 	private static Administrador admin;
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
-	
-	
+
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
 
 	private Producto seProducto = new Producto();
@@ -62,6 +67,7 @@ public class Session {
 	// Este producto es el seleccionado
 	
 	private Producto proSelecc;
+	private static String nombre, precio, categoria, vendedor;
 
 
 	public String inicioSeccion() {
@@ -223,8 +229,7 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
-
-
+	
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
@@ -338,12 +343,46 @@ public class Session {
 	}
 
 	public Producto getProSelecc() {
+		System.out.println(proSelecc);
 		return proSelecc;
 	}
 
 	public void setProSelecc(Producto proSelecc) {
 		this.proSelecc = proSelecc;
 	}
+
+	public static String getNombre() {
+		return nombre;
+	}
+
+	public static void setNombre(String nombre) {
+		Session.nombre = nombre;
+	}
+
+	public static String getPrecio() {
+		return precio;
+	}
+
+	public static void setPrecio(String precio) {
+		Session.precio = precio;
+	}
+
+	public static String getVendedor() {
+		return vendedor;
+	}
+
+	public static void setVendedor(String vendedor) {
+		Session.vendedor = vendedor;
+	}
+
+	public static String getCategoria() {
+		return categoria;
+	}
+
+	public static void setCategoria(String categoria) {
+		Session.categoria = categoria;
+	}
+	
 	
 	
 
