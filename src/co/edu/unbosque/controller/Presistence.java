@@ -28,6 +28,7 @@ public class Presistence {
 		Dao.cargarGerentes();
 		Dao.cargarAdministradores();
 		Dao.cargarVentas();
+		
 	}
 	/**
 	 * Metodos de insercion ala base de datos

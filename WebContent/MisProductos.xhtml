@@ -63,7 +63,7 @@
 			action="RegistroProducto"></p:commandButton>
 
 
-		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5"
+		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5" rowKey="#{i.nombre}"
 			paginator="true" rowIndexVar="cont" selection="#{seccion.proSelecc}" selectionMode="single">
 			<p:column headerText="Imagen" style="width: 200px;">
 

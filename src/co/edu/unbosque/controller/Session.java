@@ -56,38 +56,39 @@ public class Session {
 	private String message = mensaje;
 
 	private UploadedFile imagen;
-	
+
 	/**
 	 * Esta matriz es ideal para un algorito de ordenamiento por popularidad o algo asi
 	 * Este algoritmo iria en el metodo de cargar matrizProductos
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
 	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto();
-	
+
 	// Este producto es el seleccionado
-	
+
 	private Producto proSelecc;
 	private static String nombre, precio, categoria, vendedor;
 
 
 	public String inicioSeccion() {
 		admin = Presistence.buscarAdministrador(usuario);
-		String retorno;
+		String retorno = null;
 		if (admin != null) {
-			if (!Ultilidades.desencriptador(admin.getContraseña()).equals(contraseña)) {
+			if (!admin.getContraseña().equals(contraseña)) {
 				admin = null;
 				retorno = "Login";
 			}
 			else {
+				System.out.println("Aqui");
+				seAdmin = admin;
 				mostrarOpciones();
-				retorno = "Principal";
+				retorno = "PerfilesAdministrador";
 			}
 		} else {
 			gere = Presistence.buscarGerentes(usuario);
 			if (gere != null) {
 				if (!Ultilidades.desencriptador(gere.getContraseña()).equals(contraseña)) {
 					gere = null;
-					retorno = "Login";
 				}
 				else {
 					mostrarOpciones();
@@ -164,7 +165,18 @@ public class Session {
 
 		}
 		if (opcionSeleccionada.equals("Mi Perfil")) {
-
+			if (seAdmin != null){
+				return "PerfilAdministrador";
+			}
+			if (seGerente != null){
+				return "PerfilGerente";
+			}
+			if (seVendedor != null){
+				return "PerfilVendedor";
+			}
+			if (seCliente != null){
+				return "PerfilUsuario";
+			}
 		}
 		return null;
 
@@ -227,7 +239,7 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
-	
+
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
@@ -379,8 +391,8 @@ public class Session {
 	public static void setCategoria(String categoria) {
 		Session.categoria = categoria;
 	}
-	
-	
-	
+
+
+
 
 }
