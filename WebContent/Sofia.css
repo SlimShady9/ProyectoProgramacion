@@ -78,8 +78,8 @@ body {
     background-color: black;
 }
 .Titulo{
-    margin-left: 550px;
-    margin-top: 105px;
+    margin-left: 400px;
+    margin-top: 50px;
     font-style: oblique;
 }
 .nombreCorp{
@@ -88,6 +88,7 @@ body {
 }
 #j_idt6\:comoCliente{
     margin-left: 250px;
+    margin: 6.5rem; 
 }
 #j_idt6\:comoVendedor{
     margin-left: 250px;

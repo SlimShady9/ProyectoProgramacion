@@ -37,6 +37,9 @@ public class Vendedor  {
 	@Column (name = "IDENTIFICACION")
 	private String identificacion;
 	
+	@Column (name = "Estado")
+	private String estado;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
@@ -129,6 +132,15 @@ public class Vendedor  {
 
 	public void setVentas(List<Ventas> ventas) {
 		this.ventas = ventas;
+	}
+	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Override

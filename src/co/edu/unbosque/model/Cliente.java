@@ -44,6 +44,9 @@ public class Cliente implements Serializable {
 	@Column(name = "TARJETA")
 	private String tarjetaCredito;
 
+	@Column(name = "ESTADO")
+	private String estado;
+	
 	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
@@ -149,6 +152,15 @@ public class Cliente implements Serializable {
 
 	public void setCompras(List<Ventas> compras) {
 		this.compras = compras;
+	}
+	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Override
