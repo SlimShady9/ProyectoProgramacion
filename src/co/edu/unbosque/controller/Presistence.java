@@ -172,21 +172,22 @@ public class Presistence {
 		return false;
 
 	}
-	public ArrayList<Administrador> busquedaAdministradores(String user) {		
+	public static Administrador busquedaAdministradores(String sede) {		
 		ArrayList<Administrador> sofixd = new ArrayList<Administrador>(Dao.administradores);
+		Administrador admin = null ;
 		try {	
 			for(int j=0;j<sofixd.size();j++) {
-				if(!sofixd.get(j).getSede().equalsIgnoreCase(user)){
-					sofixd.remove(j);
-					j--;
+				if(sofixd.get(j).getSede().equalsIgnoreCase(sede)){
+					admin =sofixd.get(j);
 				}
 			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sofixd;
+		return admin;
 	}
-	public ArrayList<Cliente> busquedaClientes(String user) {		
+	public static ArrayList<Cliente> busquedaClientes(String user) {		
 		ArrayList<Cliente> sofixd = new ArrayList<Cliente>(Dao.clientes);
 		try {	
 			for(int j=0;j<sofixd.size();j++) {

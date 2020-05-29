@@ -12,9 +12,61 @@ public class Sede {
 	private Administrador admin;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Vendedor> vendedores;
+	private int ventas;
 	
 	
 	public Sede(){
 		
 	}
+
+
+	public Administrador getAdmin() {
+		return admin;
+	}
+
+
+	public void setAdmin(Administrador admin) {
+		this.admin = admin;
+	}
+
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+
+	public int getVentas() {
+		return ventas;
+	}
+
+
+	public void setVentas(int ventas) {
+		this.ventas = ventas;
+	}
+
+
+	public ArrayList<Vendedor> getVendedores() {
+		return vendedores;
+	}
+
+
+	public void setVendedores(ArrayList<Vendedor> vendedores) {
+		this.vendedores = vendedores;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Sede [admin=" + admin + ", clientes=" + clientes + ", vendedores=" + vendedores + ", ventas=" + ventas
+				+ "]";
+	}
+
+
+	
+	
 }
