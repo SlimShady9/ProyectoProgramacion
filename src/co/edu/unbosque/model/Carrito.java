@@ -45,7 +45,7 @@ public class Carrito {
 	}
 	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
 	// al respectivo vendedor  agregandolo a ventas.
-	public void comprarProducto(Producto produc, Cliente cliente, int Nproductos, Date fecha) {
+	public void comprarProducto(Producto produc, Cliente cliente, int Nproductos, Date fecha, boolean reserva, String tipoDePago ) {
 		List<Ventas> ventascliente= cliente.getCompras();
 		Ventas venta = new Ventas();
 		venta.setArticulo(produc.getNombre());
@@ -53,6 +53,8 @@ public class Carrito {
 		venta.setSede(produc.getVendedor().getSede());
 		venta.setUnidades(Nproductos);
 		venta.setFecha(fecha);
+		venta.setTipoPago(tipoDePago);
+		venta.setReserva(reserva);
 		ventascliente.add(venta);
 		cliente.setCompras(ventascliente);
 		Presistence.actualizarCliente(cliente);
@@ -69,10 +71,10 @@ public class Carrito {
 	 * @param tipoPago
 	 * @param reserva
 	 */
-	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva) {
+	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva, String tipoDePago) {
 
 		for(int i=0; i<productosdecarrito.size();i++) {
-			comprarProducto(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha);
+			comprarProducto(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
 		}
 	}
 
@@ -93,6 +95,7 @@ public class Carrito {
 		}
 		vend.setProductos(productosvendedor);
 		Presistence.actualizarVendedor(vend);
+		
 	}
 
 
