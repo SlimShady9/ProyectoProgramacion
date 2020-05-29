@@ -1,7 +1,6 @@
 package co.edu.unbosque.model;
 
 import java.sql.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,16 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "VENTAS")
 public class Ventas {
 	
-	
-	@Id
-	@GeneratedValue
-	@Column(name = "ID", updatable = false, nullable = false)
-	private long id;
 	
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name = "VENDEDOR")
@@ -32,7 +28,7 @@ public class Ventas {
 	@Column (name = "RESERVA")
 	private boolean reserva;
 	
-	@Column (name = "TIPO DE PAGO")
+	@Column (name = "TIPODEPAGO")
 	private String tipoPago;
 	
 	@Column(name = "SEDE")
@@ -47,16 +43,11 @@ public class Ventas {
 	@Column(name = "PRECIO")
 	private double precio;
 	
+	@Id
 	@Column(name = "FECHA")
 	private Date fecha;
 	
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public String getSede() {
 		return sede;
 	}
