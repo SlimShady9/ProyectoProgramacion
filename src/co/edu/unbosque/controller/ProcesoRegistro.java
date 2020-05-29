@@ -33,7 +33,7 @@ public class ProcesoRegistro implements Serializable {
 	private Vendedor vendedor = new Vendedor();
 	private Ultilidades util = new Ultilidades();
 
-	private String confirmacionContraseña, numeroTarjeta = "";
+	private String  numeroTarjeta = "";
 	private static Cliente cli;
 	private static Vendedor vend;
 
@@ -168,15 +168,6 @@ public String registrarTarjeta() {
 	}
 
 
-}
-
-
-public String getConfirmacionContraseña() {
-	return confirmacionContraseña;
-}
-
-public void setConfirmacionContraseña(String confirmacionContraseña) {
-	this.confirmacionContraseña = confirmacionContraseña;
 }
 
 public Vendedor getVendedor() {

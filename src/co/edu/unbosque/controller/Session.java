@@ -15,6 +15,7 @@ import org.primefaces.model.file.UploadedFile;
 
 
 import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.Carrito;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
@@ -52,7 +53,7 @@ public class Session {
 	private String usuario, contraseña;
 
 	private static String mTitulo = "Bienvenido <3";
-	private String menuTitulo = mTitulo, opcionSeleccionada;
+	private String menuTitulo = mTitulo, opcionSeleccionada, confirmaClave, clave;
 
 	private static String mensaje;
 	private String message = mensaje;
@@ -78,6 +79,7 @@ public class Session {
 	private Producto proSelecc;
 	private static String nombre, precio, categoria, vendedor;
 
+	private Carrito carroCompras;
 
 	public String inicioSeccion() {
 		admin = Presistence.buscarAdministrador(usuario);
@@ -131,6 +133,11 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
+							if (cli.getEstado().equals("Incativo")) {
+								retorno = "ConfirmarClave";
+							}
+							seCliente = cli;
+							carroCompras = new Carrito(seCliente);
 							mostrarOpciones();
 							retorno = "Principal";
 						}
@@ -243,11 +250,47 @@ public class Session {
 
 		String retorno = "Principal";
 		guardarProducto();
+		seProducto.setVendedor(vend);
 		vend.getProductos().add(seProducto);
+		seVendedor.getProductos().add(seProducto);
 		Presistence.agregarProducto(seProducto);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
+	}
+	
+	public String activarUsuario() {
+		if (clave.equals(confirmaClave)) {
+			boolean validacion = false;
+			for (int i = 0 ; i < clave.length() ; i++) {
+				if (Character.isDigit(clave.charAt(i))) {
+					validacion = true;
+					break;
+				}
+			}
+			if (clave.length() >= 8 && clave.length() <= 5) {
+				validacion = false;
+				
+			}
+			if (validacion) {
+				seCliente.setContraseña(Ultilidades.encriptador(clave));
+				seCliente.setEstado("Activo");
+				Presistence.actualizarCliente(seCliente);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Proceso Finalizado");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "Principal";
+			}
+			else {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "La clave debe tener al menos un carater numerico y longitud entre 5 a 8");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "ValidacionTarjeta";
+			}
+		}
+		else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Clave no coincide");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "ValidacionTarjeta";
+		}
 	}
 
 	public ArrayList<String> getOpciones() {
