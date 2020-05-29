@@ -43,9 +43,7 @@ public class Carrito {
 		agregar.setCantidad(cantidad);
 		productosdecarrito.add(agregar);
 	}
-	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
-	// al respectivo vendedor  agregandolo a ventas.
-	public void comprarProducto(Producto produc, Cliente cliente, int Nproductos, Date fecha, boolean reserva, String tipoDePago ) {
+	public void actualizarVentasCliente(Producto produc, Cliente cliente, int Nproductos,Date fecha, boolean reserva, String tipoDePago) {
 		List<Ventas> ventascliente= cliente.getCompras();
 		Ventas venta = new Ventas();
 		Vendedor vend = produc.getVendedor();
@@ -61,7 +59,21 @@ public class Carrito {
 		ventascliente.add(venta);
 		cliente.setCompras(ventascliente);
 		Presistence.actualizarCliente(cliente);
-		
+	}
+	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
+	// al respectivo vendedor  agregandolo a ventas.
+	public void actualizarVentasVendedor(Producto produc, Cliente cliente, int Nproductos, Date fecha, boolean reserva, String tipoDePago ) {
+		Ventas venta = new Ventas();
+		Vendedor vend = produc.getVendedor();
+		venta.setArticulo(produc.getNombre());
+		venta.setComprador(cliente);
+		venta.setVendedor(vend);
+		venta.setPrecio(produc.getPrecio());
+		venta.setSede(produc.getVendedor().getSede());
+		venta.setUnidades(Nproductos);
+		venta.setFecha(fecha);
+		venta.setTipoPago(tipoDePago);
+		venta.setReserva(reserva);
 		List<Ventas> ventasvendedor= vend.getVentas();
 		ventasvendedor.add(venta);
 		vend.setVentas(ventasvendedor);
@@ -77,7 +89,8 @@ public class Carrito {
 	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva, String tipoDePago) {
 
 		for(int i=0; i<productosdecarrito.size();i++) {
-			comprarProducto(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
+			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
+			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
 		}
 	}
 
