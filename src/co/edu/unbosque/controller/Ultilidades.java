@@ -260,11 +260,13 @@ public class Ultilidades {
 		bogota.setVendedores(Presistence.busquedaVendedores("Bogotá"));
 		bogota.setAdmin(Presistence.busquedaAdministradores("Bogotá"));
 		bogota.setVentas(ventasDeSede(Presistence.busquedaClientes("Bogotá")));
+		bogota.setNombreSede("Bogotá");
 		Sede medellin = new Sede();
 		medellin.setClientes(Presistence.busquedaClientes("Medellín"));
 		medellin.setVendedores(Presistence.busquedaVendedores("Medellín"));
 		medellin.setAdmin(Presistence.busquedaAdministradores("Medellín"));
-		medellin.setVentas(ventasDeSede(Presistence.busquedaClientes("Medellín")));
+		medellin.setVentas(ventasDeSede(Presistence.busquedaClientes("Medellín"))); 
+		//
 		Sede barranquilla = new Sede();
 		barranquilla.setClientes(Presistence.busquedaClientes("Barranquilla"));
 		barranquilla.setVendedores(Presistence.busquedaVendedores("Barranquilla"));

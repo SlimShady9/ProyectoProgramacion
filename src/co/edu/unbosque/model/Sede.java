@@ -13,7 +13,7 @@ public class Sede {
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Vendedor> vendedores;
 	private int ventas;
-	
+	private String nombreSede;
 	
 	public Sede(){
 		
@@ -57,6 +57,17 @@ public class Sede {
 
 	public void setVendedores(ArrayList<Vendedor> vendedores) {
 		this.vendedores = vendedores;
+	}
+	
+
+
+	public String getNombreSede() {
+		return nombreSede;
+	}
+
+
+	public void setNombreSede(String nombreSede) {
+		this.nombreSede = nombreSede;
 	}
 
 
