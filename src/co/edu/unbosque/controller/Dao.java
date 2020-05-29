@@ -1,6 +1,9 @@
 package co.edu.unbosque.controller;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.result.NoMoreReturnsException;
@@ -150,12 +153,13 @@ public class Dao {
 	 * @param ven
 	 */
 	//Rey hizo esto, si esta mal fue otro xd
+	@Transactional
 	public static void actualizarCliente(Cliente persona) {
 		Session session = HibernateUtil.getHibernateSession();
 		String id= persona.getUsuario();
 
 		try {
-			session.beginTransaction();
+			Transaction tr = session.beginTransaction();
 			Cliente buscar = (Cliente)session.get(Cliente.class, id);
 			buscar.setContraseña(persona.getContraseña());
 			buscar.setApellidos(persona.getApellidos());
@@ -164,11 +168,10 @@ public class Dao {
 			buscar.setCorreo(persona.getCorreo());
 			buscar.setNombres(persona.getNombres());
 			buscar.setNumeroDocumento(persona.getNumeroDocumento());
-			buscar.setProductos(persona.getProductos());
 			buscar.setTarjetaCredito(persona.getTarjetaCredito());
 			buscar.setTipoDocumento(persona.getTipoDocumento());
 			session.merge(buscar);
-			session.getTransaction().commit();
+			tr.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -134,13 +134,16 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
-							if (cli.getEstado().equals("Incativo")) {
+							if (cli.getEstado().equals("Inactivo")) {
 								retorno = "ConfirmarClave";
+							}
+							else {
+								retorno = "Principal";
 							}
 							seCliente = cli;
 							carroCompras = new Carrito(seCliente);
 							mostrarOpciones();
-							retorno = "Principal";
+							
 						}
 					}
 					else {
@@ -276,6 +279,7 @@ public class Session {
 				seCliente.setContraseña(Ultilidades.encriptador(clave));
 				seCliente.setEstado("Activo");
 				Presistence.actualizarCliente(seCliente);
+				seProductos = Presistence.busquedaProductos(Presistence.busquedaVendedores(seCliente.getCiudad()));
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Proceso Finalizado");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "Principal";
@@ -457,6 +461,22 @@ public class Session {
 	}
 	public void setSeClientes(ArrayList<Cliente> seClientes) {
 		this.seClientes = seClientes;
+	}
+
+	public String getConfirmaClave() {
+		return confirmaClave;
+	}
+
+	public void setConfirmaClave(String confirmaClave) {
+		this.confirmaClave = confirmaClave;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
 

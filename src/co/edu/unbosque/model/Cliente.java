@@ -56,7 +56,6 @@ public class Cliente implements Serializable {
 	
 	@OneToMany
 	@JoinColumn (name = "COMPRADOR")
-	@LazyCollection (LazyCollectionOption.FALSE)
 	private List<Ventas> compras = new ArrayList<Ventas>();
 
 	public Cliente() {

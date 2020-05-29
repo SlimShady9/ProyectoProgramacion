@@ -29,11 +29,11 @@
 		<h:panelGrid class="CampoClave" columns="2"
 			columnClasses="label, value">
 			<h:outputLabel for="pwd1" value="Contraseña: *" />
-			<p:password id="pwd1" value="#{procesoRegistro.contraseña}" match="pwd2"
+			<p:password id="pwd1" value="#{seccion.clave}" match="pwd2"
 				label="Password 1" required="true" />
 
 			<h:outputLabel for="pwd2" value="Confirmar Contraseña: *" />
-			<p:password id="pwd2" value="#{procesoRegistro.confirmacionContraseña}"
+			<p:password id="pwd2" value="#{seccion.confirmaClave}"
 				label="Password 2" required="true" />
 
 		</h:panelGrid>
