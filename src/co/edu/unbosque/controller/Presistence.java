@@ -115,15 +115,7 @@ public class Presistence {
 		}
 		return null;
 	}
-	public static boolean agragarProducto(Producto pro) {
-		Producto cliente = buscarProducto(pro.getNombre());
-		if (cliente != null) {
-			cliente = pro;
-			Dao.actualizarProducto(pro);
-			return true;
-		}
-		return false;
-	}
+
 	public static boolean actualizarCliente(Cliente cli) {
 		Cliente cliente = buscarCliente(cli.getUsuario());
 		if (cliente != null) {
