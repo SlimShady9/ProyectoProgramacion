@@ -198,9 +198,9 @@ public class Ultilidades {
 			for(int j=0; j<todos.size();j++) {
 				if(vent.get(i).getArticulo()==todos.get(j).getNombre()&&vent.get(i).getVendedor()==todos.get(j).getVendedor()) {
 					if(todos.get(j).getCantidad()!=0) {
-					resultado.add(todos.get(j));
-					todos.remove(j);
-					break;
+						resultado.add(todos.get(j));
+						todos.remove(j);
+						break;
 					}
 				}
 			}
@@ -395,6 +395,140 @@ public class Ultilidades {
 		}
 
 		return new String(password);
+	}
+
+	// este metodo cancela las reservas despues de 3 días 
+	public static void verificarReservas() {
+		ArrayList<Ventas> vend= new ArrayList<Ventas>(Dao.ventas);
+		for(int i=0; i<vend.size();i++) {
+			Date fecha1= vend.get(i).getFecha();
+			Date fecha2= fechaRevizar();
+			if(fecha1==fecha2) {
+				Vendedor ven= vend.get(i).getVendedor();
+				List<Producto> pro = ven.getProductos();
+				for(int j=0;j<pro.size();j++) {
+					if(vend.get(i).isReserva()) {
+						if(vend.get(i).getArticulo().equals(pro.get(j).getNombre())) {
+							pro.get(j).setCantidad(vend.get(i).getUnidades());
+							ven.setProductos(pro);
+							Presistence.actualizarVendedor(ven);
+							Cliente x= vend.get(i).getComprador();
+							Vendedor v = vend.get(i).getVendedor();
+							int u = vend.get(i).getUnidades();
+							vend.remove(i);
+							try {
+								SendMailReservaCancelada(x, pro.get(j), u);
+								SendMailVentasReservaCancelada(v, pro.get(i), u);
+							} catch (AddressException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MailConnectException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MessagingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							break;
+						}
+					}
+				}
+			}
+			else if(fecha1.getDate()<fecha2.getDate()) {
+				Vendedor ven= vend.get(i).getVendedor();
+				List<Producto> pro = ven.getProductos();
+				for(int j=0;j<pro.size();j++) {
+					if(vend.get(i).isReserva()) {
+						if(vend.get(i).getArticulo().equals(pro.get(j).getNombre())) {
+							pro.get(j).setCantidad(vend.get(i).getUnidades());
+							ven.setProductos(pro);
+							Presistence.actualizarVendedor(ven);
+							Cliente x= vend.get(i).getComprador();
+							Vendedor v = vend.get(i).getVendedor();
+							int u = vend.get(i).getUnidades();
+							vend.remove(i);
+							try {
+								SendMailReservaCancelada(x, pro.get(j), u);
+								SendMailVentasReservaCancelada(v, pro.get(i), u);
+							} catch (AddressException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MailConnectException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MessagingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							break;
+						}}
+				}
+			}
+		}
+	}
+
+	public static Date fechaRevizar() {	
+		Calendar fechad=Calendar.getInstance();
+		fechad.add(Calendar.DAY_OF_YEAR, -3);
+		Date fecha = new Date(fechad.getTime().getTime());
+		return fecha;
+	}
+	public static void SendMailReservaCancelada(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	{
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+			}
+		});
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(user.getCorreo()));
+		message.setSubject("Reserva Cancelada The Gran Hermano Stor");
+		message.setText(" Se ha cancelado tu proceso de reserva \nVerifica que estos datos sean correctos antes de iniciar\n"
+				+"Datos de tu Reserva: \n"
+				+ "Producto: "+prod.getNombre()+"\n"
+				+ "Cantidad : "+Ncompras+"\n"
+				+ "Precio por unidad: "+prod.getPrecio()+"\n"
+				+ "Precio total: "+(prod.getPrecio()*Ncompras)+"\n"
+				+ "Si este correo no es para ti por favor eliminalo");
+		Transport.send(message);
+	}
+	public static void SendMailVentasReservaCancelada(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	{
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("thegranhermanocorp@gmail.com","Sofix1234");
+			}
+		});
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(user.getCorreo()));
+		message.setSubject("Reserva Realizada The Gran Hermano Stor");
+		message.setText(" Se ha cancelado la reserva de uno de tus productos \nVerifica que estos datos sean correctos antes de iniciar\n"
+				+"Datos de la Reserva: \n"
+				+ "Producto: "+prod.getNombre()+"\n"
+				+ "Cantidad : "+Ncompras+"\n"
+				+ "Precio por unidad: "+prod.getPrecio()+"\n"
+				+ "Precio total: "+(prod.getPrecio()*Ncompras)+"\n"
+				+ "Si este correo no es para ti por favor eliminalo");
+		Transport.send(message);
 	}
 
 

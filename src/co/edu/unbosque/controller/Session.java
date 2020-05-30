@@ -679,7 +679,6 @@ public class Session {
 	public void setReservaSelec(String reservaSelec) {
 		this.reservaSelec = reservaSelec;
 	}
-
-
+	
 
 }

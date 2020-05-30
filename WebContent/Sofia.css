@@ -4,7 +4,7 @@
     margin: 3rem 200px;
     float: left;
   	padding: 1rem;
-  	border: 1px solid yellow;
+  	border: 1px solid ;
   	/* IMPORTANTE */
   	text-align: revert;
 	font: bolder;
@@ -80,6 +80,7 @@ body {
 .Titulo{
     margin-left: 400px;
     margin-top: 50px;
+    margin-bottom: 100px;
     font-style: oblique;
 }
 .nombreCorp{
