@@ -198,9 +198,11 @@ public ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
 		for(int i =0; i< vent.size();i++) {
 			for(int j=0; j<todos.size();j++) {
 				if(vent.get(i).getArticulo()==todos.get(j).getNombre()&&vent.get(i).getVendedor()==todos.get(j).getVendedor()) {
+					if(todos.get(j).getCantidad()!=0) {
 					resultado.add(todos.get(j));
 					todos.remove(j);
 					break;
+					}
 				}
 			}
 			if(vent.size()==25) {
