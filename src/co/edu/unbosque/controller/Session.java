@@ -237,7 +237,7 @@ public class Session {
 		return null;
 
 	}
-	
+	//hace cositas
 	public String catalogoCategoria() {
 
 		seProductosCategoria = Presistence.buscarProductosPorCategoria(categoriaSeleccionada, seProductos);
@@ -257,7 +257,7 @@ public class Session {
 					"Mi Perfil", "Mis compras", "Notificaciones",
 					"Cerrar Sesión", "Ayuda"
 			};
-		} else if (vend != null) {
+		} else if (vend != null) { 
 			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",

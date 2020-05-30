@@ -30,6 +30,7 @@ public class Carrito {
 
 	public void agregarProducto(Producto pro, int cantidad) {
 	Vendedor vend = pro.getVendedor();
+	
 		List<Producto> productosvendedor= vend.getProductos();
 		for(int i=0;i<productosvendedor.size();i++) {
 			if(productosvendedor.get(i).equals(pro)) {
