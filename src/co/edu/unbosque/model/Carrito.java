@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 
 import com.sun.mail.util.MailConnectException;
 
@@ -30,6 +28,7 @@ public class Carrito {
 
 	public void agregarProducto(Producto pro, int cantidad) {
 	Vendedor vend = pro.getVendedor();
+	
 		List<Producto> productosvendedor= vend.getProductos();
 		for(int i=0;i<productosvendedor.size();i++) {
 			if(productosvendedor.get(i).equals(pro)) {

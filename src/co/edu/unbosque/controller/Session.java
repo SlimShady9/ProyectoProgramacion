@@ -34,7 +34,7 @@ public class Session {
 	 * Y de este modo se desplegaran las diferentes opciones
 	 */
 	private Ultilidades utilidades = new Ultilidades();
-	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
+	private static String[] opIniciales= {"Inicio", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
 	private String categoriaSeleccionada;
 	private int numeroDeProductos;
@@ -52,13 +52,17 @@ public class Session {
 	private static Gerencia gere;
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
+	
+	private ArrayList<Vendedor> seVendedores =(ArrayList<Vendedor>) Dao.vendedores;
+	private ArrayList<Vendedor> sedVendedores = null;
+	
 	private ArrayList<Producto> seProductosCategoria = null;
 
 	private Producto seProducto = new Producto();
 
 
 	private ArrayList<Cliente> seClientes= (ArrayList<Cliente>)Dao.clientes;
-
+	private ArrayList<Cliente> sedClientes =null;
 
 	private String usuario, contraseña;
 
@@ -214,10 +218,30 @@ public class Session {
 				return "PerfilUsuario";
 			}
 		}
+		if(opcionSeleccionada.equals("Clientes")) {
+			if(admin != null) {
+				sedClientes=Presistence.busquedaClientes(admin.getSede());
+				return "TablaClientes";
+			}
+			if(gere != null) {
+				sedClientes= seClientes;
+				return "TablaClientes";
+			}
+		}
+		if(opcionSeleccionada.equals("Vendedores")) {
+			if(admin != null) {
+				sedVendedores=Presistence.busquedaVendedores(admin.getSede());
+				return "TablaVendedor";
+			}
+			if(gere != null) {
+				sedVendedores=seVendedores;
+				return "TablaVendedor";
+			}
+		}
 		return null;
 
 	}
-	
+	//hace cositas
 	public String catalogoCategoria() {
 
 		seProductosCategoria = Presistence.buscarProductosPorCategoria(categoriaSeleccionada, seProductos);
@@ -236,7 +260,7 @@ public class Session {
 					"Mi Perfil", "Mis compras",
 					"Cerrar Sesión"
 			};
-		} else if (vend != null) {
+		} else if (vend != null) { 
 			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
@@ -254,7 +278,8 @@ public class Session {
 			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Mi Perfil",  "Cerrar Sesión"
+					"Mi Perfil","Reportes", "Clientes",
+					"Vendedores",  "Cerrar Sesión"
 			};
 
 		} else {
@@ -330,6 +355,20 @@ public class Session {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Agregado al carro");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
+	}
+	
+	
+	public String editarVendedor() {
+		return "";
+	}
+	public String eliminarVendedor() {
+		return "";
+	}
+	public String editarCliente() {
+		return "";
+	}
+	public String eliminarCliente() {
+		return "";
 	}
 	
 	public ArrayList<String> getOpciones() {
@@ -555,6 +594,24 @@ public class Session {
 	}
 
 	
+	
+
+	public ArrayList<Cliente> getSedClientes() {
+		return sedClientes;
+	}
+
+	public void setSedClientes(ArrayList<Cliente> sedCliente) {
+		this.sedClientes = sedCliente;
+	}
+
+	public ArrayList<Vendedor> getSedVendedores() {
+		return sedVendedores;
+	}
+
+	public void setSedVendedores(ArrayList<Vendedor> sedVendedores) {
+		this.sedVendedores = sedVendedores;
+	}
+
 
 
 }
