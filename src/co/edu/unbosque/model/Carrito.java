@@ -66,11 +66,11 @@ public class Carrito {
 		Presistence.modificarClienteNOSQL(cliente);
 		try {
 			if(!reserva) {
-			Ultilidades.SendMailComprar(cliente, produc, Nproductos);
-			Ultilidades.SendMailVentas(produc.getVendedor(), produc,Nproductos);
+				Ultilidades.SendMailComprar(cliente, produc, Nproductos);
+				Ultilidades.SendMailVentas(produc.getVendedor(), produc,Nproductos);
 			}else{
-			Ultilidades.SendMailReserva(produc.getVendedor(), produc,Nproductos);
-			Ultilidades.SendMailReservar(cliente, produc, Nproductos);
+				Ultilidades.SendMailReserva(produc.getVendedor(), produc,Nproductos);
+				Ultilidades.SendMailReservar(cliente, produc, Nproductos);
 			}
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
@@ -82,7 +82,7 @@ public class Carrito {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**

@@ -194,22 +194,37 @@ public class Ultilidades {
 	public static ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
 		ArrayList<Producto> todos= new ArrayList<Producto>(Dao.productos);
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		if(vent.size()!=0){
 		for(int i =0; i< vent.size();i++) {
 			for(int j=0; j<todos.size();j++) {
 				if(vent.get(i).getArticulo()==todos.get(j).getNombre()&&vent.get(i).getVendedor()==todos.get(j).getVendedor()) {
 					if(todos.get(j).getCantidad()!=0) {
+						if(vent.get(i).getFecha()==fechaRevizar()) {
 						resultado.add(todos.get(j));
 						todos.remove(j);
 						break;
+						}
+						else if(vent.get(i).getFecha()==fechaRevizar2()) {
+							resultado.add(todos.get(j));
+							todos.remove(j);
+							break;
+						}else if(vent.get(i).getFecha()==fechaRevizar3()) {
+							resultado.add(todos.get(j));
+							todos.remove(j);
+							break;
+						}
 					}
 				}
 			}
-			if(resultado.size()==25) {
+			if(resultado.size()==5) {
 				break;
 			}
 		}
+		}
+		else if(vent.size()==0) {
+			resultado = todos;
+		}
 		return resultado;
-
 	}
 
 	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
@@ -501,6 +516,18 @@ public class Ultilidades {
 	public static Date fechaRevizar() {	
 		Calendar fechad=Calendar.getInstance();
 		fechad.add(Calendar.DAY_OF_YEAR, -3);
+		Date fecha = new Date(fechad.getTime().getTime());
+		return fecha;
+	}
+	public static Date fechaRevizar2() {	
+		Calendar fechad=Calendar.getInstance();
+		fechad.add(Calendar.DAY_OF_YEAR, -2);
+		Date fecha = new Date(fechad.getTime().getTime());
+		return fecha;
+	}
+	public static Date fechaRevizar3() {	
+		Calendar fechad=Calendar.getInstance();
+		fechad.add(Calendar.DAY_OF_YEAR, -1);
 		Date fecha = new Date(fechad.getTime().getTime());
 		return fecha;
 	}
