@@ -16,8 +16,6 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 @GraphicImageBean
 public class Producto {
 
-
-
 	@ManyToOne
 	@JoinColumn (name = "VENDEDOR")
 	private Vendedor vendedor;
@@ -102,7 +100,6 @@ public class Producto {
 
 	public ArrayList<Integer> getCantidadToArray() {
 		cargarLista();
-		System.out.println(cantidadToArray.size());
 		return cantidadToArray;
 	}
 

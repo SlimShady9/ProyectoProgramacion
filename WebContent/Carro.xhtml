@@ -83,10 +83,9 @@
 				<h:outputLabel value="Cantidad a reservar:	"></h:outputLabel>
 			</p:column>
 			<p:column>
-				<h:selectOneMenu value="#{CnumeroDeProductos}">
-					<ui:repeat var="i" value="#{seccion.proSelecc.cantidadToArray}">
-						<f:selectItem itemLabel="#{i}" itemValue="#{i}"></f:selectItem>
-					</ui:repeat>
+				<h:selectOneMenu value="#{seccion.cNumeroDeProductos}">
+					<f:selectItems value="#{seccion.proSelecc.cantidadToArray}" var="i"
+						itemValue="#{i}" itemLabel="#{i}"></f:selectItems>
 
 				</h:selectOneMenu>
 			</p:column>

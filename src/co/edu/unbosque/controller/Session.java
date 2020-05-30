@@ -85,7 +85,7 @@ public class Session {
 	private List<Sede> sedes = utilidades.topSedeVentas();
 	private String sedeSeleccionada;
 	// Este producto es el seleccionado
-
+	private int cNumeroDeProductos;
 	private Producto proSelecc;
 	private static String nombre, precio, categoria, vendedor;
 
@@ -317,7 +317,7 @@ public class Session {
 	}
 	
 	public String seleciconarProducto() {
-		System.out.println(proSelecc.toString());
+		System.out.println(proSelecc.getCantidadToArray().size());
 		return "Carro";
 	}
 	public String agregarProductoAlCarro() {
@@ -539,6 +539,15 @@ public class Session {
 		this.numeroDeProductos = numeroDeProductos;
 	}
 
+	public int getcNumeroDeProductos() {
+		return cNumeroDeProductos;
+	}
+
+	public void setcNumeroDeProductos(int cNumeroDeProductos) {
+		this.cNumeroDeProductos = cNumeroDeProductos;
+	}
+
+	
 
 
 }
