@@ -141,7 +141,7 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
-	
+
 	public static List<ArrayList<Producto>> generarMatrizProducto(){
 		// Aqui iria mi algoritmo de ordenacion por popularidad si tan solo tuviera uno :c xd...
 		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
@@ -161,29 +161,8 @@ public class Ultilidades {
 		}
 		return matriz;
 	}
-
-	public static List<ArrayList<Producto>> generarMatrizProducto(String sede){
-		// Aqui iria mi algoritmo de ordenacion por popularidad si tan solo tuviera uno :c xd...
-		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
-		ArrayList<Producto> fila = new ArrayList<Producto>();
-		for (int i = 0 ; i < Dao.productos.size() ; i++) {
-			fila.add(Dao.productos.get(i));
-			// cada 4 columnas agrego una fila
-			if ( (i+1) % 4 == 0) {
-				ArrayList<Producto> loQueMetere = fila;
-				matriz.add(loQueMetere);
-				// limpio el array
-				fila = new ArrayList<Producto>();
-			}
-		}
-		if (Dao.productos.size() % 4 != 0) {
-			matriz.add(fila);
-		}
-		return matriz;
-
-	}
 	//Este metodo retorna un arraylist de las ventas en una sede ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
-	public static ArrayList<Ventas> ordenarTopSede(String sede) {
+	public ArrayList<Ventas> ordenarTopSede(String sede) {
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
 		for (int i = 1; i <vent.size(); i++) {
@@ -198,7 +177,7 @@ public class Ultilidades {
 		return vent;
 	}
 	//Este metodo retorna un arraylist de las ventas en general de todas las sedes ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
-	public static ArrayList<Ventas> ordenarTopGeneral() {
+	public ArrayList<Ventas> ordenarTopGeneral() {
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
 		for (int i = 1; i <vent.size(); i++) {
@@ -212,8 +191,27 @@ public class Ultilidades {
 		}
 		return vent;
 	}
+	public ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
+		ArrayList<Producto> todos= new ArrayList<Producto>(Dao.productos);
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		for(int i =0; i< vent.size();i++) {
+			for(int j=0; j<todos.size();j++) {
+				if(vent.get(i).getArticulo()==todos.get(j).getNombre()&&vent.get(i).getVendedor()==todos.get(j).getVendedor()) {
+					resultado.add(todos.get(j));
+					todos.remove(j);
+					break;
+				}
+			}
+			if(vent.size()==25) {
+				break;
+			}
+		}
+		return resultado;
+
+	}
+
 	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
-	public static ArrayList<Cliente> clientesTopSede(String sede){
+	public ArrayList<Cliente> clientesTopSede(String sede){
 		ArrayList<Cliente> cliente = Presistence.busquedaClientes(sede);
 		for (int i = 1; i <cliente.size(); i++) {
 			Cliente aux = cliente.get(i);
@@ -227,7 +225,7 @@ public class Ultilidades {
 		return cliente;
 	}
 	//Este metodo devuelve un arraylist de cliente en la cual me dice los clientes a nivel genereal ordenado por numero de compras realizadas
-	public static ArrayList<Cliente> clientesTopGenera(){
+	public ArrayList<Cliente> clientesTopGenera(){
 		ArrayList<Cliente> cliente = new ArrayList<Cliente>(Dao.clientes);
 		for (int i = 1; i <cliente.size(); i++) {
 			Cliente aux = cliente.get(i);
@@ -241,7 +239,7 @@ public class Ultilidades {
 		return cliente;
 	}
 	//Este metodo devuelve un arraylist de vendedores por sede ordenados por numero de ventas realizadas
-	public static ArrayList<Vendedor> vendedorTopSede(String sede){
+	public ArrayList<Vendedor> vendedorTopSede(String sede){
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);
@@ -255,7 +253,7 @@ public class Ultilidades {
 		return ven;
 	}
 	//Este metodo devuelve un arraylist de vendedores en la cual me dice los vededores a nivel genereal ordenado por numero de ventas realizadas
-	public static ArrayList<Vendedor> vendedorTopGeneral(){
+	public ArrayList<Vendedor> vendedorTopGeneral(){
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);
@@ -312,14 +310,14 @@ public class Ultilidades {
 		}
 		return sedes;
 	}
-	public static int ventasDeSede(ArrayList<Cliente> user) {
+	public int ventasDeSede(ArrayList<Cliente> user) {
 		int ventas=0;
 		for(int i =0; i<user.size();i++) {
 			ventas+=user.get(i).getCompras().size();
 		}
 		return ventas;
 	}
-	public static void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	public void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
 		Properties props = new Properties();

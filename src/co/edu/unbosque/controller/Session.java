@@ -195,16 +195,16 @@ public class Session {
 
 		}
 		if (opcionSeleccionada.equals("Mi Perfil")) {
-			if (seAdmin != null){
+			if (admin != null){
 				return "PerfilAdministrador";
 			}
-			if (seGerente != null){
+			if (gere != null){
 				return "PerfilGerente";
 			}
-			if (seVendedor != null){
+			if (vend != null){
 				return "PerfilVendedor";
 			}
-			if (seCliente != null){
+			if (cli != null){
 				return "PerfilUsuario";
 			}
 		}
