@@ -138,7 +138,7 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
-							seProductos = Presistence.busquedaProductos(Presistence.busquedaVendedores(seCliente.getCiudad()));
+							seProductos = Presistence.busquedaProductos(Presistence.busquedaVendedores(cli.getCiudad()));
 							if (cli.getEstado().equals("Inactivo")) {
 								retorno = "ConfirmarClave";
 							}
@@ -218,7 +218,7 @@ public class Session {
 			mTitulo += cli.getUsuario();
 			opIniciales = new String[] {
 					"Inicio", "Categorias",
-					"Ver Perfil", "Mis compras", "Notificaciones",
+					"Mi Perfil", "Mis compras", "Notificaciones",
 					"Cerrar Sesión", "Ayuda"
 			};
 		} else if (vend != null) {
@@ -231,7 +231,7 @@ public class Session {
 		} else if (admin != null) {
 			menuTitulo += admin.getUsuario();
 			opIniciales = new String[] {
-					"Inicio", "Reportes", "Clientes",
+					"Inicio","Mi Perfil", "Reportes", "Clientes",
 					"Vendedores", "Cerrar Sesión"
 			};
 

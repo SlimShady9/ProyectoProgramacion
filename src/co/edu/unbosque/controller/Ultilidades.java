@@ -145,9 +145,8 @@ public class Ultilidades {
 	public static List<ArrayList<Producto>> generarMatrizProducto(){
 		// Aqui iria mi algoritmo de ordenacion por popularidad si tan solo tuviera uno :c xd...
 		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
-		ArrayList<Producto> sofi = ordenarTopGeneral();
 		ArrayList<Producto> fila = new ArrayList<Producto>();
-		for (int i = 0 ; i < sofi.size() ; i++) {
+		for (int i = 0 ; i < Dao.productos.size() ; i++) {
 			fila.add(Dao.productos.get(i));
 			// cada 4 columnas agrego una fila
 			if ( (i+1) % 4 == 0) {
