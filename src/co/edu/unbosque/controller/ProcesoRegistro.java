@@ -22,7 +22,7 @@ import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.resources.VerifyRecaptcha;
 
 /**
- * @author Camilo
+ * @author Rey
  *
  */
 @ManagedBean(name="procesoRegistro")

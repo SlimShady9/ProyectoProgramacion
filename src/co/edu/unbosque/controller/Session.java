@@ -184,6 +184,10 @@ public class Session {
 			mostrarOpciones();
 			return "Principal";
 		}
+		if (opcionSeleccionada.equals("Carrito")) {
+			return "FinalizarCarro";
+			
+		}
 		if (opcionSeleccionada.equals("Mis productos")) {
 			mensaje = "Tus Productos En Venta";
 			seVendedor = vend;
@@ -221,24 +225,23 @@ public class Session {
 		
 		return "CategoriaSeleccionada";
 	}
-	
-//	public ()
+
 
 	public void mostrarOpciones() {
 		mTitulo = "Bienvenido ";
 		if (cli != null) {
 			mTitulo += cli.getUsuario();
 			opIniciales = new String[] {
-					"Inicio", "Categorias",
-					"Mi Perfil", "Mis compras", "Notificaciones",
-					"Cerrar Sesión", "Ayuda"
+					"Inicio", "Categorias", "Carrito",
+					"Mi Perfil", "Mis compras",
+					"Cerrar Sesión"
 			};
 		} else if (vend != null) {
 			mTitulo += vend.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
 					"Mi Perfil", "Historial Ventas", "Mis productos",
-					"Notificaciones", "Cerrar Sesión", "Ayuda"
+					"Cerrar Sesión"
 			};
 		} else if (admin != null) {
 			menuTitulo += admin.getUsuario();
@@ -322,6 +325,10 @@ public class Session {
 	}
 	public String agregarProductoAlCarro() {
 		String retorno = "Principal";
+		carroCompras.agregarProducto(proSelecc, cNumeroDeProductos);
+		Dao.cargarVendedores();
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Agregado al carro");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
 	

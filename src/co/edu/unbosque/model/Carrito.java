@@ -131,6 +131,22 @@ public class Carrito {
 		this.fecha = fecha;
 	}
 
+	public static ArrayList<Producto> getProductosdecarrito() {
+		return productosdecarrito;
+	}
+
+	public static void setProductosdecarrito(ArrayList<Producto> productosdecarrito) {
+		Carrito.productosdecarrito = productosdecarrito;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 
 
 }
