@@ -51,6 +51,7 @@ public class Session {
 	private static Gerencia gere;
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
+	private ArrayList<Producto> seProductosCategoria = null;
 
 	private Producto seProducto = new Producto();
 
@@ -211,6 +212,16 @@ public class Session {
 		return null;
 
 	}
+	
+	public String catalogoCategoria() {
+
+		seProductosCategoria = Presistence.buscarProductosPorCategoria(categoriaSeleccionada, seProductos);
+		mensaje = "Ver Productos";
+		
+		return "CategoriaSeleccionada";
+	}
+	
+//	public ()
 
 	public void mostrarOpciones() {
 		mTitulo = "Bienvenido ";
@@ -500,6 +511,14 @@ public class Session {
 
 	public void setCategoriaSeleccionada(String categoriaSeleccionada) {
 		this.categoriaSeleccionada = categoriaSeleccionada;
+	}
+
+	public ArrayList<Producto> getSeProductosCategoria() {
+		return seProductosCategoria;
+	}
+
+	public void setSeProductosCategoria(ArrayList<Producto> seProductosCategoria) {
+		this.seProductosCategoria = seProductosCategoria;
 	}
 
 

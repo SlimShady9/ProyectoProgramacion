@@ -162,7 +162,7 @@ public class Ultilidades {
 		return matriz;
 	}
 	//Este metodo retorna un arraylist de las ventas en una sede ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
-	public ArrayList<Ventas> ordenarTopSede(String sede) {
+	public static ArrayList<Ventas> ordenarTopSede(String sede) {
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
 		for (int i = 1; i <vent.size(); i++) {
@@ -177,7 +177,7 @@ public class Ultilidades {
 		return vent;
 	}
 	//Este metodo retorna un arraylist de las ventas en general de todas las sedes ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
-	public ArrayList<Ventas> ordenarTopGeneral() {
+	public static ArrayList<Ventas> ordenarTopGeneral() {
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
 		for (int i = 1; i <vent.size(); i++) {
@@ -191,7 +191,7 @@ public class Ultilidades {
 		}
 		return vent;
 	}
-	public ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
+	public static ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
 		ArrayList<Producto> todos= new ArrayList<Producto>(Dao.productos);
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
 		for(int i =0; i< vent.size();i++) {
@@ -204,7 +204,7 @@ public class Ultilidades {
 					}
 				}
 			}
-			if(vent.size()==25) {
+			if(resultado.size()==25) {
 				break;
 			}
 		}
