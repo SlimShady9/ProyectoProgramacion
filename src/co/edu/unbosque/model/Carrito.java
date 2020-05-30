@@ -85,11 +85,11 @@ public class Carrito {
 	 * @param tipoPago
 	 * @param reserva
 	 */
-	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva, String tipoDePago) {
+	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva) {
 
 		for(int i=0; i<productosdecarrito.size();i++) {
-			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
-			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
+			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
+			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
 		}
 	}
 
