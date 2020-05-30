@@ -89,7 +89,7 @@ public class Dao {
 		try (Session session = HibernateUtil.getHibernateSession()){
 
 			tran = session.beginTransaction();
-			vend.setEstado("Inactivo");
+			vend.setEstado("Activo");
 			session.save(vend);
 			tran.commit();
 		} catch (Exception e) {
@@ -165,6 +165,7 @@ public class Dao {
 			buscar.setApellidos(persona.getApellidos());
 			buscar.setCelular(persona.getCelular());
 			buscar.setCiudad(persona.getCiudad());
+			buscar.setEstado("Activo");
 			buscar.setCorreo(persona.getCorreo());
 			buscar.setNombres(persona.getNombres());
 			buscar.setNumeroDocumento(persona.getNumeroDocumento());
@@ -181,7 +182,6 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		System.out.println();
 		System.out.println(ven.toString());
-		ven.setEstado("Activo");
 
 		String id= ven.getUsuario();
 		try {
@@ -191,7 +191,7 @@ public class Dao {
 			buscar.setBanco(ven.getBanco());
 			buscar.setContraseña(ven.getContraseña());
 			buscar.setCorreo(ven.getCorreo());
-			buscar.setEstado(ven.getEstado());
+			buscar.setEstado("Activo");
 			buscar.setIdentificacion(ven.getIdentificacion());
 			buscar.setNombres(ven.getNombres());
 			buscar.setProductos(ven.getProductos());

@@ -35,10 +35,14 @@ public class Session {
 	 */
 	private Ultilidades utilidades = new Ultilidades();
 	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
+	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
+	private String categoriaSeleccionada;
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
+	private ArrayList<String> caterogirasD = new ArrayList<String>(Arrays.asList(categoriasDisponibles));
 
 	private Cliente seCliente = null;
 	private static Cliente cli;
+	
 	private Vendedor seVendedor = null;
 	private static Vendedor vend;
 	private Administrador seAdmin = null;
@@ -134,6 +138,7 @@ public class Session {
 							retorno = "Login";
 						}
 						else {
+							seProductos = Presistence.busquedaProductos(Presistence.busquedaVendedores(seCliente.getCiudad()));
 							if (cli.getEstado().equals("Inactivo")) {
 								retorno = "ConfirmarClave";
 							}
@@ -159,6 +164,9 @@ public class Session {
 	public String seccionOpcionMenu() {
 		if (opcionSeleccionada.equals("Inicio")) {
 			return "Principal";
+		}
+		if (opcionSeleccionada.equals("Categorias")) {
+			return "Categorias";
 		}
 		if (opcionSeleccionada.equals("Iniciar Sesion")) {
 			return "Login";
@@ -279,7 +287,6 @@ public class Session {
 				seCliente.setContraseña(Ultilidades.encriptador(clave));
 				seCliente.setEstado("Activo");
 				Presistence.actualizarCliente(seCliente);
-				seProductos = Presistence.busquedaProductos(Presistence.busquedaVendedores(seCliente.getCiudad()));
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Proceso Finalizado");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "Principal";
@@ -477,6 +484,22 @@ public class Session {
 
 	public void setClave(String clave) {
 		this.clave = clave;
+	}
+
+	public ArrayList<String> getCaterogirasD() {
+		return caterogirasD;
+	}
+
+	public void setCaterogirasD(ArrayList<String> caterogirasD) {
+		this.caterogirasD = caterogirasD;
+	}
+
+	public String getCategoriaSeleccionada() {
+		return categoriaSeleccionada;
+	}
+
+	public void setCategoriaSeleccionada(String categoriaSeleccionada) {
+		this.categoriaSeleccionada = categoriaSeleccionada;
 	}
 
 

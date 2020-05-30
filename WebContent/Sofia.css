@@ -120,3 +120,41 @@ body {
     color: white;
     text-align: center;
 }
+.imgMujer{
+    width: 250px;
+    height: 300px;
+    margin-left: 85px
+}
+.imgHombre{
+    width: 300px;
+    height: 300px;
+    
+}
+.imgNiños{
+    height: 300px;
+    width: 420px
+}
+.imgVestimenta{
+    height: 300px;
+    margin-left: 105px;
+}
+.imgHogar{
+    height: 300px;
+    margin-left: 20px;
+}
+.imgTecnologia{
+    height: 300px;
+    width: 420px
+}
+.imgMascotas{
+    height: 300px;
+    width: 420px;
+}
+.imgDeportes{
+    height: 300px;
+    width: 380px;
+}
+.imgOtros{
+    height: 300px;
+    margin-left: 80px
+}

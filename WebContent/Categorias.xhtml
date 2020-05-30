@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<f:facet name="last">
+		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
+	</f:facet>
+	<title>Electro Compras Corps</title>
+	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+</h:head>
+<h:body>
+	<h:form>
+
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+			styleClass="BarraLateral">
+			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}"
+						ajax='false'
+						style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
+						<f:setPropertyActionListener value="#{i}"
+							target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<br></br>
+					<br></br>
+				</ui:repeat>
+			</h:panelGrid>
+		</p:sidebar>
+		<rich:toolBar class="menuBarra">
+			<rich:toolBarGroup>
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
+				</p:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+				</p:commandLink>
+				<h:inputText styleClass="barsearch" />
+			</rich:toolBarGroup>
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink immediate="true" action="Principal">
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
+
+		</rich:toolBar>
+
+		<h1 class="Titulo">Selecciona Una Categoria</h1>
+
+		<h:panelGrid class="CampoCategorias" columns="3">
+			<p:commandLink action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Mujeres"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgMujer"
+				value="Resources/Mujeres.jpeg" alt="Mujeres"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Hombres"
+					target="#{categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgHombre" value="Resources/Hombres.jpeg" alt="Hombres"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Niños"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgNiños" value="Resources/Niños.jpeg" alt="Niños"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener   value="Vestimenta"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgVestimenta" value="Resources/Vestimenta.png" alt="Vestimenta"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Hogar"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgHogar"  value="Resources/Hogar.png" alt="Hogar"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Tecnologia"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgTecnologia" value="Resources/Tecnologia.jpg" alt="Tecnologia"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Mascotas"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgMascotas" value="Resources/Mascotas.png" alt="Mascotas"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Deportes"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgDeportes" value="Resources/Deportes.png" alt="Deportes"></p:graphicImage>
+			</p:commandLink>
+			<p:commandLink 
+			action="CatalogoCategoria">
+				<f:setPropertyActionListener value="Otro"
+					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
+				<p:graphicImage styleClass="imgOtros" value="Resources/Otros.png" alt="Otro"></p:graphicImage>
+			</p:commandLink>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
