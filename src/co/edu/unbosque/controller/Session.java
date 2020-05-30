@@ -101,6 +101,7 @@ public class Session {
 
 	public String inicioSeccion() {
 		admin = Presistence.buscarAdministrador(usuario);
+		
 		String retorno = null;
 		if (admin != null) {
 			if (!admin.getContraseña().equals(contraseña)) {
@@ -190,6 +191,7 @@ public class Session {
 			vend = null;
 			admin = null;
 			gere = null;
+			carroCompras = null;
 			mostrarOpciones();
 			return "Principal";
 		}
