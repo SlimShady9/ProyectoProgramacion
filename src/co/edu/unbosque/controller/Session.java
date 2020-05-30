@@ -37,6 +37,7 @@ public class Session {
 	private static String[] opIniciales= {"Inicio", "Categorias", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
 	private String categoriaSeleccionada;
+	private int numeroDeProductos;
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
 	private ArrayList<String> caterogirasD = new ArrayList<String>(Arrays.asList(categoriasDisponibles));
 
@@ -255,7 +256,7 @@ public class Session {
 
 		} else {
 			opIniciales= new String[]{"Inicio",
-					"Categorias", "Iniciar Sesion",
+					"Iniciar Sesion",
 					"Resgistrate", "Ayuda"};
 			mTitulo += "<3";
 		}
@@ -314,7 +315,16 @@ public class Session {
 			return "ValidacionTarjeta";
 		}
 	}
-
+	
+	public String seleciconarProducto() {
+		System.out.println(proSelecc.toString());
+		return "Carro";
+	}
+	public String agregarProductoAlCarro() {
+		String retorno = "Principal";
+		return retorno;
+	}
+	
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
@@ -519,6 +529,14 @@ public class Session {
 
 	public void setSeProductosCategoria(ArrayList<Producto> seProductosCategoria) {
 		this.seProductosCategoria = seProductosCategoria;
+	}
+
+	public int getNumeroDeProductos() {
+		return numeroDeProductos;
+	}
+
+	public void setNumeroDeProductos(int numeroDeProductos) {
+		this.numeroDeProductos = numeroDeProductos;
 	}
 
 

@@ -63,8 +63,10 @@
 			action="RegistroProducto"></p:commandButton>
 
 
-		<p:dataTable value="#{seccion.seProductosCategoria}" var="i" rows="5" rowKey="#{i.nombre}"
-			paginator="true" rowIndexVar="cont" selection="#{seccion.proSelecc}" selectionMode="single">
+
+		<p:dataTable value="#{seccion.seProductosCategoria}" var="i" rows="5"
+			rowKey="#{i.nombre}" paginator="true" rowIndexVar="cont"
+			selection="#{seccion.proSelecc}" selectionMode="single">
 			<p:column headerText="Imagen" style="width: 200px;">
 
 				<o:graphicImage class="Iconos" value="#{i.imagen}"
@@ -87,11 +89,13 @@
 					<br></br>
 				</div>
 			</p:column>
+
 			<f:facet name="footer">
-				<p:commandButton value="Agregar Al Carro" action="#{session.AgregarProductoAlCarro}" ></p:commandButton>
+				<p:commandLink action="#{seccion.seleciconarProducto}">
+					<h:graphicImage styleClass="imgCarrito" value="Resources/CarroCompras.png"></h:graphicImage>
+				</p:commandLink>
 			</f:facet>
 		</p:dataTable>
-		
 	</h:form>
 </h:body>
 </html>

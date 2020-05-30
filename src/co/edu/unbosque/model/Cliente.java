@@ -57,6 +57,7 @@ public class Cliente implements Serializable {
 	@OneToMany
 	@JoinColumn (name = "COMPRADOR")
 	private List<Ventas> compras = new ArrayList<Ventas>();
+	
 
 	public Cliente() {
 	}

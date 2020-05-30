@@ -1,7 +1,11 @@
 package co.edu.unbosque.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
 import org.omnifaces.cdi.GraphicImageBean;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 /**
  * The persistent class for the Productos database table.
@@ -33,6 +37,9 @@ public class Producto {
 
 	@Column (name = "IMAGEN")
 	private byte[] imagen;
+	
+	@Transient
+	private ArrayList<Integer> cantidadToArray = new ArrayList<>();
 
 	public Producto() {
 	}
@@ -86,7 +93,22 @@ public class Producto {
 		this.vendedor = vendedor;
 	}
 	
+	public void cargarLista() {
+		cantidadToArray = new ArrayList<Integer>();
+		for (int i = 1 ; i <= cantidad ; i++) {
+			cantidadToArray.add(i);
+		}
+	}
 
+	public ArrayList<Integer> getCantidadToArray() {
+		cargarLista();
+		System.out.println(cantidadToArray.size());
+		return cantidadToArray;
+	}
+
+	public void setCantidadToArray(ArrayList<Integer> cantidadToArray) {
+		this.cantidadToArray = cantidadToArray;
+	}
 
 	@Override
 	public String toString() {
