@@ -65,6 +65,9 @@ public class Session {
 	private ArrayList<Cliente> sedClientes =null;
 
 	private String usuario, contraseña;
+	private String[] tipoDePago = {"Efectivo", "Tarjeta"};
+	private String[] reserva = {"Reservar", "Comprar"};
+	private String tipoPagoSelecc, reservaSelec;
 
 	private static String mTitulo = "Bienvenido <3";
 	private String menuTitulo = mTitulo, opcionSeleccionada, confirmaClave, clave;
@@ -345,11 +348,11 @@ public class Session {
 	}
 	
 	public String seleciconarProducto() {
-		System.out.println(proSelecc.getCantidadToArray().size());
 		return "Carro";
 	}
 	public String agregarProductoAlCarro() {
 		String retorno = "Principal";
+		System.out.println(proSelecc.toString());
 		carroCompras.agregarProducto(proSelecc, cNumeroDeProductos);
 		Dao.cargarVendedores();
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Agregado al carro");
@@ -357,6 +360,24 @@ public class Session {
 		return retorno;
 	}
 	
+	public String finalizarTransaccion() {
+		if (reservaSelec.equals("Efectivo")) {
+			carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, true);
+
+		} else {
+			carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, false);
+
+		}
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Transaccion Exitosa");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return "Principal";
+	}
+	
+	public void quitarItemCarro(Producto pro) {
+		carroCompras.retirarProducto(pro, pro.getCantidad());
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Transaccion Exitosa");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	
 	public String editarVendedor() {
 		return "";
@@ -610,6 +631,14 @@ public class Session {
 
 	public void setSedVendedores(ArrayList<Vendedor> sedVendedores) {
 		this.sedVendedores = sedVendedores;
+	}
+
+	public Carrito getCarroCompras() {
+		return carroCompras;
+	}
+
+	public void setCarroCompras(Carrito carroCompras) {
+		this.carroCompras = carroCompras;
 	}
 
 

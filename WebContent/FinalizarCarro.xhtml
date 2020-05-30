@@ -59,12 +59,8 @@
 		</rich:toolBar>
 
 		<h1 class="Titulo">Ver Productos Del Carrito</h1>
-		<p:commandButton value="Registra Un Producto"
-			action="RegistroProducto"></p:commandButton>
 
-
-
-		<p:dataTable value="#{seccion.carroCompras.productosdecarrito}" var="i" rows="5"
+		<p:dataTable value="#{seccion.carroCompras.seProuctosDeCarrito}" var="i" rows="5"
 			rowKey="#{i.nombre}" paginator="true">
 			<p:column headerText="Imagen" style="width: 200px;">
 
@@ -88,6 +84,12 @@
 					<br></br>
 				</div>
 			</p:column>
+			<p:column style="width:132px;text-align: center">
+             <p:commandButton action="#{seccion.quitarItemCarro(#{i})}">
+             	<h:graphicImage styleClass="imgRm" value="Resources/Basura.png"></h:graphicImage>
+<!--                 <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" /> -->
+            </p:commandButton>
+            </p:column>
 
 			<f:facet name="footer">
 				<p:commandButton action="#{seccion.finalizarTransaccion}" value = "Realizar Compra">

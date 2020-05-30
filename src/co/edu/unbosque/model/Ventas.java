@@ -34,6 +34,7 @@ public class Ventas {
 	@Column(name = "SEDE")
 	private String sede;
 	
+	@Id
 	@Column(name = "ARTICULO")
 	private String articulo;
 	
@@ -43,7 +44,6 @@ public class Ventas {
 	@Column(name = "PRECIO")
 	private double precio;
 	
-	@Id
 	@Column(name = "FECHA")
 	private Date fecha;
 	

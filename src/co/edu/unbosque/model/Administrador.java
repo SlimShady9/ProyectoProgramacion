@@ -23,10 +23,10 @@ public class Administrador  {
 	@Column(name = "CORREO")
 	private String correo;
 	
-	@Id
 	@Column(name = "USUARIO")
 	private String usuario;
 
+	@Id
 	@Column(name = "SEDE")
 	private String sede;
 	

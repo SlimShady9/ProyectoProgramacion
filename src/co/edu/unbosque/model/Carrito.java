@@ -3,15 +3,16 @@ package co.edu.unbosque.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import com.sun.mail.util.MailConnectException;
-
 import co.edu.unbosque.controller.Presistence;
+import co.edu.unbosque.controller.Ultilidades;
 
 public class Carrito {
 
-	private static ArrayList<Producto> productosdecarrito;
+	private static ArrayList<Producto> productosdecarrito = new ArrayList<Producto>();
+	private ArrayList<Producto> seProuctosDeCarrito;
 	private Cliente cliente;
 	private boolean pagoTarjeta = false;
 	private Date fecha;
@@ -27,17 +28,19 @@ public class Carrito {
 	 */
 
 	public void agregarProducto(Producto pro, int cantidad) {
-	Vendedor vend = pro.getVendedor();
-	
+		Vendedor vend = pro.getVendedor();
+		int cont = 0;
+
 		List<Producto> productosvendedor= vend.getProductos();
 		for(int i=0;i<productosvendedor.size();i++) {
 			if(productosvendedor.get(i).equals(pro)) {
 				productosvendedor.get(i).setCantidad(productosvendedor.get(i).getCantidad()-cantidad);
+				cont = i;
 				break;
 			}
 		}
 		vend.setProductos(productosvendedor);
-		Presistence.actualizarVendedor(vend);
+		Presistence.actualizarProducto(productosvendedor.get(cont));
 		Producto agregar = pro;
 		agregar.setCantidad(cantidad);
 		productosdecarrito.add(agregar);
@@ -56,8 +59,24 @@ public class Carrito {
 		venta.setTipoPago(tipoDePago);
 		venta.setReserva(reserva);
 		ventascliente.add(venta);
-		cliente.setCompras(ventascliente);
-		Presistence.actualizarCliente(cliente);
+		for (Ventas i : ventascliente) {
+			Presistence.actualizarVenta(i);
+		}
+		cliente.setCompras(ventascliente);	
+		Presistence.modificarClienteNOSQL(cliente);
+		try {
+			Ultilidades.SendMailComprar(cliente, produc, Nproductos);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
 	// al respectivo vendedor  agregandolo a ventas.
@@ -76,7 +95,22 @@ public class Carrito {
 		List<Ventas> ventasvendedor= vend.getVentas();
 		ventasvendedor.add(venta);
 		vend.setVentas(ventasvendedor);
-		Presistence.actualizarVendedor(vend);
+		for (Ventas i : ventasvendedor) {
+			Presistence.actualizarVenta(i);
+		}
+		Presistence.modificarVendedorNOSQL(vend);
+		try {
+			Ultilidades.SendMailVentas(vend, produc, Nproductos);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -85,11 +119,11 @@ public class Carrito {
 	 * @param tipoPago
 	 * @param reserva
 	 */
-	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva, String tipoDePago) {
+	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva) {
 
 		for(int i=0; i<productosdecarrito.size();i++) {
-			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
-			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva,tipoDePago);
+			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
+			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
 		}
 	}
 
@@ -110,7 +144,7 @@ public class Carrito {
 		}
 		vend.setProductos(productosvendedor);
 		Presistence.actualizarVendedor(vend);
-		
+
 	}
 
 
@@ -144,6 +178,16 @@ public class Carrito {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public ArrayList<Producto> getSeProuctosDeCarrito() {
+		seProuctosDeCarrito = productosdecarrito;
+		return seProuctosDeCarrito;
+	}
+
+	public void setSeProuctosDeCarrito(ArrayList<Producto> seProuctosDeCarrito) {
+		this.seProuctosDeCarrito = seProuctosDeCarrito;
+		productosdecarrito = seProuctosDeCarrito;
 	}
 
 

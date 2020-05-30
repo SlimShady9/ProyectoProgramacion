@@ -83,6 +83,21 @@ public class Dao {
 		}
 
 	}
+	
+	public static void agregarVenta(Ventas vent) {
+		Transaction tran = null;
+		try (Session session = HibernateUtil.getHibernateSession()){
+
+			tran = session.beginTransaction();
+			session.save(vent);
+			tran.commit();
+		} catch (Exception e) {
+			if (tran != null) {
+				tran.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
@@ -180,9 +195,6 @@ public class Dao {
 	//Rey hizo esto, si esta mal fue otro xd
 	public static void actualizarVendedor(Vendedor ven) {
 		Session session = HibernateUtil.getHibernateSession();
-		System.out.println();
-		System.out.println(ven.toString());
-
 		String id= ven.getUsuario();
 		try {
 			session.beginTransaction();
@@ -194,8 +206,24 @@ public class Dao {
 			buscar.setEstado("Activo");
 			buscar.setIdentificacion(ven.getIdentificacion());
 			buscar.setNombres(ven.getNombres());
-			buscar.setProductos(ven.getProductos());
 			buscar.setSede(ven.getSede());
+			session.merge(buscar);
+			session.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public static void actualizarVenta(Ventas vent) {
+		Session session = HibernateUtil.getHibernateSession();
+		String id= vent.getArticulo();
+		try {
+			session.beginTransaction();
+			Ventas buscar = (Ventas)session.get(Ventas.class, id);
+			buscar.setUnidades(vent.getUnidades());
+			buscar.setPrecio(vent.getPrecio());
+			buscar.setReserva(vent.isReserva());
+			buscar.setTipoPago(vent.getTipoPago());
+			buscar.setSede(vent.getSede());
 			session.merge(buscar);
 			session.getTransaction().commit();
 		}catch (Exception e) {
@@ -292,6 +320,12 @@ public class Dao {
 	public static void eliminarProducto(Producto prod) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(prod);
+		session.getTransaction().commit();
+		
+	}
+	public static void eliminarVenta(Ventas vent) {
+		Session session = HibernateUtil.getHibernateSession();
+		session.delete(vent);
 		session.getTransaction().commit();
 		
 	}

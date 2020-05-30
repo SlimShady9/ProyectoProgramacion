@@ -36,7 +36,7 @@ public class Ultilidades {
 		}
 		return nuevo;
 	}
-	public Date fechaActual() {
+	public static Date fechaActual() {
 		Date fecha = new Date(Calendar.getInstance().getTime().getTime());
 		return fecha;
 	}
@@ -319,7 +319,7 @@ public class Ultilidades {
 		}
 		return ventas;
 	}
-	public void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	public static void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
 		Properties props = new Properties();
@@ -338,7 +338,7 @@ public class Ultilidades {
 		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
 		message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(user.getCorreo()));
-		message.setSubject("Registo The Gran Hermano Stor");
+		message.setSubject("Compra Realizada The Gran Hermano Stor");
 		message.setText("felicitaciones! Has completado tu proceso de compra \nVerifica que estos datos sean correctos antes de iniciar\n"
 				+"Datos de tu compra: \n"
 				+ "Producto: "+prod.getNombre()+"\n"
@@ -348,7 +348,7 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
-	public void SendMailVentas(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
+	public static void SendMailVentas(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
 		Properties props = new Properties();
@@ -367,7 +367,7 @@ public class Ultilidades {
 		message.setFrom(new InternetAddress("thegranhermanocorp@gmail.com"));
 		message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(user.getCorreo()));
-		message.setSubject("Registo The Gran Hermano Stor");
+		message.setSubject("Venta Realizada The Gran Hermano Stor");
 		message.setText("felicitaciones! Se ha realizado la compra de uno de tus productos \nVerifica que estos datos sean correctos antes de iniciar\n"
 				+"Datos de tu Venta: \n"
 				+ "Producto: "+prod.getNombre()+"\n"

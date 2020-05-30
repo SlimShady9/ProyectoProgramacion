@@ -28,7 +28,24 @@ public class Presistence {
 		Dao.cargarGerentes();
 		Dao.cargarAdministradores();
 		Dao.cargarVentas();
-		
+
+	}
+	
+	public static boolean modificarVendedorNOSQL(Vendedor ven) {
+		Vendedor vende = buscarVendedor(ven.getUsuario());
+		if (vende != null) {
+			Dao.vendedores.set(Dao.vendedores.indexOf(vende), ven);
+			return true;
+		}
+		return false;
+	}
+	public static boolean modificarClienteNOSQL(Cliente cli) {
+		Cliente vende = buscarCliente(cli.getUsuario());
+		if (vende != null) {
+			Dao.clientes.set(Dao.clientes.indexOf(vende), cli);
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * Metodos de insercion ala base de datos
@@ -50,6 +67,14 @@ public class Presistence {
 		}
 		return false;
 	}
+	public static boolean agregarVenta(Ventas vent) {
+		if (buscarVenta(vent.getArticulo()) == null) {
+			Dao.agregarVenta(vent);
+			Dao.ventas.add(vent);
+			return true;
+		}
+		return false;
+	}
 	public static boolean agregarProducto(Producto pro) {
 		if (buscarProducto(pro.getNombre()) == null) {
 			Dao.agregarProducto(pro);
@@ -58,18 +83,18 @@ public class Presistence {
 		}
 		return false;
 	}
-	public static boolean agregarGerente(Cliente cli) {
-		if (buscarCliente(cli.getUsuario()) == null) {
-			Dao.agregarCliente(cli);
-			Dao.clientes.add(cli);
+	public static boolean agregarGerente(Gerencia ger) {
+		if (buscarGerentes(ger.getUsuario()) == null) {
+			Dao.agregarGerente(ger);
+			Dao.gerentes.add(ger);
 			return true;
 		}
 		return false;
 	}
-	public static boolean agregarAdministrador(Cliente cli) {
-		if (buscarCliente(cli.getUsuario()) == null) {
-			Dao.agregarCliente(cli);
-			Dao.clientes.add(cli);
+	public static boolean agregarAdministrador(Administrador admin) {
+		if (buscarAdministrador(admin.getUsuario()) == null) {
+			Dao.agregarAdmin(admin);
+			Dao.administradores.add(admin);
 			return true;
 		}
 		return false;
@@ -77,6 +102,14 @@ public class Presistence {
 	public static Producto buscarProducto(String nombre) {
 		for (Producto i : Dao.productos) {
 			if (i.getNombre().equals(nombre)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	public static Ventas buscarVenta(String articulo) {
+		for (Ventas i : Dao.ventas) {
+			if (i.getArticulo().equals(articulo)) {
 				return i;
 			}
 		}
@@ -106,19 +139,40 @@ public class Presistence {
 		}
 		return null;
 	}
-	
-	public static Administrador buscarAdministrador (String usuario) {
+
+	public static Administrador buscarAdministrador (String sede) {
 		for (Administrador i : Dao.administradores) {
-			if (i.getUsuario().equals(usuario)) {
+			if (i.getSede().equals(sede)) {
 				return i;
 			}
 		}
 		return null;
 	}
-
+	public static boolean actualizarProducto(Producto prod) {
+		Producto producot = buscarProducto(prod.getNombre());
+		if (producot != null) {
+			Dao.productos.set(Dao.productos.indexOf(producot), prod);
+			producot = prod;
+			Dao.actualizarProducto(producot);
+			return true;
+		}
+		return false;
+	}
+	public static boolean actualizarVenta(Ventas vent) {
+		Ventas venta = buscarVenta(vent.getArticulo());
+		if (venta != null) {
+			Dao.ventas.set(Dao.productos.indexOf(venta), vent);
+			venta = vent;
+			Dao.actualizarVenta(venta);
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean actualizarCliente(Cliente cli) {
 		Cliente cliente = buscarCliente(cli.getUsuario());
 		if (cliente != null) {
+			Dao.clientes.set(Dao.clientes.indexOf(cliente), cli);
 			cliente = cli;
 			Dao.actualizarCliente(cliente);
 			return true;
@@ -128,6 +182,7 @@ public class Presistence {
 	public static boolean actualizarVendedor(Vendedor ven) {
 		Vendedor vendedor = buscarVendedor(ven.getUsuario());
 		if (vendedor != null) {
+			Dao.vendedores.set(Dao.vendedores.indexOf(vendedor), ven);
 			vendedor = ven;
 			Dao.actualizarVendedor(vendedor);
 			return true;
@@ -137,6 +192,7 @@ public class Presistence {
 	public static boolean actualizarGerente(Gerencia ger) {
 		Gerencia gerente = buscarGerentes(ger.getUsuario());
 		if (gerente != null) {
+			Dao.gerentes.set(Dao.gerentes.indexOf(gerente), ger);
 			gerente = ger;
 			Dao.actualizarGerente(gerente);
 			return true;
@@ -146,6 +202,7 @@ public class Presistence {
 	public static boolean actualizarAdmin(Administrador admin) {
 		Administrador adminis = buscarAdministrador(admin.getUsuario());
 		if (adminis != null) {
+			Dao.administradores.set(Dao.administradores.indexOf(adminis), admin);
 			adminis = admin;
 			Dao.actualizarAdministrador(adminis);
 			return true;
@@ -167,6 +224,15 @@ public class Presistence {
 		if (prod != null) {
 			Dao.eliminarProducto(prod);
 			Dao.productos.remove(prod);
+			return true;
+		}
+		return false;
+	}
+	public static boolean eliminarVenta(Ventas vent) {
+		Ventas venta = buscarVenta(vent.getArticulo());
+		if (venta != null) {
+			Dao.eliminarVenta(venta);
+			Dao.ventas.remove(venta);
 			return true;
 		}
 		return false;
@@ -210,7 +276,7 @@ public class Presistence {
 					admin =sofixd.get(j);
 				}
 			}
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -302,5 +368,5 @@ public class Presistence {
 		}
 		return pro;
 	}
-	
+
 }
