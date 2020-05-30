@@ -397,7 +397,7 @@ public class Ultilidades {
 		return new String(password);
 	}
 
-	// este metodo cancela las reservas despues de 3 días 
+	// este metodo cancela las reservas despues de 3 días :ccc
 	public static void verificarReservas() {
 		ArrayList<Ventas> vend= new ArrayList<Ventas>(Dao.ventas);
 		for(int i=0; i<vend.size();i++) {
@@ -415,6 +415,7 @@ public class Ultilidades {
 							Cliente x= vend.get(i).getComprador();
 							Vendedor v = vend.get(i).getVendedor();
 							int u = vend.get(i).getUnidades();
+							Presistence.eliminarVenta(vend.get(i));
 							vend.remove(i);
 							try {
 								SendMailReservaCancelada(x, pro.get(j), u);
@@ -432,36 +433,6 @@ public class Ultilidades {
 							break;
 						}
 					}
-				}
-			}
-			else if(fecha1.getDate()<fecha2.getDate()) {
-				Vendedor ven= vend.get(i).getVendedor();
-				List<Producto> pro = ven.getProductos();
-				for(int j=0;j<pro.size();j++) {
-					if(vend.get(i).isReserva()) {
-						if(vend.get(i).getArticulo().equals(pro.get(j).getNombre())) {
-							pro.get(j).setCantidad(vend.get(i).getUnidades());
-							ven.setProductos(pro);
-							Presistence.actualizarVendedor(ven);
-							Cliente x= vend.get(i).getComprador();
-							Vendedor v = vend.get(i).getVendedor();
-							int u = vend.get(i).getUnidades();
-							vend.remove(i);
-							try {
-								SendMailReservaCancelada(x, pro.get(j), u);
-								SendMailVentasReservaCancelada(v, pro.get(i), u);
-							} catch (AddressException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (MailConnectException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (MessagingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							break;
-						}}
 				}
 			}
 		}

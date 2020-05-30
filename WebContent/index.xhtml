@@ -5,19 +5,25 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:o="http://omnifaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
-	<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
-	<title>Perfil Vendedor</title>
+	<f:facet name="last">
+		<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
+	</f:facet>
+
+	<title>Electro Compras Corps</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
-<h:body>
+
+<h:body style='background:#57bcb2'>
 	<h:form>
+
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
-			styleClass="BarraLateral" selectionMode="single"
-			selection="#{seccion.proSelecc}">
-			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
+			styleClass="BarraLateral">
+			<h1 style="font-weight: normal">Bienvenido</h1>
 			<h:panelGrid columns="1">
 				<ui:repeat var="i" value="#{seccion.opciones}">
 					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}"
@@ -42,7 +48,8 @@
 				<p:commandLink>
 					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
 				</p:commandLink>
-				<h:inputText styleClass="barsearch" />
+				<h:inputText styleClass="barsearch"
+					style="width:360px; height:46px; font-size:25px" />
 
 			</rich:toolBarGroup>
 			<rich:tooBarGrupo id="elementosIz">
@@ -53,35 +60,10 @@
 			</rich:tooBarGrupo>
 		</rich:toolBar>
 
-		<h1 class="Titulo">#{seccion.message}</h1>
-		
-	<h:panelGrid class="Campo" columns="3">
-
-		<img src="Resources/Logo.png" width="100" height="100" />
-		<img src="Resources/Nombre.png" width="200" height="100" />
-
-	</h:panelGrid>
-
-
-
-	<h:panelGrid class="CampoPerfil" columns="2" columnClasses="label, value">
-
-
-		<h:outputText value="Vendedor . " />
-		<h:outputText value=" usuario " />
-
-		<h:outputText value="Sede" />
-		<h:outputText value=" camisa " />
-
+		<h1 id="bienvenido">¡Bienvenido!</h1>
+		<p:graphicImage id= "imgBienvenido" value = "Resources/Bienvenido.png"></p:graphicImage>
 		
 
-		
-
-		<p:commandButton value="Volver" />
-		<p:commandButton value="Editar perfil" />
-
-
-	</h:panelGrid>
 	</h:form>
 </h:body>
 </html>

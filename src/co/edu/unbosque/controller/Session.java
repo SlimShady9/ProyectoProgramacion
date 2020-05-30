@@ -46,8 +46,10 @@ public class Session {
 
 	private Vendedor seVendedor = null;
 	private static Vendedor vend;
+	
 	private Administrador seAdmin = null;
 	private static Administrador admin;
+	
 	private Gerencia seGerente = null;
 	private static Gerencia gere;
 
@@ -130,6 +132,7 @@ public class Session {
 						retorno = "Login";
 					}
 					else {
+						seVendedor = vend;
 						mostrarOpciones();
 						seProductos = new ArrayList<Producto>();
 						for (int i = 0 ; i < vend.getProductos().size() ; i++) {
@@ -395,13 +398,20 @@ public class Session {
 	}
 
 	public String editarVendedor() {
-		return "";
+		Presistence.actualizarVendedor(seVendedor);
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return "Principal";
 	}
 	public String eliminarVendedor() {
+		
 		return "";
 	}
 	public String editarCliente() {
-		return "";
+		Presistence.actualizarCliente(seCliente);
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return "Principal";
 	}
 	public String eliminarCliente() {
 		return "";

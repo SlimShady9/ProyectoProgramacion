@@ -20,6 +20,7 @@ public class Controlador extends HttpServlet {
      */
     public Controlador() {
         Presistence.cargarTablas();
+        Ultilidades.verificarReservas();
     }
 
 	/** 
