@@ -54,8 +54,8 @@
 			</rich:tooBarGrupo>
 		</rich:toolBar>		
     <center><h2><hi:outputText value="Sistema Administrador T.Veo"/></h2></center>
-		<h2>Clientes registrados</h2>
-        <hi:dataTable id="studentTable" binding="#{table}" value="#{seccion.sedClientes}" var="seccion" class="table table-striped table-hover table-bordered tableUpdated">
+		<h2>Vendedores registrados</h2>
+        <hi:dataTable id="studentTable" binding="#{table}" value="#{seccion.sedVendedores}" var="seccion" class="table table-striped table-hover table-bordered tableUpdated">
             <hi:column>
                 <f:facet name="header">Nombre</f:facet>
                 <hi:outputText value="#{seccion.nombres}" />
@@ -65,20 +65,16 @@
                 <h:outputText value="#{seccion.apellidos}" />
             </h:column>
             <h:column>
-                <f:facet name="header">Correo</f:facet>
-                <h:outputText value="#{seccion.correo}" />
+                <f:facet name="header">Usuario</f:facet>
+                <h:outputText value="#{seccion.usuario}" />
             </h:column>
             <h:column>
-                <f:facet name="header">Celular:</f:facet>
-                <h:outputText value="#{seccion.celular}" />
+                <f:facet name="header">Banco:</f:facet>
+                <h:outputText value="#{seccion.banco}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Sede</f:facet>
                 <h:outputText value="#{seccion.ciudad}" />
-            </h:column>
-             <h:column>
-                <f:facet name="header">Tipo de documento</f:facet>
-                <h:outputText value="#{seccion.tipoDocumento}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Documento</f:facet>

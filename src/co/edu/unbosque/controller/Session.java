@@ -52,13 +52,17 @@ public class Session {
 	private static Gerencia gere;
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
+	
+	private ArrayList<Vendedor> seVendedores =(ArrayList<Vendedor>) Dao.vendedores;
+	private ArrayList<Vendedor> sedVendedores = null;
+	
 	private ArrayList<Producto> seProductosCategoria = null;
 
 	private Producto seProducto = new Producto();
 
 
 	private ArrayList<Cliente> seClientes= (ArrayList<Cliente>)Dao.clientes;
-
+	private ArrayList<Cliente> sedCliente =null;
 
 	private String usuario, contraseña;
 
@@ -210,6 +214,26 @@ public class Session {
 				return "PerfilUsuario";
 			}
 		}
+		if(opcionSeleccionada.equals("Clientes")) {
+			if(admin != null) {
+				sedCliente=Presistence.busquedaClientes(admin.getSede());
+				return "TablaClientes";
+			}
+			if(gere != null) {
+				sedCliente= seClientes;
+				return "TablaClientes";
+			}
+		}
+		if(opcionSeleccionada.equals("Vendedores")) {
+			if(admin != null) {
+				sedVendedores=Presistence.busquedaVendedores(admin.getSede());
+				return "TablaVendedor";
+			}
+			if(gere != null) {
+				sedVendedores=seVendedores;
+				return "TablaVendedor";
+			}
+		}
 		return null;
 
 	}
@@ -251,7 +275,8 @@ public class Session {
 			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
 					"Inicio",
-					"Mi Perfil",  "Cerrar Sesión"
+					"Mi Perfil","Reportes", "Clientes",
+					"Vendedores",  "Cerrar Sesión"
 			};
 
 		} else {
@@ -537,6 +562,22 @@ public class Session {
 
 	public void setNumeroDeProductos(int numeroDeProductos) {
 		this.numeroDeProductos = numeroDeProductos;
+	}
+
+	public ArrayList<Cliente> getSedCliente() {
+		return sedCliente;
+	}
+
+	public void setSedCliente(ArrayList<Cliente> sedCliente) {
+		this.sedCliente = sedCliente;
+	}
+
+	public ArrayList<Vendedor> getSedVendedores() {
+		return sedVendedores;
+	}
+
+	public void setSedVendedores(ArrayList<Vendedor> sedVendedores) {
+		this.sedVendedores = sedVendedores;
 	}
 
 
