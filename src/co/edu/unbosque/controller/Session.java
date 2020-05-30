@@ -100,8 +100,9 @@ public class Session {
 	private Carrito carroCompras;
 
 	public String inicioSeccion() {
-		admin = Presistence.buscarAdministrador(usuario);
 		
+
+		admin = Presistence.buscarAdministradorporUsuario(usuario);
 		String retorno = null;
 		if (admin != null) {
 			if (!admin.getContraseña().equals(contraseña)) {

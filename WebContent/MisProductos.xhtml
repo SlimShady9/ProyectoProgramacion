@@ -63,7 +63,7 @@
 			action="RegistroProducto"></p:commandButton>
 
 
-		<p:dataTable value="#{seccion.seProductosCategoria}" var="i" rows="5" rowKey="#{i.nombre}"
+		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5" rowKey="#{i.nombre}"
 			paginator="true" rowIndexVar="cont" selection="#{seccion.proSelecc}" selectionMode="single">
 			<p:column headerText="Imagen" style="width: 200px;">
 
@@ -87,11 +87,6 @@
 					<br></br>
 				</div>
 			</p:column>
-			<f:facet name="footer">
-				<p:commandButton value="Agregar Al Carrito" action="Carro" ><
-				<f:setPropertyActionListener value="#{i}" target="#{seccion.proSelecc}"></f:setPropertyActionListener>
-				</p:commandButton>
-			</f:facet>
 		</p:dataTable>
 		
 	</h:form>

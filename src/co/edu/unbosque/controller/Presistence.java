@@ -139,6 +139,15 @@ public class Presistence {
 		}
 		return null;
 	}
+	
+	public static Administrador buscarAdministradorporUsuario (String usuario) {
+		for (Administrador i : Dao.administradores) {
+			if (i.getUsuario().equals(usuario)) {
+				return i;
+			}
+		}
+		return null;
+	}
 
 	public static Administrador buscarAdministrador (String sede) {
 		for (Administrador i : Dao.administradores) {
