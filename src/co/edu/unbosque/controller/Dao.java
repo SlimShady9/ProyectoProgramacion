@@ -68,7 +68,7 @@ public class Dao {
 
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			cli.setEstado("Inactivo");
@@ -86,7 +86,7 @@ public class Dao {
 	
 	public static void agregarVenta(Ventas vent) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(vent);
@@ -101,7 +101,7 @@ public class Dao {
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			vend.setEstado("Activo");
@@ -117,7 +117,7 @@ public class Dao {
 
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
@@ -131,7 +131,7 @@ public class Dao {
 
 	public static void agregarGerente(Gerencia gen) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(gen);
@@ -147,7 +147,7 @@ public class Dao {
 
 	public static void agregarProducto(Producto pro) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getHibernateSession()){
+		try (Session session = sesion){
 
 			tran = session.beginTransaction();
 			session.save(pro);

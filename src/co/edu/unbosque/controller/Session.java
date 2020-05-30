@@ -43,7 +43,7 @@ public class Session {
 
 	private Cliente seCliente = null;
 	private static Cliente cli;
-	
+
 	private Vendedor seVendedor = null;
 	private static Vendedor vend;
 	private Administrador seAdmin = null;
@@ -52,21 +52,20 @@ public class Session {
 	private static Gerencia gere;
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
-	
+
 	private ArrayList<Vendedor> seVendedores =(ArrayList<Vendedor>) Dao.vendedores;
 	private ArrayList<Vendedor> sedVendedores = null;
-	
+
 	private ArrayList<Producto> seProductosCategoria = null;
 
 	private Producto seProducto = new Producto();
+	private Producto seProductoS = new Producto();
 
 
 	private ArrayList<Cliente> seClientes= (ArrayList<Cliente>)Dao.clientes;
 	private ArrayList<Cliente> sedClientes =null;
 
 	private String usuario, contraseña;
-	private String[] tipoDePago = {"Efectivo", "Tarjeta"};
-	private String[] reserva = {"Reservar", "Comprar"};
 	private String tipoPagoSelecc, reservaSelec;
 
 	private static String mTitulo = "Bienvenido <3";
@@ -157,7 +156,7 @@ public class Session {
 							seCliente = cli;
 							carroCompras = new Carrito(seCliente);
 							mostrarOpciones();
-							
+
 						}
 					}
 					else {
@@ -193,7 +192,7 @@ public class Session {
 		}
 		if (opcionSeleccionada.equals("Carrito")) {
 			return "FinalizarCarro";
-			
+
 		}
 		if (opcionSeleccionada.equals("Mis productos")) {
 			mensaje = "Tus Productos En Venta";
@@ -249,7 +248,7 @@ public class Session {
 
 		seProductosCategoria = Presistence.buscarProductosPorCategoria(categoriaSeleccionada, seProductos);
 		mensaje = "Ver Productos";
-		
+
 		return "CategoriaSeleccionada";
 	}
 
@@ -346,7 +345,7 @@ public class Session {
 			return "ValidacionTarjeta";
 		}
 	}
-	
+
 	public String seleciconarProducto() {
 		return "Carro";
 	}
@@ -359,26 +358,42 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
-	
+
 	public String finalizarTransaccion() {
-		if (reservaSelec.equals("Efectivo")) {
-			carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, true);
+		String retorno = "Principal";
+		String mensaje = "Transaccion Exitosa!";
+		if (tipoPagoSelecc.equals("Tarjeta")) {
+			if (reservaSelec.equals("Obvio bobis")) {
+				carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, true);
+
+			}
+			else{
+				carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, false);
+
+			}
 
 		} else {
-			carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, false);
+			if (reservaSelec.equals("Obvio bobis")) {
+				retorno = "FinalizarCarro";
+				mensaje = "No se puedo hacer la transaccion";
+			}
+			else {
+				carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, false);
 
+			}
 		}
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Transaccion Exitosa");
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", mensaje);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		return "Principal";
+		return retorno;
 	}
-	
-	public void quitarItemCarro(Producto pro) {
-		carroCompras.retirarProducto(pro, pro.getCantidad());
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Transaccion Exitosa");
+
+	public String quitarItemCarro() {
+		carroCompras.retirarProducto(seProductoS, seProductoS.getCantidad());
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Eliminado");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return "FinalizarCarro";
 	}
-	
+
 	public String editarVendedor() {
 		return "";
 	}
@@ -391,7 +406,7 @@ public class Session {
 	public String eliminarCliente() {
 		return "";
 	}
-	
+
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
@@ -614,8 +629,8 @@ public class Session {
 		this.cNumeroDeProductos = cNumeroDeProductos;
 	}
 
-	
-	
+
+
 
 	public ArrayList<Cliente> getSedClientes() {
 		return sedClientes;
@@ -639,6 +654,30 @@ public class Session {
 
 	public void setCarroCompras(Carrito carroCompras) {
 		this.carroCompras = carroCompras;
+	}
+
+	public Producto getSeProductoS() {
+		return seProductoS;
+	}
+
+	public void setSeProductoS(Producto seProductoS) {
+		this.seProductoS = seProductoS;
+	}
+
+	public String getTipoPagoSelecc() {
+		return tipoPagoSelecc;
+	}
+
+	public void setTipoPagoSelecc(String tipoPagoSelecc) {
+		this.tipoPagoSelecc = tipoPagoSelecc;
+	}
+
+	public String getReservaSelec() {
+		return reservaSelec;
+	}
+
+	public void setReservaSelec(String reservaSelec) {
+		this.reservaSelec = reservaSelec;
 	}
 
 

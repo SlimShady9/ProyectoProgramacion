@@ -60,7 +60,7 @@ public class Carrito {
 		venta.setReserva(reserva);
 		ventascliente.add(venta);
 		for (Ventas i : ventascliente) {
-			Presistence.actualizarVenta(i);
+			Presistence.agregarVenta(i);
 		}
 		cliente.setCompras(ventascliente);	
 		Presistence.modificarClienteNOSQL(cliente);
@@ -78,40 +78,6 @@ public class Carrito {
 		}
 		
 	}
-	//Este metodo regista la compra en la base de datos, agregando el producto a compras en cliente y
-	// al respectivo vendedor  agregandolo a ventas.
-	public void actualizarVentasVendedor(Producto produc, Cliente cliente, int Nproductos, Date fecha, boolean reserva, String tipoDePago ) {
-		Ventas venta = new Ventas();
-		Vendedor vend = produc.getVendedor();
-		venta.setArticulo(produc.getNombre());
-		venta.setComprador(cliente);
-		venta.setVendedor(vend);
-		venta.setPrecio(produc.getPrecio());
-		venta.setSede(produc.getVendedor().getSede());
-		venta.setUnidades(Nproductos);
-		venta.setFecha(fecha);
-		venta.setTipoPago(tipoDePago);
-		venta.setReserva(reserva);
-		List<Ventas> ventasvendedor= vend.getVentas();
-		ventasvendedor.add(venta);
-		vend.setVentas(ventasvendedor);
-		for (Ventas i : ventasvendedor) {
-			Presistence.actualizarVenta(i);
-		}
-		Presistence.modificarVendedorNOSQL(vend);
-		try {
-			Ultilidades.SendMailVentas(vend, produc, Nproductos);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MailConnectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Este metodo finaliza una transaccion y guarda los cambios en la base de datos
@@ -122,9 +88,9 @@ public class Carrito {
 	public void realizarTransaccion(Date fecha, String tipoPago, boolean reserva) {
 
 		for(int i=0; i<productosdecarrito.size();i++) {
-			actualizarVentasVendedor(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
 			actualizarVentasCliente(productosdecarrito.get(i), cliente, productosdecarrito.get(i).getCantidad(), fecha, reserva, tipoPago);
 		}
+		productosdecarrito = new ArrayList<Producto>();
 	}
 
 
@@ -139,11 +105,18 @@ public class Carrito {
 		for(int i=0;i<productosvendedor.size();i++) {
 			if(productosvendedor.get(i).equals(pro)) {
 				productosvendedor.get(i).setCantidad(productosvendedor.get(i).getCantidad()+cantidad);
+				Presistence.actualizarProducto(productosvendedor.get(i));
+				break;
+			}
+		}
+		for(int i=0; i<productosdecarrito.size();i++) {
+			if(productosdecarrito.get(i).equals(pro)) {
+				productosdecarrito.remove(i);
 				break;
 			}
 		}
 		vend.setProductos(productosvendedor);
-		Presistence.actualizarVendedor(vend);
+		Presistence.modificarVendedorNOSQL(vend);
 
 	}
 

@@ -60,8 +60,8 @@
 
 		<h1 class="Titulo">Ver Productos Del Carrito</h1>
 
-		<p:dataTable value="#{seccion.carroCompras.seProuctosDeCarrito}" var="i" rows="5"
-			rowKey="#{i.nombre}" paginator="true">
+		<p:dataTable value="#{seccion.carroCompras.seProuctosDeCarrito}"
+			var="i" rows="5" rowKey="#{i.nombre}" paginator="true">
 			<p:column headerText="Imagen" style="width: 200px;">
 
 				<o:graphicImage class="Iconos" value="#{i.imagen}"
@@ -85,17 +85,41 @@
 				</div>
 			</p:column>
 			<p:column style="width:132px;text-align: center">
-             <p:commandButton action="#{seccion.quitarItemCarro(#{i})}">
-             	<h:graphicImage styleClass="imgRm" value="Resources/Basura.png"></h:graphicImage>
-<!--                 <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" /> -->
-            </p:commandButton>
-            </p:column>
+				<p:commandButton action="#{seccion.quitarItemCarro}">
+					<h:graphicImage styleClass="imgRm" value="Resources/Basura.png"></h:graphicImage>
+					<f:setPropertyActionListener value="#{i}"
+						target="#{seccion.seProductoS}" />
+				</p:commandButton>
+			</p:column>
 
 			<f:facet name="footer">
-				<p:commandButton action="#{seccion.finalizarTransaccion}" value = "Realizar Compra">
+				<p:commandButton oncomplete="PF('masInfo').show()"
+					 value="Realizar Compra">
 				</p:commandButton>
 			</f:facet>
 		</p:dataTable>
+		<p:dialog header="Tipo Compra" widgetVar="masInfo" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:panelGrid class="Campo" columns="2" columnClasses="label,value">
+
+				<h:outputText value="Seleccione el tipo de Pago:" />
+				<p:selectOneMenu id="tPago"
+					value="#{seccion.tipoPagoSelecc}">
+					<f:selectItem itemLabel="Efectivo" itemValue="Efecivo" />
+					<f:selectItem itemLabel="Tarjeta" itemValue="Tarjeta" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Reserva Papu? :v" />
+				<p:selectOneMenu id="tReserva"
+					value="#{seccion.reservaSelec}">
+					<f:selectItem itemLabel="Obvio bobis" itemValue="Obvio bobis" />
+					<f:selectItem itemLabel="Nelson" itemValue="Nelson" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Oprime el boton para continuar:" />
+				<p:commandButton action="#{seccion.finalizarTransaccion}" value="Confirmar"></p:commandButton>
+			</p:panelGrid>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>
