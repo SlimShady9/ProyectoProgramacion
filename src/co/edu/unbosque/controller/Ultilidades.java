@@ -41,8 +41,47 @@ public class Ultilidades {
 		
 		ArrayList<Vendedor> vends = vendedorTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < vends.size(); i++) {
 			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
+		}
+		
+		model.addSeries(ventas);
+
+		return model;
+		
+	}
+	
+	public static BarChartModel GrafiquitasTopClientes(Administrador adminGuapo) 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries compras = new ChartSeries();			
+		model.setTitle("Top Compras realizadas por Cliente");
+		compras.setLabel("Compras");
+		
+		ArrayList<Cliente> clientes = clientesTopSede(adminGuapo.getSede());
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			System.out.println(clientes.get(i).getCompras().size());
+			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
+		}
+		
+		model.addSeries(compras);
+
+		return model;
+		
+	}
+	
+	public static BarChartModel GrafiquitasTopProductos(Administrador adminGuapo) 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries ventas = new ChartSeries();			
+		model.setTitle("Top Productos por Sede");
+		ventas.setLabel("Productos");
+		
+		ArrayList<Ventas> productos = ordenarTopSede(adminGuapo.getSede());
+		
+		for (int i = 0; i < productos.size(); i++) {
+			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
 		}
 		
 		model.addSeries(ventas);
@@ -193,7 +232,7 @@ public class Ultilidades {
 		for (int i = 1; i <vent.size(); i++) {
 			Ventas aux = vent.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getUnidades() < vent.get(j).getUnidades())){
+			while((j >= 0) && (aux.getUnidades() > vent.get(j).getUnidades())){
 				vent.set(j+1, vent.get(j));
 				j--;
 			}
@@ -208,7 +247,7 @@ public class Ultilidades {
 		for (int i = 1; i <vent.size(); i++) {
 			Ventas aux = vent.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getUnidades() < vent.get(j).getUnidades())){
+			while((j >= 0) && (aux.getUnidades() > vent.get(j).getUnidades())){
 				vent.set(j+1, vent.get(j));
 				j--;
 			}
@@ -253,12 +292,12 @@ public class Ultilidades {
 	}
 
 	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
-	public ArrayList<Cliente> clientesTopSede(String sede){
+	public static ArrayList<Cliente> clientesTopSede(String sede){
 		ArrayList<Cliente> cliente = Presistence.busquedaClientes(sede);
-		for (int i = 1; i <cliente.size(); i++) {
-			Cliente aux = cliente.get(i);
-			int j = i-1;
-			while((j >= 0) && (aux.getCompras().size() < cliente.get(j).getCompras().size())){
+		for (int i = 1; i <cliente.size(); i++) { //i los clientes de la sede
+			Cliente aux = cliente.get(i); // aux es el cliente en i 
+			int j = i-1; //j inicia en 0
+			while((j >= 0) && (aux.getCompras().size() > cliente.get(j).getCompras().size())){
 				cliente.set(j+1, cliente.get(j));
 				j--;
 			}
@@ -272,7 +311,7 @@ public class Ultilidades {
 		for (int i = 1; i <cliente.size(); i++) {
 			Cliente aux = cliente.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getCompras().size() < cliente.get(j).getCompras().size())){
+			while((j >= 0) && (aux.getCompras().size() > cliente.get(j).getCompras().size())){
 				cliente.set(j+1, cliente.get(j));
 				j--;
 			}
@@ -286,7 +325,7 @@ public class Ultilidades {
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getVentas().size() < ven.get(j).getVentas().size())){
+			while((j >= 0) && (aux.getVentas().size() > ven.get(j).getVentas().size())){
 				ven.set(j+1, ven.get(j));
 				j--;
 			}
@@ -300,7 +339,7 @@ public class Ultilidades {
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getVentas().size() < ven.get(j).getVentas().size())){
+			while((j >= 0) && (aux.getVentas().size() > ven.get(j).getVentas().size())){
 				ven.set(j+1, ven.get(j));
 				j--;
 			}
@@ -344,7 +383,7 @@ public class Ultilidades {
 		for (int i = 1; i <sedes.size(); i++) {
 			Sede aux = sedes.get(i);
 			int j = i-1;
-			while((j >= 0) && (aux.getVentas() < sedes.get(i).getVentas())){
+			while((j >= 0) && (aux.getVentas() > sedes.get(i).getVentas())){
 				sedes.set(j+1, sedes.get(j));
 				j--;
 			}

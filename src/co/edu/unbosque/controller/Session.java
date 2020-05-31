@@ -77,6 +77,10 @@ public class Session {
 	private UploadedFile imagen;
 	
 	private BarChartModel barChartModel;
+	
+	private BarChartModel barChartModel2;
+	
+	private BarChartModel barChartModel3;
 
 	/**
 	 * Esta matriz es ideal para un algorito de ordenamiento por popularidad o algo asi
@@ -102,6 +106,16 @@ public class Session {
 	public BarChartModel getBarChartModel() {
 		barChartModel = Ultilidades.GrafiquitasVendedores(admin);
 		return barChartModel;
+	}
+	
+	public BarChartModel getBarChartModel2() {
+		barChartModel2 = Ultilidades.GrafiquitasTopClientes(admin);
+		return barChartModel2;
+	}
+	
+	public BarChartModel getBarChartModel3() {
+		barChartModel3 = Ultilidades.GrafiquitasTopClientes(admin);
+		return barChartModel3;
 	}
 
 	public String inicioSeccion() {
