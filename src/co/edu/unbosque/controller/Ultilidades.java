@@ -148,6 +148,24 @@ public class Ultilidades {
 		return model;
 		
 	}
+	public static BarChartModel GrafiquitasTopSedes() 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries ventas = new ChartSeries();			
+		model.setTitle("Top Sedes");
+		ventas.setLabel("Sedes");
+		
+		ArrayList<Sede> productos = topSedeVentas();
+		
+		for (int i = 0; i < productos.size()||i==5; i++) {
+			ventas.set(productos.get(i).getNombreSede(), productos.get(i).getVentas());
+		}
+		
+		model.addSeries(ventas);
+
+		return model;
+		
+	}
 	
 
 	private static String parseoTarjeta(String input) {
@@ -414,7 +432,7 @@ public class Ultilidades {
 		return ven;
 	}
 	//Este metodo devuelve un arraylist de sedes en la cual saldran en orden por ventas realizadas en la sede(Para las estadisticas)
-	public ArrayList<Sede> topSedeVentas() {
+	public static ArrayList<Sede> topSedeVentas() {
 		int ventasBogota=0;
 		int ventasMedellin=0;
 		int ventasBarranquilla=0;
@@ -457,7 +475,7 @@ public class Ultilidades {
 		}
 		return sedes;
 	}
-	public int ventasDeSede(ArrayList<Cliente> user) {
+	public static int ventasDeSede(ArrayList<Cliente> user) {
 		int ventas=0;
 		for(int i =0; i<user.size();i++) {
 			ventas+=user.get(i).getCompras().size();

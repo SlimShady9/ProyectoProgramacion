@@ -88,20 +88,16 @@
 			
 			<h:outputText value=".     " />
 			<br></br>		
-			<p:chart type="bar" model="#{seccion.barChartModel}"/>
+			<p:chart id="g1" type="bar" model="#{seccion.barChartModel}"/>
 			<br></br>
 			
-			<p:chart type="bar" model="#{seccion.barChartModel2}"/>
+			<p:chart id="g2" type="bar" model="#{seccion.barChartModel2}"/>
 			<br></br>
 			
-			<p:chart type="bar" model="#{seccion.barChartModel3}"/>
+			<p:chart id="g3" type="bar" model="#{seccion.barChartModel3}"/>
 			<br></br>
 			
 			
-
-			<p:commandButton value="Generar PDF" />
-			<p:commandButton value="Generar Excel" />
-
 		</h:panelGrid>
 	</h:form>
 </h:body>
