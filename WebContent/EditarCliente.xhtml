@@ -65,16 +65,13 @@
 			columnClasses="label, value">
 
 			<h:outputText value=" Nombre: " />
-			<h:inputText value="#{seccion.seCliente.nombre}" />
+			<h:inputText value="#{seccion.seCliente.nombres}" />
 
 			<h:outputText value="Usuario: " />
 			<h:inputText value="#{seccion.seCliente.usuario}" />
 
 			<h:outputText value="Apellido: " />
-			<h:inputText value="#{seccion.seCliente.apellido}" />
-
-			<h:outputText value="Sede: " />
-			<h:inputText value="#{seccion.seCliente.sede}" />
+			<h:inputText value="#{seccion.seCliente.apellidos}" />
 
 			<h:outputText value="Correo: " />
 			<h:inputText value="#{seccion.seCliente.correo}" />
@@ -91,7 +88,7 @@
 				label="Password 2" required="true" />
 
 		</h:panelGrid>
-		<p:commandButton value="Aplicar Cambios" class="btnEditar" action="#{seccion.editarVendedor}"/>
+		<p:commandButton value="Aplicar Cambios" class="btnEditar" action="#{seccion.editarCliente}"/>
 	</h:form>
 </h:body>
 </html>

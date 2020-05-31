@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
+	<title>Perfil Usuario</title>
+	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
+			styleClass="BarraLateral" selectionMode="single"
+			selection="#{seccion.proSelecc}">
+			<h1 style="font-weight: normal">#{seccion.menuTitulo}</h1>
+			<h:panelGrid columns="1">
+				<ui:repeat var="i" value="#{seccion.opciones}">
+					<p:commandButton value="#{i}" action="#{seccion.seccionOpcionMenu}"
+						ajax='false'
+						style='width:250px; height:50px;background:white ;font-size:20px; color:#a4709c'>
+						<f:setPropertyActionListener value="#{i}"
+							target="#{seccion.opcionSeleccionada}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<br></br>
+					<br></br>
+				</ui:repeat>
+			</h:panelGrid>
+		</p:sidebar>
+		<rich:toolBar class="menuBarra">
+			<rich:toolBarGroup>
+				<p:commandLink>
+					<h:graphicImage styleClass="menuIcon"
+						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
+				</p:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup id="elementosDer">
+				<p:commandLink>
+					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
+				</p:commandLink>
+				<h:inputText styleClass="barsearch" />
+
+			</rich:toolBarGroup>
+			<rich:tooBarGrupo id="elementosIz">
+				<p:commandLink immediate="true" action="Principal" ajax='false'>
+					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+				</p:commandLink>
+				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
+			</rich:tooBarGrupo>
+		</rich:toolBar>
+
+		<h1 class="Titulo">Digita tus nuevos datos</h1>
+
+		<h:panelGrid class="Campo" columns="3">
+			<img src="Resources/Logo.png" width="100" height="100" />
+			<img src="Resources/Nombre.png" width="200" height="100" />
+		</h:panelGrid>
+		
+
+		<h:panelGrid class="CampoPerfil" columns="2"
+			columnClasses="label, value">
+
+			<h:outputText value=" Nombre: " />
+			<h:inputText value="#{seccion.seVendedor.nombres}" />
+
+			<h:outputText value="Usuario: " />
+			<h:inputText value="#{seccion.seVendedor.usuario}" />
+
+			<h:outputText value="Apellido: " />
+			<h:inputText value="#{seccion.seVendedor.apellidos}" />
+
+			<h:outputText value="Correo: " />
+			<h:inputText value="#{seccion.seVendedor.correo}" />
+
+			<h:outputText value="Numero de documento" />
+			<h:inputText value="#{seccion.seVendedor.numeroDocumento}" />
+			
+			<h:outputLabel for="pwd1" value="Contraseña: *" />
+			<p:password id="pwd1" value="#{seccion.seVendedor.contraseña}" match="pwd2"
+				label="Password 1" required="true" />
+
+			<h:outputLabel for="pwd2" value="Confirmar Contraseña: *" />
+			<p:password id="pwd2" value="#{seccion.confirmaClave}"
+				label="Password 2" required="true" />
+
+		</h:panelGrid>
+		<p:commandButton value="Aplicar Cambios" class="btnEditar" action="#{seccion.editarVendedor}"/>
+	</h:form>
+</h:body>
+</html>

@@ -399,7 +399,11 @@ public class Session {
 	}
 
 	public String editarVendedor() {
+		if (confirmaClave.equals(seVendedor.getContraseña())) {
+			
+		}
 		Presistence.actualizarVendedor(seVendedor);
+		vend = seVendedor;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
@@ -411,6 +415,7 @@ public class Session {
 	}
 	public String editarCliente() {
 		Presistence.actualizarCliente(seCliente);
+		seCliente = cli;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
