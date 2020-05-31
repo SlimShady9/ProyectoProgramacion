@@ -31,6 +31,7 @@ public class Session {
 	private Ultilidades utilidades = new Ultilidades();
 	private static String[] opIniciales= {"Inicio", "Iniciar Sesion", "Resgistrate", "Ayuda"};
 	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
+	private ArrayList<String> seCategoriasDisponibles = new ArrayList<>(Arrays.asList(categoriasDisponibles));
 	private String categoriaSeleccionada;
 	private int numeroDeProductos;
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
@@ -207,8 +208,11 @@ public class Session {
 			message = mensaje;
 			return "MisProductos";
 		}
-		if (opcionSeleccionada.equals("Mis Ventas")) {
-
+		if (opcionSeleccionada.equals("Historial Ventas")) {
+			return "MisVentas";
+		}
+		if (opcionSeleccionada.equals("Mis compras")) {
+			return "MisCompras";
 		}
 		if (opcionSeleccionada.equals("Mi Perfil")) {
 			if (admin != null){
@@ -419,6 +423,15 @@ public class Session {
 		Presistence.actualizarVendedor(seVendedor);
 		vend = seVendedor;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return "Principal";
+	}
+	
+	public String realizarCambiosProductosVendedor() {
+		for (Producto i : vend.getProductos()) {
+			Presistence.actualizarProducto(i);
+		}
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Productos editado exitosamente");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
@@ -717,6 +730,14 @@ public class Session {
 
 	public void setSedProductos(ArrayList<Producto> sedProductos) {
 		this.sedProductos = sedProductos;
+	}
+
+	public ArrayList<String> getSeCategoriasDisponibles() {
+		return seCategoriasDisponibles;
+	}
+
+	public void setSeCategoriasDisponibles(ArrayList<String> seCategoriasDisponibles) {
+		this.seCategoriasDisponibles = seCategoriasDisponibles;
 	}
 	
 

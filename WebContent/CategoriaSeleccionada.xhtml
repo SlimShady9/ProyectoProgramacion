@@ -59,10 +59,6 @@
 		</rich:toolBar>
 
 		<h1 class="Titulo">#{seccion.message}</h1>
-		<p:commandButton value="Registra Un Producto"
-			action="RegistroProducto"></p:commandButton>
-
-
 
 		<p:dataTable value="#{seccion.seProductosCategoria}" var="i" rows="5"
 			rowKey="#{i.nombre}" paginator="true" rowIndexVar="cont"

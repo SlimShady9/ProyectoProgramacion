@@ -1,15 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:hi="http://java.sun.com/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
 	<link type="text/css" rel="stylesheet" href="Sofia.css"></link>
-	<title>Perfil Vendedor</title>
+	<title>Perfil Administrador</title>
 	<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 </h:head>
 <h:body>
@@ -52,40 +53,36 @@
 				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
 			</rich:tooBarGrupo>
 		</rich:toolBar>
-
-		<h1 class="Titulo">#{seccion.message}</h1>
-		
-	<h:panelGrid class="Campo" columns="3">
-
-		<img src="Resources/Logo.png" width="100" height="100" />
-		<img src="Resources/Nombre.png" width="200" height="100" />
-
-	</h:panelGrid> 
-
-
-
-	<h:panelGrid class="CampoPerfil" columns="2"
-			columnClasses="label, value">
-
-			<h:outputText value=" Nombre: " />
-			<h:outputText value="#{seccion.seVendedor.nombres}" />
-
-
-			<h:outputText value="Apellido: " />
-			<h:outputText value="#{seccion.seVendedor.apellidos}" />
-
-			<h:outputText value="Sede: " />
-			<h:outputText value="#{seccion.seVendedor.sede}" />
-
-			<h:outputText value="Correo: " />
-			<h:outputText value="#{seccion.seVendedor.correo}" />
-
-			<h:outputText value="Numero de documento" />
-			<h:outputText value="#{seccion.seVendedor.identificacion}" />
-			
-		</h:panelGrid>
-		
-		<p:commandButton value="Editar perfil" class="btnEditar" action="EditarCliente"/>
+		<center>
+			<h2>
+				<hi:outputText value="Sistema Administrador T.Veo" />
+			</h2>
+		</center>
+		<h2>Ventas Realizadas</h2>
+		<p:dataTable id="studentTable" paginator="true" selectionMode="true" rowKey="#{i}"
+			value="#{seccion.seVendedor.ventas}" var="i">
+			<p:column>
+				<f:facet name="header">Comprador:</f:facet>
+				<hi:outputText value="#{i.vendedor.usuario}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Articulo:</f:facet>
+				<h:outputText value="#{i.articulo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Unidades:</f:facet>
+				<h:outputText value="#{i.unidades}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Precio:</f:facet>
+				<h:outputText value="#{i.precio}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Reserva:</f:facet>
+				<h:outputText value="#{i.reserva}" />
+			</p:column>
+		</p:dataTable>
+		<center></center>
 	</h:form>
 </h:body>
 </html>

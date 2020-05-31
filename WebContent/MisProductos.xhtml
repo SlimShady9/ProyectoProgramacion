@@ -18,6 +18,7 @@
 </h:head>
 <h:body>
 	<h:form>
+		<p:growl id="msgs" showDetail="true" />
 
 		<p:sidebar widgetVar="sidebar1" baseZIndex="10000"
 			styleClass="BarraLateral" selectionMode="single"
@@ -58,37 +59,83 @@
 			</rich:tooBarGrupo>
 		</rich:toolBar>
 
-		<h1 class="Titulo">#{seccion.message}</h1>
-		<p:commandButton value="Registra Un Producto"
-			action="RegistroProducto"></p:commandButton>
+		<h1 class="Titulo">Tus Productos Capo</h1>
 
 
-		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5" rowKey="#{i.nombre}"
-			paginator="true" rowIndexVar="cont" selection="#{seccion.proSelecc}" selectionMode="single">
+
+		<p:dataTable value="#{seccion.seProductos}" var="i" rows="5"
+			paginator="true" editable="true">
 			<p:column headerText="Imagen" style="width: 200px;">
 
 				<o:graphicImage class="Iconos" value="#{i.imagen}"
 					alt="image not available" dataURI="true" />
 
 			</p:column>
-			<p:column headerText="Descripcion" style="width: 600px;">
-				<div class="InformacionProducto">
-					<h:outputLabel value="Nombre:	"></h:outputLabel>
-					<h:outputLabel value="#{i.nombre}"></h:outputLabel>
-					<br></br>
-					<h:outputLabel value="Categoria:	"></h:outputLabel>
-					<h:outputLabel value="#{i.categoria}"></h:outputLabel>
-					<br></br>
-					<h:outputLabel value="Precio:	"></h:outputLabel>
-					<h:outputLabel value="#{i.precio}"></h:outputLabel>
-					<br></br>
-					<h:outputLabel value="Cantidad:	"></h:outputLabel>
-					<h:outputLabel value="#{i.cantidad}"></h:outputLabel>
-					<br></br>
-				</div>
+			<p:column headerText="Nombre" style="width: 200px;">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{i.nombre}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{i.nombre}" style="width:96%" />
+					</f:facet>
+				</p:cellEditor>
 			</p:column>
+			<p:column headerText="Precio" style="width: 200px;">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{i.precio}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{i.precio}" style="width:96%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Cantidad" style="width: 100px;">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{i.cantidad}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{i.cantidad}" style="width:96%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Categoria" style="width: 200px;">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{i.categoria}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:selectOneMenu value="#{i.categoria}">
+							<f:selectItems value="#{seccion.seCategoriasDisponibles}" var="j"
+								itemLabel="#{j}" itemValue="#{j}"></f:selectItems>
+						</h:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Precio" style="width: 200px;">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{i.precio}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{i.precio}" style="width:96%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:35px">
+				<p:rowEditor />
+			</p:column>
+			<f:facet name="footer">
+				<p:commandButton value="Realizar Cambios"
+					action="#{seccion.realizarCambiosProductosVendedor}"></p:commandButton>
+				<p:commandButton value="Registra Un Producto"
+					action="RegistroProducto"></p:commandButton>
+			</f:facet>
 		</p:dataTable>
-		
+
+
 	</h:form>
 </h:body>
 </html>
