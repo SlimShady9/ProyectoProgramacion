@@ -14,7 +14,13 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 import com.sun.mail.util.MailConnectException;
+
+import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Sede;
@@ -25,6 +31,25 @@ import java.util.Calendar;
 
 
 public class Ultilidades {
+	
+	public static BarChartModel GrafiquitasVendedores(Administrador adminGuapo) 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries ventas = new ChartSeries();			
+		model.setTitle("Top Ventas realizadas por Vendedor");
+		ventas.setLabel("Ventas");
+		
+		ArrayList<Vendedor> vends = vendedorTopSede(adminGuapo.getSede());
+		
+		for (int i = 0; i < 1; i++) {
+			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
+		}
+		
+		model.addSeries(ventas);
+
+		return model;
+		
+	}
 
 	private static String parseoTarjeta(String input) {
 		String nuevo = "";
@@ -256,7 +281,7 @@ public class Ultilidades {
 		return cliente;
 	}
 	//Este metodo devuelve un arraylist de vendedores por sede ordenados por numero de ventas realizadas
-	public ArrayList<Vendedor> vendedorTopSede(String sede){
+	public static ArrayList<Vendedor> vendedorTopSede(String sede){
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);

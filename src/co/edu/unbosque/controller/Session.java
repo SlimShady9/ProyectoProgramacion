@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.file.UploadedFile;
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Carrito;
@@ -73,6 +75,8 @@ public class Session {
 	private String message = mensaje;
 
 	private UploadedFile imagen;
+	
+	private BarChartModel barChartModel;
 
 	/**
 	 * Esta matriz es ideal para un algorito de ordenamiento por popularidad o algo asi
@@ -94,6 +98,11 @@ public class Session {
 	private static String nombre, precio, categoria, vendedor;
 
 	private Carrito carroCompras;
+	
+	public BarChartModel getBarChartModel() {
+		barChartModel = Ultilidades.GrafiquitasVendedores(admin);
+		return barChartModel;
+	}
 
 	public String inicioSeccion() {
 		
@@ -329,6 +338,8 @@ public class Session {
 		seProductos.add(seProducto);
 		return retorno;
 	}
+	
+	
 
 	public String activarUsuario() {
 		if (clave.equals(confirmaClave)) {
