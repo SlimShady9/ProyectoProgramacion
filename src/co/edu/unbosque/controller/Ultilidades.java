@@ -22,13 +22,14 @@ import com.sun.mail.util.MailConnectException;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.Gerencia;
 import co.edu.unbosque.model.Producto;
 import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
 import java.util.Calendar;
 
-
+//
 
 public class Ultilidades {
 	
@@ -89,6 +90,65 @@ public class Ultilidades {
 		return model;
 		
 	}
+	
+	public static BarChartModel GrafiquitasVendedoresGerencia() 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries ventas = new ChartSeries();			
+		model.setTitle("Top Ventas realizadas por Vendedor");
+		ventas.setLabel("Ventas");
+		
+		ArrayList<Vendedor> vends = vendedorTopGeneral();
+		
+		for (int i = 0; i < vends.size(); i++) {
+			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
+		}
+		
+		model.addSeries(ventas);
+
+		return model;
+		
+	}
+	
+	public static BarChartModel GrafiquitasTopClientes() 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries compras = new ChartSeries();			
+		model.setTitle("Top Clientes");
+		compras.setLabel("Compras");
+		
+		ArrayList<Cliente> clientes = clientesTopGenera();
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			System.out.println(clientes.get(i).getCompras().size());
+			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
+		}
+		
+		model.addSeries(compras);
+
+		return model;
+		
+	}
+	
+	public static BarChartModel GrafiquitasTopProductosGerente() 
+	{
+		BarChartModel model = new BarChartModel();
+		ChartSeries ventas = new ChartSeries();			
+		model.setTitle("Top Productos");
+		ventas.setLabel("Productos");
+		
+		ArrayList<Ventas> productos = ordenarTopGeneral();
+		
+		for (int i = 0; i < productos.size(); i++) {
+			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
+		}
+		
+		model.addSeries(ventas);
+
+		return model;
+		
+	}
+	
 
 	private static String parseoTarjeta(String input) {
 		String nuevo = "";
@@ -312,7 +372,7 @@ public class Ultilidades {
 		return cliente;
 	}
 	//Este metodo devuelve un arraylist de cliente en la cual me dice los clientes a nivel genereal ordenado por numero de compras realizadas
-	public ArrayList<Cliente> clientesTopGenera(){
+	public static ArrayList<Cliente> clientesTopGenera(){
 		ArrayList<Cliente> cliente = new ArrayList<Cliente>(Dao.clientes);
 		for (int i = 1; i <cliente.size(); i++) {
 			Cliente aux = cliente.get(i);
@@ -340,7 +400,7 @@ public class Ultilidades {
 		return ven;
 	}
 	//Este metodo devuelve un arraylist de vendedores en la cual me dice los vededores a nivel genereal ordenado por numero de ventas realizadas
-	public ArrayList<Vendedor> vendedorTopGeneral(){
+	public static ArrayList<Vendedor> vendedorTopGeneral(){
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		for (int i = 1; i <ven.size(); i++) {
 			Vendedor aux = ven.get(i);
