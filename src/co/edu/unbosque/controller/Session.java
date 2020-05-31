@@ -88,7 +88,7 @@ public class Session {
 	 * Este algoritmo iria en el metodo de cargar matrizProductos
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
-	private List<ArrayList<Producto>> seMatrizProductos;
+	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto(null);
 
 	/**
 	 * Arreglo con las sedes ornenadas

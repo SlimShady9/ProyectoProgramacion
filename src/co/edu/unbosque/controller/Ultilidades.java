@@ -207,11 +207,17 @@ public class Ultilidades {
 	}
 
 	public static List<ArrayList<Producto>> generarMatrizProducto(String sede){
-		ArrayList<Producto> products = ordenarTopProductos(ordenarTopSede(sede));
+		ArrayList<Producto> products;
+		if (sede != null) {
+			products = ordenarTopProductos(ordenarTopSede(sede));
+		}
+		else {
+			products = (ArrayList<Producto>) Dao.productos;
+		}
 		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
 		ArrayList<Producto> fila = new ArrayList<Producto>();
-		for (int i = 0 ; i < products.size() ; i++) {
-			fila.add(Dao.productos.get(i));
+		for (int i = 0 ; i < products.size() && i < 25; i++) {
+			fila.add(products.get(i));
 			// cada 4 columnas agrego una fila
 			if ( (i+1) % 4 == 0) {
 				ArrayList<Producto> loQueMetere = fila;

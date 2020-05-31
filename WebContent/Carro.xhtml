@@ -74,7 +74,7 @@
 					<h:outputLabel value="Precio:	"></h:outputLabel>
 					<h:outputLabel value="#{seccion.proSelecc.precio}"></h:outputLabel>
 					<br></br>
-					<h:outputLabel value="Cantidad:	"></h:outputLabel>
+					<h:outputLabel value="Cantidad disponible:	"></h:outputLabel>
 					<h:outputLabel value="#{seccion.proSelecc.cantidad}"></h:outputLabel>
 					<br></br>
 				</div>
@@ -89,6 +89,7 @@
 
 				</h:selectOneMenu>
 			</p:column>
+			<p:column></p:column>
 			<p:column>
 				<p:commandButton value = "Agregar al carro" action="#{seccion.agregarProductoAlCarro}"></p:commandButton>
 			</p:column>
