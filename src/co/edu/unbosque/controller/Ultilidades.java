@@ -1,5 +1,8 @@
 package co.edu.unbosque.controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -209,21 +212,20 @@ public class Ultilidades {
 	}
 
 	public static String encriptador(String texto) {
-		String textoPlano = texto;
-		char cadenaTexto[] = textoPlano.toCharArray();
-		for(int i=0;i<cadenaTexto.length;i++) {
-			cadenaTexto[i] = (char)(cadenaTexto[i]+(char)5);
-		}
-		return String.valueOf(cadenaTexto);
-	}
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(texto.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
 
-	public static String desencriptador(String texto) {
-		String textoEncriptado = texto;
-		char cadenaTexto[] = textoEncriptado.toCharArray();
-		for(int i=0;i<cadenaTexto.length;i++) {
-			cadenaTexto[i] = (char)(cadenaTexto[i]-(char)5);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
 		}
-		return String.valueOf(cadenaTexto);
+	
 	}
 	public void SendMailCliente(Cliente user) throws AddressException, MessagingException, MailConnectException
 	{
@@ -250,7 +252,7 @@ public class Ultilidades {
 				+ "Nombre: "+user.getNombres()+"\n"
 				+ "Apellido : "+user.getApellidos()+"\n"
 				+ "Nombre de usuario: "+user.getUsuario()+"\n"
-				+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
+				+ "Contraseña: " + user.getContraseña()+ "\n"
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
@@ -279,7 +281,7 @@ public class Ultilidades {
 				+ "Nombre: "+user.getNombres()+"\n"
 				+ "Apellido : "+user.getApellidos()+"\n"
 				+ "Nombre de usuario: "+user.getUsuario()+"\n"
-				+ "Contraseña: "+desencriptador(user.getContraseña())+"\n"
+				+ "Contraseña: "+ user.getContraseña()+ "\n"
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}

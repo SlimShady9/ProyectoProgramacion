@@ -178,7 +178,7 @@ public class Session {
 			else {
 				vend = Presistence.buscarVendedor(usuario);
 				if (vend != null) {
-					if (!Ultilidades.desencriptador(vend.getContraseña()).equals(contraseña)) {
+					if (!vend.getContraseña().equals(Ultilidades.encriptador(contraseña))) {
 						vend = null;
 						retorno = "Login";
 					}
@@ -196,7 +196,7 @@ public class Session {
 				else {
 					cli = Presistence.buscarCliente(usuario);
 					if (cli != null) {
-						if (!Ultilidades.desencriptador(cli.getContraseña()).equals(contraseña)) {
+						if (!cli.getContraseña().equals((Ultilidades.encriptador(contraseña)))) {
 							cli = null;
 							retorno = "Login";
 						}
@@ -388,7 +388,9 @@ public class Session {
 		Presistence.agregarProducto(seProducto);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		seProductos.add(seProducto);
+		seProductos.add(seProducto);	
+		seProducto = new Producto();
+		seMatrizProductos = Ultilidades.generarMatrizProducto(null);
 		return retorno;
 	}
 	

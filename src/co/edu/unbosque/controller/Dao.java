@@ -33,42 +33,41 @@ public class Dao {
 	protected static List<Gerencia> gerentes;
 	protected static List<Vendedor> vendedores;
 	protected static List<Ventas> ventas;
-	private static Session sesion = abrirSession();
 
 
 	//Desde el sesscion factory
-	public static Session abrirSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+	public static void abrirSession() {
+		HibernateUtil.getSessionFactory();
 	}
 
 
 	public static void cargarAdministradores() {
-		administradores = sesion.createCriteria(Administrador.class).list();
+		administradores = HibernateUtil.getSessionFactory().openSession().createCriteria(Administrador.class).list();
 	}
 
 	public static void cargarClientes() {
-		clientes = sesion.createCriteria(Cliente.class).list();
+		clientes = HibernateUtil.getSessionFactory().openSession().createCriteria(Cliente.class).list();
 	}
 
 	public static void cargarGerentes() {
-		gerentes = sesion.createCriteria(Gerencia.class).list();
+		gerentes = HibernateUtil.getSessionFactory().openSession().createCriteria(Gerencia.class).list();
 	}
 
 	public static void cargarProductos() {
-		productos = sesion.createCriteria(Producto.class).list();
+		productos = HibernateUtil.getSessionFactory().openSession().createCriteria(Producto.class).list();
 	}
 
 	public static void cargarVendedores() {
-		vendedores = sesion.createCriteria(Vendedor.class).list();
+		vendedores = HibernateUtil.getSessionFactory().openSession().createCriteria(Vendedor.class).list();
 	}
 
 	public static void cargarVentas() {
-		ventas = sesion.createCriteria(Ventas.class).list();
+		ventas = HibernateUtil.getSessionFactory().openSession().createCriteria(Ventas.class).list();
 	}
 
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 
 			tran = session.beginTransaction();
 			cli.setEstado("Inactivo");
@@ -86,7 +85,7 @@ public class Dao {
 
 	public static void agregarVenta(Ventas vent) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 
 			tran = session.beginTransaction();
 			session.save(vent);
@@ -101,7 +100,7 @@ public class Dao {
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 
 			tran = session.beginTransaction();
 			vend.setEstado("Activo");
@@ -117,7 +116,7 @@ public class Dao {
 
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 			tran = session.beginTransaction();
 			session.save(admin);
 			tran.commit();
@@ -131,7 +130,7 @@ public class Dao {
 
 	public static void agregarGerente(Gerencia gen) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 
 			tran = session.beginTransaction();
 			session.save(gen);
@@ -147,7 +146,7 @@ public class Dao {
 
 	public static void agregarProducto(Producto pro) {
 		Transaction tran = null;
-		try (Session session = sesion){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()){
 
 			tran = session.beginTransaction();
 			session.save(pro);
@@ -170,7 +169,7 @@ public class Dao {
 	//Rey hizo esto, si esta mal fue otro xd
 	@Transactional
 	public static void actualizarCliente(Cliente persona) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= persona.getUsuario();
 
 		try {
@@ -194,7 +193,7 @@ public class Dao {
 	}
 	//Rey hizo esto, si esta mal fue otro xd
 	public static void actualizarVendedor(Vendedor ven) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= ven.getUsuario();
 		try {
 			session.beginTransaction();
@@ -214,7 +213,7 @@ public class Dao {
 		}
 	}
 	public static void actualizarVenta(Ventas vent) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= vent.getArticulo();
 		try {
 			session.beginTransaction();
@@ -231,7 +230,7 @@ public class Dao {
 		}
 	}
 	public static void actualizarProducto(Producto prod) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= prod.getNombre();
 		try {
 			session.beginTransaction();
@@ -249,7 +248,7 @@ public class Dao {
 		}
 	}
 	public static void actualizarGerente(Gerencia ger) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= ger.getUsuario();
 		try {
 			session.beginTransaction();
@@ -287,7 +286,7 @@ public class Dao {
 	}
 
 	public static void eliminarCliente(Cliente cliente) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(cliente);
 		session.getTransaction().commit();
 
@@ -295,7 +294,7 @@ public class Dao {
 	}
 
 	public static void eliminarVendedor(Vendedor vendedor) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(vendedor);
 		session.getTransaction().commit();
 
@@ -310,7 +309,7 @@ public class Dao {
 	}
 
 	public static void eliminarAdministrador(Administrador admin) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(admin);
 		session.getTransaction().commit();
 
@@ -318,14 +317,14 @@ public class Dao {
 	}
 
 	public static void eliminarProducto(Producto prod) {
-		Session session = sesion;
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tr = session.beginTransaction();
 		session.delete(prod);
 		tr.commit();
 
 	}
 	public static void eliminarVenta(Ventas vent) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(vent);
 		session.getTransaction().commit();
 

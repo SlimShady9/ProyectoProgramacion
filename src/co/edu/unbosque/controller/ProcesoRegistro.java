@@ -47,24 +47,25 @@ public class ProcesoRegistro implements Serializable {
 			boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			if(verify){
 				cliente.setContraseña(Ultilidades.generarContraseña());
+				try {
+					util.SendMailCliente(cliente);
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MailConnectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				cliente.setContraseña(Ultilidades.encriptador(cliente.getContraseña()));
 				if (Presistence.agregarCliente(cliente)) {
 					men = "Registro exitoso! ";
 					cli = cliente;
 					vend = null;
 					retorno = "ValidacionTarjeta";
-					try {
-						util.SendMailCliente(cliente);
-					} catch (AddressException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (MailConnectException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (MessagingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 				}
 				else {
 					men = "Error en el registro...";
@@ -102,7 +103,6 @@ public class ProcesoRegistro implements Serializable {
 			boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			if(verify){
 				vendedor.setContraseña(Ultilidades.generarContraseña());
-				vendedor.setContraseña(Ultilidades.encriptador(vendedor.getContraseña()));
 				if (Presistence.agregarVendedor(vendedor)) {
 					men = "Registo Existoso! Bienenido ";
 					vend = vendedor;
@@ -125,6 +125,8 @@ public class ProcesoRegistro implements Serializable {
 					men = "Datos invalidos ";
 					retorno = "SigninCliente";
 				}
+				vendedor.setContraseña(Ultilidades.encriptador(vendedor.getContraseña()));
+				
 			}else{
 				men = "Select Captcha";
 				retorno = "SigninCliente";
