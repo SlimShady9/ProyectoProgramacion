@@ -463,7 +463,7 @@ public class Session {
 	
 	public String eliminarVendedor() {
 		
-		return "";
+		return "Principal";
 	}
 	public String editarCliente() {
 		Presistence.actualizarCliente(seCliente);
