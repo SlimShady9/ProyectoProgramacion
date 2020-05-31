@@ -42,7 +42,7 @@ public class Ultilidades {
 		
 		ArrayList<Vendedor> vends = vendedorTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < vends.size(); i++) {
+		for (int i = 0; i < vends.size()||i==5; i++) {
 			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
 		}
 		
@@ -61,7 +61,7 @@ public class Ultilidades {
 		
 		ArrayList<Cliente> clientes = clientesTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < clientes.size(); i++) {
+		for (int i = 0; i < clientes.size()||i==5 ; i++) {
 			System.out.println(clientes.get(i).getCompras().size());
 			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
 		}
@@ -81,7 +81,7 @@ public class Ultilidades {
 		
 		ArrayList<Ventas> productos = ordenarTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < productos.size(); i++) {
+		for (int i = 0; i < productos.size()|| i==5; i++) {
 			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
 		}
 		
@@ -100,7 +100,7 @@ public class Ultilidades {
 		
 		ArrayList<Vendedor> vends = vendedorTopGeneral();
 		
-		for (int i = 0; i < vends.size(); i++) {
+		for (int i = 0; i < vends.size()||i==5; i++) {
 			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
 		}
 		
@@ -119,7 +119,7 @@ public class Ultilidades {
 		
 		ArrayList<Cliente> clientes = clientesTopGenera();
 		
-		for (int i = 0; i < clientes.size(); i++) {
+		for (int i = 0; i < clientes.size()||i==5; i++) {
 			System.out.println(clientes.get(i).getCompras().size());
 			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
 		}
@@ -139,7 +139,7 @@ public class Ultilidades {
 		
 		ArrayList<Ventas> productos = ordenarTopGeneral();
 		
-		for (int i = 0; i < productos.size(); i++) {
+		for (int i = 0; i < productos.size()||i==5; i++) {
 			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
 		}
 		
