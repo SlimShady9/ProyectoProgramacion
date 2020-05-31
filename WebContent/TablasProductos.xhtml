@@ -58,36 +58,28 @@
 				<hi:outputText value="Sistema Administrador T.Veo" />
 			</h2>
 		</center>
-		<h2>Clientes registrados</h2>
-		<p:dataTable id="studentTable" paginator="true" selectionMode="true" rowKey="#{seccion}"
-			value="#{seccion.sedClientes}" var="seccion">
+		<h2>Productos registrados</h2>
+		<p:dataTable id="studentTable" paginator="true" selectionMode="true" rowKey="#{i}"
+			value="#{seccion.sedProductos}" var="i">
 			<p:column>
-				<f:facet name="header">Nombre</f:facet>
-				<hi:outputText value="#{seccion.nombres}" />
+				<f:facet name="header">Vendedor</f:facet>
+				<hi:outputText value="#{i.vendedor.usuario}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Apellido</f:facet>
-				<h:outputText value="#{seccion.apellidos}" />
+				<f:facet name="header">Producto</f:facet>
+				<h:outputText value="#{i.nombre}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Correo</f:facet>
-				<h:outputText value="#{seccion.correo}" />
+				<f:facet name="header">Cantidad</f:facet>
+				<h:outputText value="#{i.cantidad}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Celular:</f:facet>
-				<h:outputText value="#{seccion.celular}" />
+				<f:facet name="header">Categoria:</f:facet>
+				<h:outputText value="#{i.categoria}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Sede</f:facet>
-				<h:outputText value="#{seccion.ciudad}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">Tipo de documento</f:facet>
-				<h:outputText value="#{seccion.tipoDocumento}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">Documento</f:facet>
-				<h:outputText value="#{seccion.numeroDocumento}" />
+				<f:facet name="header">Precio</f:facet>
+				<h:outputText value="#{i.precio}" />
 			</p:column>
 			<!--             <h:column> -->
 			<!--                 <f:facet name="header">Modificar</f:facet> -->

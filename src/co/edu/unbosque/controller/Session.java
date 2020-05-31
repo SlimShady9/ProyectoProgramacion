@@ -49,6 +49,7 @@ public class Session {
 	private static Gerencia gere;
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
+	private ArrayList<Producto> sedProductos = null;
 
 	private ArrayList<Vendedor> seVendedores =(ArrayList<Vendedor>) Dao.vendedores;
 	private ArrayList<Vendedor> sedVendedores = null;
@@ -243,6 +244,19 @@ public class Session {
 				return "TablaVendedor";
 			}
 		}
+		if(opcionSeleccionada.equals("Productos")) {
+			if(admin != null) {
+				ArrayList<Vendedor> x = Presistence.busquedaVendedores(admin.getSede());
+				System.out.println(admin.getSede());
+				System.out.println(x.size());
+				sedProductos= Presistence.busquedaProductos(x);
+				System.out.println(sedProductos.size());
+				return "TablasProductos";
+			}if(gere != null) {
+				sedProductos= seProductos;
+				return "TablasProductos";
+			}
+		}
 		return null;
 
 	}
@@ -276,7 +290,7 @@ public class Session {
 			menuTitulo += admin.getUsuario();
 			opIniciales = new String[] {
 					"Inicio","Mi Perfil", "Reportes", "Clientes",
-					"Vendedores", "Cerrar Sesión"
+					"Vendedores","Productos", "Cerrar Sesión"
 			};
 
 		} else if (gere != null) {
@@ -284,7 +298,7 @@ public class Session {
 			opIniciales = new String[] {
 					"Inicio",
 					"Mi Perfil","Reportes", "Clientes",
-					"Vendedores",  "Cerrar Sesión"
+					"Vendedores","Productos",  "Cerrar Sesión"
 			};
 
 		} else {
@@ -695,6 +709,14 @@ public class Session {
 
 	public void setReservaSelec(String reservaSelec) {
 		this.reservaSelec = reservaSelec;
+	}
+
+	public ArrayList<Producto> getSedProductos() {
+		return sedProductos;
+	}
+
+	public void setSedProductos(ArrayList<Producto> sedProductos) {
+		this.sedProductos = sedProductos;
 	}
 	
 

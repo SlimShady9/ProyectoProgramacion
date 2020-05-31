@@ -588,6 +588,6 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
-
+	
 
 }
