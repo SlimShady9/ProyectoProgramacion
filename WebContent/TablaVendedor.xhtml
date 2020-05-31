@@ -55,8 +55,24 @@
 		</rich:toolBar>		
     <center><h2><hi:outputText value="Sistema Administrador T.Veo"/></h2></center>
 		<h2>Vendedores registrados</h2>
-        <p:dataTable id="tablaVendedores" value="#{seccion.sedVendedores}" var="seccion" 
-         selectionMode="single" selection="#{seccion.seVendedor}" paginator="true" rows="10" rowKey="#{seccion}">
+        <p:dataTable id="ReporteVendedores" value="#{seccion.sedVendedores}" var="seccion" 
+         selectionMode="single" selection="#{seccion.seVendedor}" paginator="true" rows="10" rowKey="#{seccion}"
+         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+         <f:facet name="{Exporters}">
+				<div style="float: right; padding-top: 5px;">
+					<h:commandLink>
+						<p:graphicImage url="Resources/pdf.png" width="38" />
+						<p:dataExporter type="pdf" target="ReporteVendedores"
+							fileName="ReporteVendedores" pageOnly="true" />
+					</h:commandLink>
+					<h:commandLink>
+						<h:graphicImage url="Resources/excel.png" width="38"
+							style=" margin-left: 10px ;margin-right: 10px" />
+						<p:dataExporter type="xls" target="ReporteVendedores"
+							fileName="ReporteVendedores" />
+					</h:commandLink>
+				</div>
+			</f:facet>
             <p:column>
                 <f:facet name="header">Nombre</f:facet>
                 <hi:outputText value="#{seccion.nombres}" />
@@ -81,14 +97,14 @@
                 <f:facet name="header">Documento</f:facet>
                 <h:outputText value="#{seccion.identificacion}" />
             </p:column>
-            <p:column>
-                <f:facet name="header">Modificar</f:facet>
-                <h:commandButton action="#{seccion.editarVendedor}" value="Editar" class="btn btn-primary" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">Borrar</f:facet>
-                <h:commandButton action="#{seccion.eliminarVendedor}" value="Borrar" class="btn btn-danger" />
-            </p:column>
+<!--             <p:column> -->
+<!--                 <f:facet name="header">Modificar</f:facet> -->
+<!--                 <h:commandButton action="#{seccion.editarVendedor}" value="Editar" class="btn btn-primary" /> -->
+<!--             </p:column> -->
+<!--             <p:column> -->
+<!--                 <f:facet name="header">Borrar</f:facet> -->
+<!--                 <h:commandButton action="#{seccion.eliminarVendedor}" value="Borrar" class="btn btn-danger" /> -->
+<!--             </p:column> -->
         </p:dataTable>
         <center>
         </center>

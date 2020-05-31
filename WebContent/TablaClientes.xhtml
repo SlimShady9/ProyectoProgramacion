@@ -59,8 +59,24 @@
 			</h2>
 		</center>
 		<h2>Clientes registrados</h2>
-		<p:dataTable id="studentTable" paginator="true" selectionMode="true" rowKey="#{seccion}"
-			value="#{seccion.sedClientes}" var="seccion">
+		<p:dataTable id="ReporteClientes" paginator="true" selectionMode="true"
+			rowKey="#{seccion}" value="#{seccion.sedClientes}" var="seccion"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+			rows="10" style="margin-bottom:20px">
+			<f:facet name="{Exporters}">
+				<div style="float: right; padding-top: 5px;">
+					<h:commandLink>
+						<p:graphicImage url="Resources/pdf.png" width="38" />
+						<p:dataExporter type="pdf" target="ReporteClientes"
+							fileName="ReporteClientes" pageOnly="true" />
+					</h:commandLink>
+					<h:commandLink>
+			<h:graphicImage url="Resources/excel.png" width="38" 
+				style=" margin-left: 10px ;margin-right: 10px"/>
+			<p:dataExporter type="xls" target="ReporteClientes" fileName="ReporteClientes" />
+		</h:commandLink>
+				</div>
+			</f:facet>
 			<p:column>
 				<f:facet name="header">Nombre</f:facet>
 				<hi:outputText value="#{seccion.nombres}" />

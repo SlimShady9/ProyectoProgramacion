@@ -219,7 +219,18 @@ public class Session {
 
 	public String seccionOpcionMenu() {
 		if (opcionSeleccionada.equals("Inicio")) {
-			return "Principal";
+			if (admin != null){
+				return "PerfilAdministrador";
+			}
+			if (gere != null){
+				return "PerfilGerente";
+			}
+			if (vend != null){
+				return "Principal";
+			}
+			if (cli != null){
+				return "Principal";
+			}
 		}
 		if (opcionSeleccionada.equals("Categorias")) {
 			return "Categorias";
@@ -337,16 +348,15 @@ public class Session {
 		} else if (admin != null) {
 			menuTitulo += admin.getUsuario();
 			opIniciales = new String[] {
-					"Inicio","Mi Perfil", "Reportes", "Clientes",
+					"Inicio","Clientes",
 					"Vendedores","Productos", "Cerrar Sesión"
 			};
 
 		} else if (gere != null) {
 			mTitulo += gere.getUsuario();
 			opIniciales = new String[] {
-					"Inicio",
-					"Mi Perfil","Reportes", "Clientes",
-					"Vendedores","Productos",  "Cerrar Sesión"
+					"Inicio", "Clientes",
+					"Vendedores","Productos", "Cerrar Sesión"
 			};
 
 		} else {
@@ -484,6 +494,8 @@ public class Session {
 	
 	public String eliminarVendedor() {
 		
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Eliminacion Exitosa");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
 	public String editarCliente() {
