@@ -38,20 +38,14 @@
 					<h:graphicImage styleClass="menuIcon"
 						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup id="elementosDer">
-				<p:commandLink>
-					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
-				</p:commandLink>
-				<h:inputText styleClass="barsearch" />
 
-			</rich:toolBarGroup>
-			<rich:tooBarGrupo id="elementosIz">
-				<p:commandLink immediate="true" action="Principal" ajax='false'>
-					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
-				</p:commandLink>
-				<h:graphicImage styleClass="nombreCorp" value="Resources/Nombre.png"></h:graphicImage>
-			</rich:tooBarGrupo>
+				<rich:tooBarGrupo id="elementosIz">
+					<p:commandLink immediate="true" action="Principal" ajax='false'>
+						<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
+					</p:commandLink>
+					<h:graphicImage styleClass="nombreCorp"
+						value="Resources/Nombre.png"></h:graphicImage>
+				</rich:tooBarGrupo>
 		</rich:toolBar>
 		<center>
 			<h2>
@@ -59,7 +53,8 @@
 			</h2>
 		</center>
 		<h2>Compras Realizadas</h2>
-		<p:dataTable id="studentTable" paginator="true" value="#{seccion.seCliente.compras}" var="i">
+		<p:dataTable id="studentTable" paginator="true"
+			value="#{seccion.seCliente.compras}" var="i">
 			<p:column>
 				<f:facet name="header">Vendedor:</f:facet>
 				<hi:outputText value="#{i.vendedor.usuario}" />

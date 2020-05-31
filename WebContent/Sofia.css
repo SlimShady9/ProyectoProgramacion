@@ -167,3 +167,18 @@ body {
     color: white;
     background-color: black; 
 }
+.CampoPerfil{
+    margin-top: 200px;
+    margin-left: 250px;
+    background-color: black;
+    color: white;
+    position: absolute;
+}
+.btnEditar{
+    float: right;
+    margin-right: 150px;
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: black;
+}

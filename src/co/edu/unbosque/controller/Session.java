@@ -148,6 +148,7 @@ public class Session {
 		if (admin != null) {
 			if (!admin.getContraseña().equals(contraseña)) {
 				admin = null;
+				
 				retorno = "Login";
 			}
 			else {
@@ -176,12 +177,12 @@ public class Session {
 					}
 					else {
 						seVendedor = vend;
+
 						mostrarOpciones();
 						seProductos = new ArrayList<Producto>();
 						for (int i = 0 ; i < vend.getProductos().size() ; i++) {
 							seProductos.add(vend.getProductos().get(i));
 						}
-						seMatrizProductos = Ultilidades.generarMatrizProducto(vend.getSede());
 						retorno = "Principal";
 					}
 				}
@@ -203,7 +204,6 @@ public class Session {
 							seCliente = cli;
 							carroCompras = new Carrito(seCliente);
 							mostrarOpciones();
-							seMatrizProductos = Ultilidades.generarMatrizProducto(cli.getCiudad());
 
 						}
 					}
@@ -306,10 +306,7 @@ public class Session {
 		if(opcionSeleccionada.equals("Productos")) {
 			if(admin != null) {
 				ArrayList<Vendedor> x = Presistence.busquedaVendedores(admin.getSede());
-				System.out.println(admin.getSede());
-				System.out.println(x.size());
 				sedProductos= Presistence.busquedaProductos(x);
-				System.out.println(sedProductos.size());
 				return "TablasProductos";
 			}if(gere != null) {
 				sedProductos= seProductos;
@@ -473,9 +470,7 @@ public class Session {
 	}
 
 	public String editarVendedor() {
-		if (confirmaClave.equals(seVendedor.getContraseña())) {
-			
-		}
+		
 		Presistence.actualizarVendedor(seVendedor);
 		vend = seVendedor;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
@@ -493,9 +488,14 @@ public class Session {
 	}
 	
 	public String eliminarVendedor() {
-		
+		Presistence.eliminarVendedor(seVendedor);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Eliminacion Exitosa");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		if (gere != null) {
+			return "PerfilGerente";
+		} else if (admin != null) {
+			return "PerfilesAdministrador";
+		}
 		return "Principal";
 	}
 	public String editarCliente() {

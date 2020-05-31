@@ -40,28 +40,28 @@ public class Dao {
 	public static Session abrirSession() {
 		return HibernateUtil.getSessionFactory().openSession();
 	}
-	
-	
+
+
 	public static void cargarAdministradores() {
 		administradores = sesion.createCriteria(Administrador.class).list();
 	}
-	
+
 	public static void cargarClientes() {
 		clientes = sesion.createCriteria(Cliente.class).list();
 	}
-	
+
 	public static void cargarGerentes() {
 		gerentes = sesion.createCriteria(Gerencia.class).list();
 	}
-	
+
 	public static void cargarProductos() {
 		productos = sesion.createCriteria(Producto.class).list();
 	}
-	
+
 	public static void cargarVendedores() {
 		vendedores = sesion.createCriteria(Vendedor.class).list();
 	}
-	
+
 	public static void cargarVentas() {
 		ventas = sesion.createCriteria(Ventas.class).list();
 	}
@@ -83,7 +83,7 @@ public class Dao {
 		}
 
 	}
-	
+
 	public static void agregarVenta(Ventas vent) {
 		Transaction tran = null;
 		try (Session session = sesion){
@@ -136,7 +136,7 @@ public class Dao {
 			tran = session.beginTransaction();
 			session.save(gen);
 			tran.commit();
-			
+
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -152,7 +152,7 @@ public class Dao {
 			tran = session.beginTransaction();
 			session.save(pro);
 			tran.commit();
-			
+
 		} catch (Exception e) {
 			if (tran != null) {
 				tran.rollback();
@@ -243,7 +243,7 @@ public class Dao {
 			buscar.setNombre(prod.getNombre());
 			session.merge(buscar);
 			session.getTransaction().commit();
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -261,7 +261,7 @@ public class Dao {
 			buscar.setNombres(ger.getNombres());
 			session.merge(buscar);
 			session.getTransaction().commit();
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -280,17 +280,17 @@ public class Dao {
 			buscar.setSede(admin.getSede());
 			session.merge(buscar);
 			session.getTransaction().commit();
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void eliminarCliente(Cliente cliente) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(cliente);
 		session.getTransaction().commit();
-		
+
 
 	}
 
@@ -298,35 +298,36 @@ public class Dao {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(vendedor);
 		session.getTransaction().commit();
-		
+
 	}
-	
+
 	public static void eliminarGerente(Gerencia gerente) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(gerente);
 		session.getTransaction().commit();
-		
+
 
 	}
-	
+
 	public static void eliminarAdministrador(Administrador admin) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(admin);
 		session.getTransaction().commit();
-		
+
 
 	}
-	
+
 	public static void eliminarProducto(Producto prod) {
-		Session session = HibernateUtil.getHibernateSession();
+		Session session = sesion;
+		Transaction tr = session.beginTransaction();
 		session.delete(prod);
-		session.getTransaction().commit();
-		
+		tr.commit();
+
 	}
 	public static void eliminarVenta(Ventas vent) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(vent);
 		session.getTransaction().commit();
-		
+
 	}
 }

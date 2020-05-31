@@ -39,13 +39,7 @@
 						value="Resources/MenuIcon.png" onclick="PF('sidebar1').show()" />
 				</p:commandLink>
 			</rich:toolBarGroup>
-			<rich:toolBarGroup id="elementosDer">
-				<p:commandLink>
-					<h:graphicImage styleClass="lupa" value="Resources/Lupa.jpg" />
-				</p:commandLink>
-				<h:inputText styleClass="barsearch" />
 
-			</rich:toolBarGroup>
 			<rich:tooBarGrupo id="elementosIz">
 				<p:commandLink immediate="true" action="Principal" ajax='false'>
 					<h:graphicImage styleClass="logo" value="Resources/Logo.png"></h:graphicImage>
@@ -55,12 +49,14 @@
 		</rich:toolBar>
 		<center>
 			<h2>
-				<hi:outputText value="Sistema Administrador T.Veo" />
+				<hi:outputText value="Sistema T.Veo" />
 			</h2>
 		</center>
 		<h2>Productos registrados</h2>
-		<p:dataTable id="ReporteProductos" paginator="true" selectionMode="true"
-			rowKey="#{i}" value="#{seccion.sedProductos}" var="i" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+		<p:dataTable id="ReporteProductos" paginator="true"
+			selection="#{seccion.seProducto}" selectionMode="single"
+			rowKey="#{i}" value="#{seccion.sedProductos}" var="i"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
 			<f:facet name="{Exporters}">
 				<div style="float: right; padding-top: 5px;">
 					<h:commandLink>
@@ -77,15 +73,15 @@
 				</div>
 			</f:facet>
 			<p:column>
-				<f:facet name="header">Vendedor</f:facet>
+				<f:facet name="header">Vendedor:</f:facet>
 				<hi:outputText value="#{i.vendedor.usuario}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Producto</f:facet>
+				<f:facet name="header">Producto:</f:facet>
 				<h:outputText value="#{i.nombre}" />
 			</p:column>
 			<p:column>
-				<f:facet name="header">Cantidad</f:facet>
+				<f:facet name="header">Cantidad:</f:facet>
 				<h:outputText value="#{i.cantidad}" />
 			</p:column>
 			<p:column>
@@ -96,16 +92,19 @@
 				<f:facet name="header">Precio</f:facet>
 				<h:outputText value="#{i.precio}" />
 			</p:column>
-			<!--             <h:column> -->
-			<!--                 <f:facet name="header">Modificar</f:facet> -->
-			<!--                 <h:commandButton action="#{seccion.editarUsuario(seccion.lapersona)}" value="Editar" class="btn btn-primary" /> -->
-			<!--             </h:column> -->
-			<!--             <h:column> -->
-			<!--                 <f:facet name="header">Borrar</f:facet> -->
-			<!--                 <h:commandButton action="#{seccion.eliminarUsuario(seccion.lapersona)}" value="Borrar" class="btn btn-danger" /> -->
-			<!--             </h:column> -->
+
+
+			<f:facet name="footer">
+<!-- 				<p:commandButton action="Categorias" value="Editar"> -->
+<!-- 				</p:commandButton> -->
+				<p:commandButton action="#{seccion.eliminarProducto}" value="Borrar" >
+				</p:commandButton>
+			</f:facet>
 		</p:dataTable>
 		<center></center>
+
+
+
 	</h:form>
 </h:body>
 </html>
