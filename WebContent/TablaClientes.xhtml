@@ -59,9 +59,8 @@
 			</h2>
 		</center>
 		<h2>Clientes registrados</h2>
-		<hi:dataTable id="studentTable" binding="#{table}"
-			value="#{seccion.sedClientes}" var="seccion"
-			class="table table-striped table-hover table-bordered tableUpdated">
+		<p:dataTable id="studentTable" paginator="true" selectionMode="true"
+			value="#{seccion.sedClientes}" var="seccion">
 			<hi:column>
 				<f:facet name="header">Nombre</f:facet>
 				<hi:outputText value="#{seccion.nombres}" />
@@ -98,7 +97,7 @@
 			<!--                 <f:facet name="header">Borrar</f:facet> -->
 			<!--                 <h:commandButton action="#{seccion.eliminarUsuario(seccion.lapersona)}" value="Borrar" class="btn btn-danger" /> -->
 			<!--             </h:column> -->
-		</hi:dataTable>
+		</p:dataTable>
 		<center></center>
 	</h:form>
 </h:body>

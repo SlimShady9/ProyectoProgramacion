@@ -8,12 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-
 import org.primefaces.model.file.UploadedFile;
-
-
-
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Carrito;
 import co.edu.unbosque.model.Cliente;
@@ -83,7 +78,7 @@ public class Session {
 	 * Este algoritmo iria en el metodo de cargar matrizProductos
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
-	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto();
+	private List<ArrayList<Producto>> seMatrizProductos;
 
 	/**
 	 * Arreglo con las sedes ornenadas
@@ -140,6 +135,7 @@ public class Session {
 						for (int i = 0 ; i < vend.getProductos().size() ; i++) {
 							seProductos.add(vend.getProductos().get(i));
 						}
+						seMatrizProductos = Ultilidades.generarMatrizProducto(vend.getSede());
 						retorno = "Principal";
 					}
 				}
@@ -161,6 +157,7 @@ public class Session {
 							seCliente = cli;
 							carroCompras = new Carrito(seCliente);
 							mostrarOpciones();
+							seMatrizProductos = Ultilidades.generarMatrizProducto(cli.getCiudad());
 
 						}
 					}
@@ -315,6 +312,7 @@ public class Session {
 		Presistence.agregarProducto(seProducto);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Registrado Exitosamente!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		seProductos.add(seProducto);
 		return retorno;
 	}
 
@@ -359,7 +357,6 @@ public class Session {
 		String retorno = "Principal";
 		System.out.println(proSelecc.toString());
 		carroCompras.agregarProducto(proSelecc, cNumeroDeProductos);
-		Dao.cargarVendedores();
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Agregado al carro");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
@@ -380,14 +377,15 @@ public class Session {
 
 		} else {
 			if (reservaSelec.equals("Obvio bobis")) {
-				retorno = "FinalizarCarro";
-				mensaje = "No se puedo hacer la transaccion";
+				carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, true);
+
 			}
 			else {
 				carroCompras.realizarTransaccion(Ultilidades.fechaActual(), tipoPagoSelecc, false);
 
 			}
 		}
+		
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", mensaje);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
@@ -406,6 +404,7 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
+	
 	public String eliminarVendedor() {
 		
 		return "";

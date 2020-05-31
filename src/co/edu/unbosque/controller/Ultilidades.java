@@ -142,11 +142,11 @@ public class Ultilidades {
 		Transport.send(message);
 	}
 
-	public static List<ArrayList<Producto>> generarMatrizProducto(){
-		// Aqui iria mi algoritmo de ordenacion por popularidad si tan solo tuviera uno :c xd...
+	public static List<ArrayList<Producto>> generarMatrizProducto(String sede){
+		ArrayList<Producto> products = ordenarTopProductos(ordenarTopSede(sede));
 		ArrayList<ArrayList<Producto>> matriz = new ArrayList<ArrayList<Producto>>();
 		ArrayList<Producto> fila = new ArrayList<Producto>();
-		for (int i = 0 ; i < Dao.productos.size() ; i++) {
+		for (int i = 0 ; i < products.size() ; i++) {
 			fila.add(Dao.productos.get(i));
 			// cada 4 columnas agrego una fila
 			if ( (i+1) % 4 == 0) {
@@ -156,7 +156,7 @@ public class Ultilidades {
 				fila = new ArrayList<Producto>();
 			}
 		}
-		if (Dao.productos.size() % 4 != 0) {
+		if (products.size() % 4 != 0) {
 			matriz.add(fila);
 		}
 		return matriz;
