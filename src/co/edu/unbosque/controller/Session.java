@@ -1,3 +1,22 @@
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Universidad El Bosque (Bogotá - Colombia)
+ * Programa de Ingeniería de Sistemas
+ * Programación II
+ * 
+ * Profesor: Miguel Alejandro Feijoo García
+ * 
+ * Licenciado bajo el esquema Academic Free License version 2.1 
+ *
+ * Proyecto The Gran Hermano Store
+ * Proyecto Final Grupo C
+ * Autor: Equipo de ElectroCompras Corp:
+ * 	@author	Juan David Alberto Quintero Gaona
+ * 	@author	Laura María López Moreno
+ * 	@author	Andrés Felipe Rey Pedraza
+ * 			
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ */
 package co.edu.unbosque.controller;
 
 
@@ -8,7 +27,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.file.UploadedFile;
 import co.edu.unbosque.model.Administrador;
@@ -20,132 +38,273 @@ import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.Vendedor;
 
 
+/**
+ * Esta clase es la que manejara todo lo que a secciones respecta.
+ * Cuando alguien se regitre se activara cierta seccion
+ * Y de este modo se desplegaran las diferentes opciones.
+ */
 
 @ManagedBean(name="seccion")
 @SessionScoped
 public class Session {
 
+	// -----------------------------------------------------------------
+    // Atributos
+    // -----------------------------------------------------------------
+	
+	/**
+	 * Arreglo de Strings representando las opciones iniciales del menu.
+	 */
+	private static String[] opIniciales= {"Inicio", "Iniciar Sesion", "Resgistrate", "Ayuda"};
+
+	/**
+	 * Arreglo de String con las categorias disponibles
+	 */
+	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
 	/**
 	 * Esta clase es la que manejara todo lo que a secciones respecta
 	 * Cuando alguien se regitre se activara cierta seccion
 	 * Y de este modo se desplegaran las diferentes opciones
 	 */
-	private Ultilidades utilidades = new Ultilidades();
-	private static String[] opIniciales= {"Inicio", "Iniciar Sesion", "Resgistrate", "Ayuda"};
-	private static String[] categoriasDisponibles = {"Mujeres", "Niños", "Vestimenta", "Hogar", "Tecnologia", "Hombres", "Mascotas", "Deprtes", "Otro"};
 	private ArrayList<String> seCategoriasDisponibles = new ArrayList<>(Arrays.asList(categoriasDisponibles));
+	/**
+	 * Este String es el encargado de escuchar la categoria seleciconada por el bean 
+	 */
 	private String categoriaSeleccionada;
+	/**
+	 * Este int es el encargado de mostar el numero de productos disponibles de un producto en especifico 
+	 */
 	private int numeroDeProductos;
+	
+	/**
+	 * Arreglo de String con las opciones disponibles
+	 */
 	private ArrayList<String> opciones = new ArrayList<String>(Arrays.asList(opIniciales));
+	
+	/**
+	 * ArrayListo de String con las categorias disponibles por un porducto en especifico
+	 */
 	private ArrayList<String> caterogirasD = new ArrayList<String>(Arrays.asList(categoriasDisponibles));
 
+	/**
+	 * Clase que representa al cliente inicializado en null.
+	 */
 	private Cliente seCliente = null;
+	/**
+	 * Clase estatica del cliente.
+	 */
 	private static Cliente cli;
 
+	/**
+	 * Clase que representa al vendedor inicializado en null.
+	 */
 	private Vendedor seVendedor = null;
+	/**
+	 * Clase estática del vendedor.
+	 */
 	private static Vendedor vend;
-	
+	/**
+	 * Clase que representa al administrador inicializado en null.
+	 */
 	private Administrador seAdmin = null;
+	/**
+	 * Clase estática del administrador.
+	 */
 	private static Administrador admin;
-	
+	/**
+	 * Clase que representa al gerente inicializado en null.
+	 */
 	private Gerencia seGerente = null;
+	/**
+	 * Clase estática del gerente.
+	 */
 	private static Gerencia gere;
+	/**
+	 * Clase que representa a un producto.
+	 */
 
 	private ArrayList<Producto> seProductos = (ArrayList<Producto>) Dao.productos;
+	/**
+	 * Clase que representa al producto temportal proveniente de un bean.
+	 */
 	private ArrayList<Producto> sedProductos = null;
+	
+	/**
+	 * Clase que representa a un vendedor temporal de un bean.
+	 */
+
 
 	private ArrayList<Vendedor> seVendedores =(ArrayList<Vendedor>) Dao.vendedores;
+	
+	/**
+	 * Clase que representa a un vendedor temporal de un bean.
+	 */
+
 	private ArrayList<Vendedor> sedVendedores = null;
 
+	/**
+	 * Clase que representa al producto por categoria.
+	 */
 	private ArrayList<Producto> seProductosCategoria = null;
 
+	/**
+	 * Clase que representa al producto por categoria.
+	 */
 	private Producto seProducto = new Producto();
+	/**
+	 * Clase que representa al producto seleccionado de una tabla
+	 */
 	private Producto seProductoS = new Producto();
 
-
+	/**
+	 * Clase que representa a todos los clientes de la base de datos.
+	 */
 	private ArrayList<Cliente> seClientes= (ArrayList<Cliente>)Dao.clientes;
+	
+	/**
+	 * Clase que representa a un cliente temporal proveniente de un bean.
+	 */
 	private ArrayList<Cliente> sedClientes =null;
 
+	/**
+	 * Cadenas de caracteres para el usuario y la contraseña.
+	 */
 	private String usuario, contraseña;
+	
+	/**
+	 * Clase que representa al producto por categoria.
+	 */
 	private String tipoPagoSelecc, reservaSelec;
 
+	/**
+	 * Título de bienvendia al menu.
+	 */
 	private static String mTitulo = "Bienvenido <3";
+	/**
+	 * Arreglo del menu que contiene el título de bienvenida y las
+	 * posibles opciones de inicio.
+	 */
 	private String menuTitulo = mTitulo, opcionSeleccionada, confirmaClave, clave;
 
+	/**
+	 * Cadena de caracteres estática de un mensaje.
+	 */
 	private static String mensaje;
+	/**
+	 * Cadena de caracteres representando el mensaje estático.
+	 */
 	private String message = mensaje;
 
+	/**
+	 * Objeto de tipo UploadedFile para representar imagenes.
+	 */
 	private UploadedFile imagen;
+	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas de vendedores
+	 *  de acuerdo a la sede que pertenece un administrador
+	 */
 	
 	private BarChartModel barChartModel;
 	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  clientes con mayor numero de ventas a la sede que pertenece un administrador
+	 */
+	
 	private BarChartModel barChartModel2;
+	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  productos con mayor numero de ventas a la sede que pertenece un administrador
+	 */
 	
 	private BarChartModel barChartModel3;
 	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  vendedores con mayor numero de ventas entre todas las sedes
+	 */
+	
 	private BarChartModel barChartModel4;
+	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  clientes con mayor numero de ventas entre todas las sedes
+	 */
 	
 	private BarChartModel barChartModel5;
 	
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  productos con mayor numero de ventas entre todas las sedes
+	 */
 	private BarChartModel barChartModel6;
 	
-	private BarChartModel barChartModel7;
-
+	/**
+	 *  Objeto del Barchart Model que representa las graficas estadisticas del top
+	 *  productos con mayor numero de ventas entre todas las sedes
+	 */
 	/**
 	 * Esta matriz es ideal para un algorito de ordenamiento por popularidad o algo asi
 	 * Este algoritmo iria en el metodo de cargar matrizProductos
 	 * Lo pondre en utilidades para no satudad esta clase
 	 */
+	
+	private BarChartModel barChartModel7;
+
+	/**
+	 * Esta matriz de productos es la que se vera en la pragina principal cuando se
+	 * carga los productos, si se pas aun null cargara todos los productos de todas la sedes
+	 * 
+	 */
+	
 	private List<ArrayList<Producto>> seMatrizProductos = Ultilidades.generarMatrizProducto(null);
 
 	/**
 	 * Arreglo con las sedes ornenadas
-	 * 
 	 */
 
-	private List<Sede> sedes = utilidades.topSedeVentas();
+	private List<Sede> sedes = Ultilidades.topSedeVentas();
+	/**
+	 * Esta variable escuchara la sede seleccionada
+	 */
+	
 	private String sedeSeleccionada;
-	// Este producto es el seleccionado
+	/**
+	 * Esta variable escuchara la cantudad de numero de productos que un cliente selecicone para
+	 * llevar al carro de compras
+	 */
 	private int cNumeroDeProductos;
+	/**
+	 * Instancia de producto que recoge un valor equivalente a un producto
+	 *  seleccionado en un beean we
+	 */
 	private Producto proSelecc;
+	
+	/**
+	 * Variables de tipo String que representar valores obenidoes por los bean
+	 */
+	
 	private static String nombre, precio, categoria, vendedor;
+	
+	/**
+	 *  Instancia de carro compras la cual se asociara a un cliente para que 
+	 *  pueda realizar sus compras
+	 */
 
 	private Carrito carroCompras;
 	
-	public BarChartModel getBarChartModel() {
-		barChartModel = Ultilidades.GrafiquitasVendedores(admin);
-		return barChartModel;
-	}
+	// -----------------------------------------------------------------
+    // Métodos
+    // -----------------------------------------------------------------
 	
-	public BarChartModel getBarChartModel2() {
-		barChartModel2 = Ultilidades.GrafiquitasTopClientes(admin);
-		return barChartModel2;
-	}
-	
-	public BarChartModel getBarChartModel3() {
-		barChartModel3 = Ultilidades.GrafiquitasTopProductos(admin);
-		return barChartModel3;
-	}
-	
-	public BarChartModel getBarChartModel4() {
-		barChartModel4 = Ultilidades.GrafiquitasVendedoresGerencia();
-		return barChartModel4;
-	}
-	
-	public BarChartModel getBarChartModel5() {
-		barChartModel5 = Ultilidades.GrafiquitasTopClientes();
-		return barChartModel5;
-	}
-	
-	public BarChartModel getBarChartModel6() {
-		barChartModel6 = Ultilidades.GrafiquitasTopProductosGerente();
-		return barChartModel6;
-	}
-	
-	public BarChartModel getBarcharBarChartModel7() {
-		barChartModel7= Ultilidades.GrafiquitasTopSedes();
-		return barChartModel7;
-	}
+	/**
+	 * Verifica el usuario y contraseña ingresados en el login buscando entre los
+	 * administradores, gerentes, vendedores y clientes. Si el proces es exitoso 
+	 * se envia a la página principal, en caso contrario, la de login.
+	 * @return cadena de caracteres representado la página de principal o de login.
+	 */
 
 	public String inicioSeccion() {
 		
@@ -224,6 +383,13 @@ public class Session {
 
 	}
 
+	/**
+	 * Método que realiza las acciones correspondientes de acuerdo
+	 * a la opción seleccionada del menu.
+	 * @return las páginas correspondiente a la opción seleccionada
+	 * del menu.
+	 */
+	
 	public String seccionOpcionMenu() {
 		if (opcionSeleccionada.equals("Inicio")) {
 			if (admin != null){
@@ -323,7 +489,12 @@ public class Session {
 		return null;
 
 	}
-	//hace cositas
+	
+	/**
+	 * Este metodo busca los productos ordenados por la categoria seleccionada en el atrivuto
+	 * categoriaSeleccionada
+	 * @return String la pagina de categoria seleccionada con el filtro de la categoria 
+	 */
 	public String catalogoCategoria() {
 
 		seProductosCategoria = Presistence.buscarProductosPorCategoria(categoriaSeleccionada, seProductos);
@@ -332,7 +503,9 @@ public class Session {
 		return "CategoriaSeleccionada";
 	}
 
-
+	/**
+	 * Dependiendo del tipo de usuario se muestras las respectivas opciones de menu.
+	 */
 	public void mostrarOpciones() {
 		mTitulo = "Bienvenido ";
 		if (cli != null) {
@@ -373,12 +546,21 @@ public class Session {
 		menuTitulo = mTitulo;
 	}
 
+	/**
+	 * Guarda una imagen dada en un formato sobre un array de bytess
+	 * ademas ese array se le asiga al proucto seleccionado sobre el proceso
+	 * de registrar producto
+	 */
 	public void guardarProducto() {
 		byte[] content = imagen.getContent();
 		seProducto.setImagen(content);
 		imagen = null;
 	}
 
+	/**
+	 * Permite registrar un nuevo producto en la base de datos y el arreglo de Presistencia.
+	 * @return la página principal.
+	 */
 	public String registrarProducto() {
 
 		String retorno = "Principal";
@@ -394,7 +576,12 @@ public class Session {
 		return retorno;
 	}
 	
-	
+	/**
+	 * Este metodo recoge los valores de la contraseña dada por el bean de confirmarContraseña
+	 * y verifica que consida con los requerimientos de la empresa para asi agregarla al cliente
+	 * y subirla a la base de datos encriptada
+	 * @return Stirng de la pagina principal
+	 */
 
 	public String activarUsuario() {
 		if (clave.equals(confirmaClave)) {
@@ -429,18 +616,35 @@ public class Session {
 			return "ValidacionTarjeta";
 		}
 	}
+	
+	/**
+	 * Este metodo es llamdado por el bean con el objetivo de conseguir el valor guardado
+	 * y redirigirlo a la pagina xhtml de Carro para continuar con la transaccion
+	 * @return La pagina xhtml de carro
+	 */
 
 	public String seleciconarProducto() {
 		return "Carro";
 	}
+	
+	/**
+	 * Este metodo agrega un producto a la instancia del carro y el numero de productos
+	 * seleccionados por el cliente
+	 * @return String la pagina principal
+	 */
 	public String agregarProductoAlCarro() {
 		String retorno = "Principal";
-		System.out.println(proSelecc.toString());
 		carroCompras.agregarProducto(proSelecc, cNumeroDeProductos);
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Agregado al carro");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
+	
+	/**
+	 * Este metodo es llamdado por el bean con el objetivo de conseguir el valor guardado
+	 * y redirigirlo a la pagina xhtml de Carro para terminar la transaccion
+	 * @return String de la pagina finalizar Transaccion
+	 */
 
 	public String finalizarTransaccion() {
 		String retorno = "Principal";
@@ -470,6 +674,11 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return retorno;
 	}
+	
+	/**
+	 * Este metodo quita un item de carro y manda un mensaje avisando que el producto se retiro
+	 * @return String de la pagina xhtml de finalizarCarro
+	 */
 
 	public String quitarItemCarro() {
 		carroCompras.retirarProducto(seProductoS, seProductoS.getCantidad());
@@ -478,14 +687,25 @@ public class Session {
 		return "FinalizarCarro";
 	}
 
+	/**
+	 * Este metodo se encarga de editar los valores de un vendedor y se guardan estos cambios
+	 * tanto en la base de datos como en el arreglo pertenciente a DAO
+	 * @return la paginaPrincipal
+	 */
 	public String editarVendedor() {
-		
+		seVendedor.setContraseña(Ultilidades.encriptador(seVendedor.getContraseña()));
 		Presistence.actualizarVendedor(seVendedor);
 		vend = seVendedor;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
+	
+	/**
+	 * Este metodo se encarga de editar todos los valores de productos del vendedor en session
+	 * en la base de datos y el arreglo de DAO
+	 * @return la paginaPrincipal
+	 */
 	
 	public String realizarCambiosProductosVendedor() {
 		for (Producto i : vend.getProductos()) {
@@ -495,6 +715,11 @@ public class Session {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
+	
+	/**
+	 * Este metodo se encarga de eliminar un vendedor de la base de datos
+	 * @return un string que devuelvew a una pagina dependiendo del exito del proceso de eliminacion
+	 */
 	
 	public String eliminarVendedor() {
 		Presistence.eliminarVendedor(seVendedor);
@@ -507,109 +732,209 @@ public class Session {
 		}
 		return "Principal";
 	}
+	
+	/**
+	 * Este metodo se encarga de eliminar un vendedor de la base de datos
+	 * @return un string que devuelvew a una pagina dependiendo del exito del proceso de eliminacion
+	 */
+	
 	public String editarCliente() {
+		seCliente.setContraseña(seCliente.getContraseña());
 		Presistence.actualizarCliente(seCliente);
 		seCliente = cli;
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Perfil editado exitosamente");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "Principal";
 	}
-	public String eliminarCliente() {
-		return "";
-	}
 
+	/**
+	 * Getter de opciones.
+	 * @return opciones.
+	 */
 	public ArrayList<String> getOpciones() {
 		return opciones;
 	}
 
+	/**
+	 * Setter de opciones.
+	 * @param opciones
+	 */
 	public void setOpciones(ArrayList<String> opciones) {
 		this.opciones = opciones;
 	}
 
+	/**
+	 * Getter de cliente.
+	 * @return seCliente
+	 */
 	public Cliente getSeCliente() {
 		return seCliente;
 	}
 
+	/**
+	 * Setter de cliente.
+	 * @param seCliente
+	 */
 	public void setSeCliente(Cliente seCliente) {
 		this.seCliente = seCliente;
 	}
 
+	/**
+	 * Getter de vendedor.
+	 * @return seVendedor
+	 */
 	public Vendedor getSeVendedor() {
 		return seVendedor;
 	}
 
+	/**
+	 * Setter de vedendedor.
+	 * @param seVendedor
+	 */
 	public void setSeVendedor(Vendedor seVendedor) {
 		this.seVendedor = seVendedor;
 	}
 
+	/**
+	 * Getter del administrador.
+	 * @return seAdmin
+	 */
 	public Administrador getSeAdmin() {
 		return seAdmin;
 	}
 
+	/**
+	 * Setter del administrador.
+	 * @param seAdmin
+	 */
 	public void setSeAdmin(Administrador seAdmin) {
 		this.seAdmin = seAdmin;
 	}
 
+	/**
+	 * Getter de gerencia.
+	 * @return seGerente
+	 */
 	public Gerencia getSeGerente() {
 		return seGerente;
 	}
 
+	/**
+	 * Setter de gerencia.
+	 * @param seGerente
+	 */
 	public void setSeGerente(Gerencia seGerente) {
 		this.seGerente = seGerente;
 	}
 
+	/**
+	 * Getter de usuario.
+	 * @return usuario.
+	 */
 	public String getUsuario() {
 		return usuario;
 	}
 
+	/**
+	 * Setter de usuario.
+	 * @param usuario
+	 */
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
+	/**
+	 * Getter de contraseña.
+	 * @return contraseña
+	 */
 	public String getContraseña() {
 		return contraseña;
 	}
 
+	/**
+	 * Setter de contraseña.
+	 * @param contraseña
+	 */
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
 
+	/**
+	 * Getter del titulo de menu.
+	 * @return menuTitulo
+	 */
 	public String getMenuTitulo() {
 		return menuTitulo;
 	}
 
+	/**
+	 * Setter del título de menu.
+	 * @param menuTitulo
+	 */
 	public void setMenuTitulo(String menuTitulo) {
 		this.menuTitulo = menuTitulo;
 	}
 
+	/**
+	 * Getter de la opción seleccionada.
+	 * @return opcionSeleccionada
+	 */
 	public String getOpcionSeleccionada() {
 		return opcionSeleccionada;
 	}
 
+	/**
+	 * Setter de la opción seleccionada.
+	 * @param opcionSeleccionada
+	 */
 	public void setOpcionSeleccionada(String opcionSeleccionada) {
 		this.opcionSeleccionada = opcionSeleccionada;
 	}
 
+	/**
+	 * Getter de message.
+	 * @return message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Setter de message.
+	 * @param message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Getter de producto.
+	 * @return seProducto
+	 */
 	public Producto getSeProducto() {
 		return seProducto;
 	}
 
+	/**
+	 * Setter de producto.
+	 * @param seProducto
+	 */
 	public void setSeProducto(Producto seProducto) {
 		this.seProducto = seProducto;
 	}
 
+	/**
+	 * Getter de la imagen.
+	 * @return imagen
+	 */
 	public UploadedFile getImagen() {
 		return imagen;
 	}
 
+	/**
+	 * Setter de la imagen.
+	 * @param imagen
+	 */
 	public void setImagen(UploadedFile imagen) {
 		this.imagen = imagen;
 	}
@@ -807,5 +1132,67 @@ public class Session {
 		this.seCategoriasDisponibles = seCategoriasDisponibles;
 	}
 	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas de vendedores
+	 *  de acuerdo a la sede que pertenece un administrador
+	 */
+	public BarChartModel getBarChartModel() {
+		barChartModel = Ultilidades.GrafiquitasVendedores(admin);
+		return barChartModel;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  clientes con mayor numero de ventas a la sede que pertenece un administrador
+	 */
+	public BarChartModel getBarChartModel2() {
+		barChartModel2 = Ultilidades.GrafiquitasTopClientes(admin);
+		return barChartModel2;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  productos con mayor numero de ventas a la sede que pertenece un administrador
+	 */
+	public BarChartModel getBarChartModel3() {
+		barChartModel3 = Ultilidades.GrafiquitasTopProductos(admin);
+		return barChartModel3;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  vendedores con mayor numero de ventas entre todas las sedes
+	 */
+	public BarChartModel getBarChartModel4() {
+		barChartModel4 = Ultilidades.GrafiquitasVendedoresGerencia();
+		return barChartModel4;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  clientes con mayor numero de ventas entre todas las sedes
+	 */
+	public BarChartModel getBarChartModel5() {
+		barChartModel5 = Ultilidades.GrafiquitasTopClientes();
+		return barChartModel5;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  productos con mayor numero de ventas entre todas las sedes
+	 */
+	public BarChartModel getBarChartModel6() {
+		barChartModel6 = Ultilidades.GrafiquitasTopProductosGerente();
+		return barChartModel6;
+	}
+	
+	/**
+	 *  Getter del Barchart Model que representa las graficas estadisticas del top
+	 *  sedes con mayor numero de ventas entre todas las sedes
+	 */
+	public BarChartModel getBarChartModel7() {
+		barChartModel7= Ultilidades.GrafiquitasTopSedes();
+		return barChartModel7;
+	}
 
 }

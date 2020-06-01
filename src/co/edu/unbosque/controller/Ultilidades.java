@@ -1,5 +1,24 @@
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Universidad El Bosque (Bogotá - Colombia)
+ * Programa de Ingeniería de Sistemas
+ * Programación II.
+ * 
+ * Profesor: Miguel Alejandro Feijoo García.
+ * 
+ * Licenciado bajo el esquema Academic Free License version 2.1 .
+ *
+ * Proyecto The Gran Hermano Store.
+ * Proyecto Final Grupo C.
+ * Autor: Equipo de ElectroCompras Corp:
+ * 	@author	Juan David Alberto Quintero Gaona.
+ * 	@author	Laura María López Moreno.
+ * 	@author	Andrés Felipe Rey Pedraza.
+ * 	@author	Juan Camilo Díaz.
+ * 	@author	Camilo Andrés Romero Posada.
+ * 			
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ */
 package co.edu.unbosque.controller;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,10 +51,21 @@ import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
 import java.util.Calendar;
 
-//
-
+/**
+ * Clase que representa las utilidades para validat la tarjeta de crédto,
+ * proceso de encriptación y desencriptación, envio de e-mail de registro. *
+ */
 public class Ultilidades {
 	
+	// -----------------------------------------------------------------
+    // Métodos
+    // -----------------------------------------------------------------
+	
+	/**
+	 * Generea una grafica de barras de vendedores.
+	 * @param adminGuapo.
+	 * @return model.
+	 */
 	public static BarChartModel GrafiquitasVendedores(Administrador adminGuapo) 
 	{
 		BarChartModel model = new BarChartModel();
@@ -45,7 +75,10 @@ public class Ultilidades {
 		
 		ArrayList<Vendedor> vends = vendedorTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < vends.size()||i==5; i++) {
+		for (int i = 0; i < vends.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
 		}
 		
@@ -54,6 +87,11 @@ public class Ultilidades {
 		return model;
 		
 	}
+	/**
+	 * Generea una grafica de barras de clientes.
+	 * @param adminGuapo.
+	 * @return model.
+	 */
 	
 	public static BarChartModel GrafiquitasTopClientes(Administrador adminGuapo) 
 	{
@@ -64,8 +102,10 @@ public class Ultilidades {
 		
 		ArrayList<Cliente> clientes = clientesTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < clientes.size()||i==5 ; i++) {
-			System.out.println(clientes.get(i).getCompras().size());
+		for (int i = 0; i < clientes.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
 		}
 		
@@ -74,7 +114,11 @@ public class Ultilidades {
 		return model;
 		
 	}
-	
+	/**
+	 * Generea una grafica de barras de productos.
+	 * @param adminGuapo.
+	 * @return model.
+	 */
 	public static BarChartModel GrafiquitasTopProductos(Administrador adminGuapo) 
 	{
 		BarChartModel model = new BarChartModel();
@@ -84,7 +128,10 @@ public class Ultilidades {
 		
 		ArrayList<Ventas> productos = ordenarTopSede(adminGuapo.getSede());
 		
-		for (int i = 0; i < productos.size()|| i==5; i++) {
+		for (int i = 0; i < productos.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
 		}
 		
@@ -93,6 +140,11 @@ public class Ultilidades {
 		return model;
 		
 	}
+	
+	/**
+	 * Generea una grafica de barras de vendedores.
+	 * @return model.
+	 */
 	
 	public static BarChartModel GrafiquitasVendedoresGerencia() 
 	{
@@ -103,7 +155,10 @@ public class Ultilidades {
 		
 		ArrayList<Vendedor> vends = vendedorTopGeneral();
 		
-		for (int i = 0; i < vends.size()||i==5; i++) {
+		for (int i = 0; i < vends.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			ventas.set(vends.get(i).getUsuario(), vends.get(i).getVentas().size());
 		}
 		
@@ -112,7 +167,10 @@ public class Ultilidades {
 		return model;
 		
 	}
-	
+	/**
+	 * Generea una grafica de barras de clientes.
+	 * @return model.
+	 */
 	public static BarChartModel GrafiquitasTopClientes() 
 	{
 		BarChartModel model = new BarChartModel();
@@ -122,8 +180,10 @@ public class Ultilidades {
 		
 		ArrayList<Cliente> clientes = clientesTopGenera();
 		
-		for (int i = 0; i < clientes.size()||i==5; i++) {
-			System.out.println(clientes.get(i).getCompras().size());
+		for (int i = 0; i < clientes.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			compras.set(clientes.get(i).getUsuario(), clientes.get(i).getCompras().size());
 		}
 		
@@ -132,7 +192,10 @@ public class Ultilidades {
 		return model;
 		
 	}
-	
+	/**
+	 * Generea una grafica de barras de productos.
+	 * @return model.
+	 */
 	public static BarChartModel GrafiquitasTopProductosGerente() 
 	{
 		BarChartModel model = new BarChartModel();
@@ -142,7 +205,10 @@ public class Ultilidades {
 		
 		ArrayList<Ventas> productos = ordenarTopGeneral();
 		
-		for (int i = 0; i < productos.size()||i==5; i++) {
+		for (int i = 0; i < productos.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			ventas.set(productos.get(i).getArticulo(), productos.get(i).getUnidades());
 		}
 		
@@ -151,6 +217,10 @@ public class Ultilidades {
 		return model;
 		
 	}
+	/**
+	 * Generea una grafica de barras de sedes.
+	 * @return model.
+	 */
 	public static BarChartModel GrafiquitasTopSedes() 
 	{
 		BarChartModel model = new BarChartModel();
@@ -160,7 +230,10 @@ public class Ultilidades {
 		
 		ArrayList<Sede> productos = topSedeVentas();
 		
-		for (int i = 0; i < productos.size()||i==5; i++) {
+		for (int i = 0; i < productos.size(); i++) {
+			if (i == 5) {
+				break;
+			}
 			ventas.set(productos.get(i).getNombreSede(), productos.get(i).getVentas());
 		}
 		
@@ -171,6 +244,11 @@ public class Ultilidades {
 	}
 	
 
+	/**
+	 * Guarda en una cadena de carácteres el número de la tarjeta sin espacios.
+	 * @param input.
+	 * @return nuevo.
+	 */
 	private static String parseoTarjeta(String input) {
 		String nuevo = "";
 		for (int i = 0 ; i < input.length() ; i++) {
@@ -185,6 +263,11 @@ public class Ultilidades {
 		Date fecha = new Date(Calendar.getInstance().getTime().getTime());
 		return fecha;
 	}
+	/**
+	 * Valida el número de la tarjeta de crédito.
+	 * @param input.
+	 * @return true si es válida, false de lo contrario.
+	 */
 	public static boolean validarTarjeta(String input) {
 		input = parseoTarjeta(input);
 		int[] tarjeta=new int[input.length()];  
@@ -210,7 +293,11 @@ public class Ultilidades {
 			return false;
 		} 
 	}
-
+	/**
+	 * Encripta un texto.
+	 * @param texto.
+	 * @return hashtext 
+	 */
 	public static String encriptador(String texto) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -227,6 +314,13 @@ public class Ultilidades {
 		}
 	
 	}
+	/**
+	 * Envia un correro electrónico al cliente por su registro exitoso.
+	 * @param user.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public void SendMailCliente(Cliente user) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -256,6 +350,13 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+	/**
+	 * Envia un correo electrónico al vendedor por su registro exitoso.
+	 * @param user.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public void SendMailVendedor(Vendedor user) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -285,7 +386,11 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
-
+	/**
+	 * Genera un arreglo de 3 dimensiones para 4 colimnas para una cantdad indeterminada de productos.
+	 * @param sede.
+	 * @return matriz.
+	 */
 	public static List<ArrayList<Producto>> generarMatrizProducto(String sede){
 		ArrayList<Producto> products;
 		if (sede != null) {
@@ -311,7 +416,11 @@ public class Ultilidades {
 		}
 		return matriz;
 	}
-	//Este metodo retorna un arraylist de las ventas en una sede ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
+	/**
+	 * Ordena las ventas de la sede de mayor a menor y lo retorna en un ArrayList.
+	 * @param sede.
+	 * @return vent.
+	 */
 	public static ArrayList<Ventas> ordenarTopSede(String sede) {
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
@@ -326,7 +435,10 @@ public class Ultilidades {
 		}
 		return vent;
 	}
-	//Este metodo retorna un arraylist de las ventas en general de todas las sedes ordenadas por numero de unidaces vendidas (psdta: sofi xd we)
+	/**
+	 * Ordena las ventas de mayor a menor y lo retorna en un ArrayList.
+	 * @return vent.
+	 */
 	public static ArrayList<Ventas> ordenarTopGeneral() {
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		ArrayList<Ventas>  vent=Presistence.busquedaVentas(ven);
@@ -341,6 +453,11 @@ public class Ultilidades {
 		}
 		return vent;
 	}
+	/**
+	 * Ordena los productos en cuanto a ventas de la sede de mayor a menor y lo retorna en un ArrayList.
+	 * @param vent.
+	 * @return resultado.
+	 */
 	public static ArrayList<Producto> ordenarTopProductos(ArrayList<Ventas> vent){
 		ArrayList<Producto> todos= new ArrayList<Producto>(Dao.productos);
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
@@ -376,8 +493,11 @@ public class Ultilidades {
 		}
 		return resultado;
 	}
-
-	//Este metodo devuelve un arraylist de cliente por sede ordenados por numero de compras realizadas
+	/**
+	 * Ordena los clientes de la sede de mayor a menor en cuanto a compras y lo retorna en un ArrayList.
+	 * @param sede.
+	 * @return cliente.
+	 */
 	public static ArrayList<Cliente> clientesTopSede(String sede){
 		ArrayList<Cliente> cliente = Presistence.busquedaClientes(sede);
 		for (int i = 1; i <cliente.size(); i++) { //i los clientes de la sede
@@ -391,7 +511,10 @@ public class Ultilidades {
 		}
 		return cliente;
 	}
-	//Este metodo devuelve un arraylist de cliente en la cual me dice los clientes a nivel genereal ordenado por numero de compras realizadas
+	/**
+	 * Ordena los clientes de mayor a menor en cuanto a compras y lo retorna en un ArrayList.
+	 * @return resultado.
+	 */
 	public static ArrayList<Cliente> clientesTopGenera(){
 		ArrayList<Cliente> cliente = new ArrayList<Cliente>(Dao.clientes);
 		for (int i = 1; i <cliente.size(); i++) {
@@ -405,7 +528,11 @@ public class Ultilidades {
 		}
 		return cliente;
 	}
-	//Este metodo devuelve un arraylist de vendedores por sede ordenados por numero de ventas realizadas
+	/**
+	 * Ordena los vendedores de la sede de mayor a menor en cuanto a ventas y lo retorna en un ArrayList.
+	 * @param sede.
+	 * @return ven.
+	 */
 	public static ArrayList<Vendedor> vendedorTopSede(String sede){
 		ArrayList<Vendedor> ven = Presistence.busquedaVendedores(sede);
 		for (int i = 1; i <ven.size(); i++) {
@@ -419,7 +546,10 @@ public class Ultilidades {
 		}
 		return ven;
 	}
-	//Este metodo devuelve un arraylist de vendedores en la cual me dice los vededores a nivel genereal ordenado por numero de ventas realizadas
+	/**
+	 * Ordena los vendedores de mayor a menor en cuanto a ventasy lo retorna en un ArrayList.
+	 * @return resultado.
+	 */
 	public static ArrayList<Vendedor> vendedorTopGeneral(){
 		ArrayList<Vendedor> ven = new ArrayList<Vendedor>(Dao.vendedores);
 		for (int i = 1; i <ven.size(); i++) {
@@ -433,7 +563,10 @@ public class Ultilidades {
 		}
 		return ven;
 	}
-	//Este metodo devuelve un arraylist de sedes en la cual saldran en orden por ventas realizadas en la sede(Para las estadisticas)
+	/**
+	 * Ordena las sedes de mayor a menor en cuanto a ventas y lo retorna en un ArrayList.
+	 * @return ventas.
+	 */
 	public static ArrayList<Sede> topSedeVentas() {
 		int ventasBogota=0;
 		int ventasMedellin=0;
@@ -477,13 +610,30 @@ public class Ultilidades {
 		}
 		return sedes;
 	}
+	/**
+	 * Este metodo calcula la cantidad de compras de un cliente.
+	 * @param user.
+	 * @return ventas.
+	 */
 	public static int ventasDeSede(ArrayList<Cliente> user) {
 		int ventas=0;
 		for(int i =0; i<user.size();i++) {
 			ventas+=user.get(i).getCompras().size();
 		}
+		if (ventas == 0) {
+			return ventas +1;
+		}
 		return ventas;
 	}
+	/**
+	 * Envia un correro electrónico al cliente por su compra exitoso.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailComprar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -513,6 +663,15 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+	/**
+	 * Envia un correro electrónico al cliente por su reserva exitoso.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailReservar(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -543,6 +702,15 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+	/**
+	 * Envia un correro electrónico al vendedor por su venta exitoso.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailVentas(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -572,6 +740,15 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+	/**
+	 * Envia un correro electrónico al cliente por la reserva de uno de sus productos.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailReserva(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 
@@ -603,7 +780,10 @@ public class Ultilidades {
 		Transport.send(message);
 	}
 
-	// 
+	/**
+	 * Genera una contraseña aleatoria para asignarla a los usuarios que se registran .
+	 * @return password.
+	 */
 	public static String generarContraseña() {
 		String[] charCategories = new String[] {
 				"abcdefghijklmnopqrstuvwxyz",
@@ -622,7 +802,10 @@ public class Ultilidades {
 		return new String(password);
 	}
 
-	// este metodo cancela las reservas despues de 3 días :ccc
+	/**
+	 * Verifica las reservas que hay en el sistema para cancelar 
+	 * las que superen los 3 días sin terminar la compra y les envia un correo al cliente y el vendedor .
+	 */
 	public static void verificarReservas() {
 		ArrayList<Ventas> vend= new ArrayList<Ventas>(Dao.ventas);
 		for(int i=0; i<vend.size();i++) {
@@ -662,6 +845,10 @@ public class Ultilidades {
 			}
 		}
 	}
+	/**
+	 * Toma la fecha acual y le resta 3 días.
+	 * @return fecha.
+	 */
 
 	public static Date fechaRevizar() {	
 		Calendar fechad=Calendar.getInstance();
@@ -669,18 +856,35 @@ public class Ultilidades {
 		Date fecha = new Date(fechad.getTime().getTime());
 		return fecha;
 	}
+	/**
+	 * Toma la fecha acual y le resta 2 días.
+	 * @return fecha.
+	 */
 	public static Date fechaRevizar2() {	
 		Calendar fechad=Calendar.getInstance();
 		fechad.add(Calendar.DAY_OF_YEAR, -2);
 		Date fecha = new Date(fechad.getTime().getTime());
 		return fecha;
 	}
+	/**
+	 * Toma la fecha acual y le resta 1 día.
+	 * @return fecha.
+	 */
 	public static Date fechaRevizar3() {	
 		Calendar fechad=Calendar.getInstance();
 		fechad.add(Calendar.DAY_OF_YEAR, -1);
 		Date fecha = new Date(fechad.getTime().getTime());
 		return fecha;
 	}
+	/**
+	 * Envia un correro electrónico al cliente por la cancelación de una de las reservas de un producto.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailReservaCancelada(Cliente user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 		Properties props = new Properties();
@@ -709,6 +913,15 @@ public class Ultilidades {
 				+ "Si este correo no es para ti por favor eliminalo");
 		Transport.send(message);
 	}
+	/**
+	 * Envia un correro electrónico al vendedor por la cancelación de la reserva de uno de sus productos.
+	 * @param user.
+	 * @param prod.
+	 * @param Ncompras.
+	 * @throws AddressException.
+	 * @throws MessagingException.
+	 * @throws MailConnectException.
+	 */
 	public static void SendMailVentasReservaCancelada(Vendedor user, Producto prod,int Ncompras) throws AddressException, MessagingException, MailConnectException
 	{
 

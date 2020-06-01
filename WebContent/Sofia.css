@@ -131,7 +131,7 @@ body {
     height: 300px;
     
 }
-.imgNiños{
+.imgNiï¿½os{
     height: 300px;
     width: 420px
 }
@@ -181,4 +181,11 @@ body {
     height: 50px;
     color: white;
     background-color: black;
+}
+#imgRm{
+    height : 30px;
+}
+.imgCarrito{
+    height: 50px;
+    margin-left: 90%;
 }

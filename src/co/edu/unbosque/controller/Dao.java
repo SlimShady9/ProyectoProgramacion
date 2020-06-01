@@ -1,3 +1,23 @@
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Universidad El Bosque (Bogotá - Colombia)
+ * Programa de Ingeniería de Sistemas
+ * Programación II
+ * 
+ * Profesor: Miguel Alejandro Feijoo García
+ * 
+ * Licenciado bajo el esquema Academic Free License version 2.1 
+ *
+ * Proyecto The Gran Hermano Store
+ * Proyecto Final Grupo C
+ * Autor: Equipo de ElectroCompras Corp:
+ * 	@author	Juan David Alberto Quintero Gaona
+ * 	@author	Laura María López Moreno
+ * 	@author	Andrés Felipe Rey Pedraza
+ * 	@author	Juan Camilo Díaz
+ * 	@author	Camilo Andrés Romero Posada
+ * 			
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ */
 package co.edu.unbosque.controller;
 
 import java.util.List;
@@ -17,54 +37,129 @@ import co.edu.unbosque.model.Vendedor;
 import co.edu.unbosque.model.Ventas;
 
 
+
+/**
+ * Data Access Object.
+ * Esta clase gestiona la persistencia de la aplicación web.
+ * Así mismo, contiene los arreglos con los datos traidos directos de la base de datos.
+ *
+ */
+
 public class Dao {
+
+	// -----------------------------------------------------------------
+	// Atributos
+	// -----------------------------------------------------------------
 
 
 	/**
-	 * lalalala
-	 * Esta clase tendra toda la persistencia del proyecto
-	 * Asi como los arreglos traidos directos de la base de datos
-	 * Esto para que el controlador maneje las secciones usando directamente esta clase
-	 * 
+	 * Objeto de tipo lista que contiene objetos de tipo Administrador;
+	 * Un administrador tiene nombres, apellidos, usuario, contraseña, correo,
+	 * indentificación y sede.
 	 */
 	protected static List<Administrador> administradores;
+
+	/**
+	 * Objeto de tipo lista que contiene objetos de tipo Producto;
+	 * Un producto tiene categoría, cantidad, id, imagen, nombre, precio y vendedor.
+	 */
+
 	protected static List<Producto> productos;
+
+	/**
+	 * Objeto de tipo lista que contiene objetos de tipo Cliente;
+	 * Un cliente tiene apellidos, celular, ciudad, compras, contraseña, correo, 
+	 * nombres, numero de documento, tarjeta de crédito, tipo de documento y usuario.
+	 */
 	protected static List<Cliente> clientes;
+	/**
+	 * Objeto de tipo lista que contiene objetos de tipo Gerencia;
+	 * Un gerente tiene apellidos, contraseña, correo, identificación, nombres y usuario.
+	 */
 	protected static List<Gerencia> gerentes;
+	/**
+	 * Objeto de tipo lista que contiene objetos de tipo Vendedor;
+	 * Un vendedor tiene apellidos, banco, contraseña, correo, identificación, nombres, productos,
+	 * sede, usuario y ventas.
+	 */
 	protected static List<Vendedor> vendedores;
+	/**
+	 * Objeto de tipo lista que contiene objetos de tipo Ventas;
+	 * Una venta tiene artículo, fecha, id, precio, sede y unidades.
+	 */
 	protected static List<Ventas> ventas;
 
 
-	//Desde el sesscion factory
+	/**
+	 * Método que abre una nueva sesión desde SessionFactory.
+	 * @return Objeto de tipo Session.
+	 */
 	public static void abrirSession() {
 		HibernateUtil.getSessionFactory();
 	}
 
 
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de administradores de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
+
 	public static void cargarAdministradores() {
 		administradores = HibernateUtil.getSessionFactory().openSession().createCriteria(Administrador.class).list();
 	}
+
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de clientes de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
 
 	public static void cargarClientes() {
 		clientes = HibernateUtil.getSessionFactory().openSession().createCriteria(Cliente.class).list();
 	}
 
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de gerentes de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
 	public static void cargarGerentes() {
 		gerentes = HibernateUtil.getSessionFactory().openSession().createCriteria(Gerencia.class).list();
 	}
 
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de productos de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
 	public static void cargarProductos() {
 		productos = HibernateUtil.getSessionFactory().openSession().createCriteria(Producto.class).list();
 	}
 
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de vendedores de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
 	public static void cargarVendedores() {
 		vendedores = HibernateUtil.getSessionFactory().openSession().createCriteria(Vendedor.class).list();
 	}
 
+	/**
+	 * Crea un objeto Criteria que devuelve instancias de la 
+	 * clase del objeto de la lista de ventas de persistencia 
+	 * cuando la aplicación ejecuta una consulta de criterios.
+	 */
 	public static void cargarVentas() {
 		ventas = HibernateUtil.getSessionFactory().openSession().createCriteria(Ventas.class).list();
 	}
 
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar un nuevo cliente.
+	 * @param cli que se metera a la base de datos
+	 */
 	public static void agregarCliente(Cliente cli) {
 		Transaction tran = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()){
@@ -83,20 +178,29 @@ public class Dao {
 
 	}
 
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar una nuva venta.
+	 * @param vent que se metera a la base de datos
+	 */
+
 	public static void agregarVenta(Ventas vent) {
 		Transaction tran = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 
 			tran = session.beginTransaction();
 			session.save(vent);
 			tran.commit();
 		} catch (Exception e) {
-			if (tran != null) {
-				tran.rollback();
-			}
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar un nuevo vendedor.
+	 * @param vend que se metera a la base de datos
+	 */
 
 	public static void agregarVendedor(Vendedor vend) {
 		Transaction tran = null;
@@ -114,6 +218,12 @@ public class Dao {
 		}
 	}
 
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar un nuevo vendedor.
+	 * @param vend que se metera a la base de datos
+	 */
+
 	public static void agregarAdmin(Administrador admin) {
 		Transaction tran = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()){
@@ -127,6 +237,12 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar un nuevo gerente.
+	 * @param gen que se metera a la base de datos
+	 */
 
 	public static void agregarGerente(Gerencia gen) {
 		Transaction tran = null;
@@ -143,6 +259,12 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Inicia un trasacción durante la sesión activa que permite mediante
+	 * un parametro guardar un nuevo producto.
+	 * @param pro que se metera a la base de datos
+	 */
 
 	public static void agregarProducto(Producto pro) {
 		Transaction tran = null;
@@ -161,12 +283,10 @@ public class Dao {
 	}
 
 	/**
-	 * Estre trabajo de modificar se lo dejare a mi gran amigo @MiRey
-	 * Confio en sus abilidades, por ahora no es vital para esta fase del proyecto
-	 * Link: https://stackoverflow.com/questions/13102792/hibernate-update-with-entitymanager
-	 * @param ven
+	 * Actualiza la información del cliente donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Cliente.
+	 * @param persona 
 	 */
-	//Rey hizo esto, si esta mal fue otro xd
 	@Transactional
 	public static void actualizarCliente(Cliente persona) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -191,7 +311,12 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
-	//Rey hizo esto, si esta mal fue otro xd
+	/**
+	 * Actualiza la información del vendedor donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Vendedor.
+	 * @param ven que se metera a la base de datos
+	 * 
+	 */	
 	public static void actualizarVendedor(Vendedor ven) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= ven.getUsuario();
@@ -212,6 +337,11 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Actualiza la información del vendedor donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Vendedor.
+	 * @param ven
+	 */
 	public static void actualizarVenta(Ventas vent) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= vent.getArticulo();
@@ -229,6 +359,11 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Actualiza la información del producto donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Producto.
+	 * @param prod
+	 */
 	public static void actualizarProducto(Producto prod) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= prod.getNombre();
@@ -247,6 +382,11 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Actualiza la información del gerente donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Gerencia.
+	 * @param ger
+	 */
 	public static void actualizarGerente(Gerencia ger) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		String id= ger.getUsuario();
@@ -265,6 +405,11 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Actualiza la información del administrador donde se inicia una transacción 
+	 * durante la sesión activa mediante un parametro de tipo Administrador.
+	 * @param admin
+	 */
 	public static void actualizarAdministrador(Administrador admin) {
 		Session session = HibernateUtil.getHibernateSession();
 		String id= admin.getUsuario();
@@ -285,6 +430,10 @@ public class Dao {
 		}
 	}
 
+	/**
+	 * Elimina un cliente de la persistencia.
+	 * @param cliente
+	 */
 	public static void eliminarCliente(Cliente cliente) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(cliente);
@@ -293,6 +442,10 @@ public class Dao {
 
 	}
 
+	/**
+	 * Elimina un vendedor de la persistencia.
+	 * @param vendedor
+	 */
 	public static void eliminarVendedor(Vendedor vendedor) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(vendedor);
@@ -300,6 +453,10 @@ public class Dao {
 
 	}
 
+	/**
+	 * Elimina un gerente de la persistencia.
+	 * @param gerente
+	 */
 	public static void eliminarGerente(Gerencia gerente) {
 		Session session = HibernateUtil.getHibernateSession();
 		session.delete(gerente);
@@ -308,6 +465,10 @@ public class Dao {
 
 	}
 
+	/**
+	 * Elimina un administrador de la persistencia.
+	 * @param admin
+	 */
 	public static void eliminarAdministrador(Administrador admin) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(admin);
@@ -316,6 +477,10 @@ public class Dao {
 
 	}
 
+	/**
+	 * Elimina un producto de la persistencia.
+	 * @param prod
+	 */
 	public static void eliminarProducto(Producto prod) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tr = session.beginTransaction();
@@ -323,6 +488,10 @@ public class Dao {
 		tr.commit();
 
 	}
+	/**
+	 * Elimina un producto de la persistencia.
+	 * @param venta
+	 */
 	public static void eliminarVenta(Ventas vent) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.delete(vent);

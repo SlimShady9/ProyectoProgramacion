@@ -48,34 +48,37 @@
 		</rich:toolBar>
 
 		<h1 class="Titulo">#{seccion.message}</h1>
-	<h:panelGrid class="Campo" columns="3">
-	
-		<img src="Resources/Logo.png" width="100" height="100"  /> 
-		<img src="Resources/Nombre.png" width="200" height="100"  />
-		
-	</h:panelGrid>	
-		<h:panelGrid class="Campo" columns="2" >
-			
-			<p:selectOneMenu id="sede" value="#{seccion.sedeSeleccionada}" effect="fold" editable="true">
-            	<f:selectItem itemLabel="Selecciona uno" itemValue="1" />
-        	</p:selectOneMenu>
-        	<b></b>
-        	
-        	<p:commandButton></p:commandButton>
-        	
-        	<p:chart id =" g4"type="bar" model="#{seccion.barChartModel4}"/>
-			<br></br>
-			
-			<p:chart id = "g5"type="bar" model="#{seccion.barChartModel5}"/>
-			<br></br>
-			
-			<p:chart id = "g6"type="bar" model="#{seccion.barChartModel6}"/>
-			<br></br>
-			
-			<p:chart id = "g7"type="bar" model="#{seccion.barChartModel7}"/>
-			<br></br>
-        	
+		<h:panelGrid class="Campo" columns="3">
+
+			<img src="Resources/Logo.png" width="100" height="100" />
+			<img src="Resources/Nombre.png" width="200" height="100" />
+
 		</h:panelGrid>
-		</h:form>
+		<h:panelGrid class="Campo" columns="2">
+
+			<p:selectOneMenu id="sede" value="#{seccion.sedeSeleccionada}"
+				effect="fold" editable="true">
+				<f:selectItem itemLabel="Selecciona uno" itemValue="1" />
+			</p:selectOneMenu>
+			<b></b>
+
+			<p:chart id="g4" type="bar" model="#{seccion.barChartModel4}">
+			</p:chart>
+			<br></br>
+
+			<p:chart id="g5" type="bar" model="#{seccion.barChartModel5}" >
+			</p:chart>
+			<br></br>
+
+			<p:chart id="g6" type="bar" model="#{seccion.barChartModel6}" >
+			</p:chart>
+			<br></br>
+
+<!-- 			<p:chart id="g7" type="bar" model="#{seccion.barChartModel7}" > -->
+<!-- 			</p:chart> -->
+<!-- 			<br></br> -->
+
+		</h:panelGrid>
+	</h:form>
 </h:body>
-</html> 
+</html>

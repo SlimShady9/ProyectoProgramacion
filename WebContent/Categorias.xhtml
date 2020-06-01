@@ -53,7 +53,7 @@
 		<h1 class="Titulo">Selecciona Una Categoria</h1>
 
 		<h:panelGrid class="CampoCategorias" columns="3">
-			<p:commandLink action="CatalogoCategoria">
+			<p:commandLink action="#{seccion.catalogoCategoria}">
 				<f:setPropertyActionListener value="Mujeres"
 					target="#{seccion.categoriaSeleccionada}"></f:setPropertyActionListener>
 				<p:graphicImage styleClass="imgMujer"
